@@ -1,4 +1,4 @@
-const Sausage = require('../models/sausage');
+const Sausage = require('../models/venue');
 
 function sausageAdd(req, res){
   Sausage.create(req.body, (err, sausage) => {
