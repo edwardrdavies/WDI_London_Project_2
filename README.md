@@ -3,4 +3,4 @@ WDI 23 London Project 2 Node app
 
 Ed Davies
 
-DANDANDAN
+Dan Krijgsman
