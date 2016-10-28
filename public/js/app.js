@@ -10,6 +10,8 @@ $(function () {
   $('.logout').on('click', logout);
   $('.map').on('click', getUsers);
   $('.clubs').on('click', getVenues);
+  $main.on('click', '.userPage', getUser);
+  $main.on('click', '.venuePage', getVenue);
   $main.on('submit', 'form', handleForm);
 
   //handles the registration form
@@ -69,9 +71,31 @@ $(function () {
     if (event) event.preventDefault();
     var $row = $('<div class="row"></div>');
     users.forEach(function (user) {
-      $row.append('\n            <div class="col-md-4">\n            <div class="card">\n            <img class="card-img-top" src="http://fillmurray.com/300/300" alt="Card image cap">\n            <div class="card-block">\n            <h4 class="card-title">' + user.username + '</h4>\n            <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>\n            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>\n            <div id="' + user._id + '" class="button-container">\n            <form action="/api/users/' + user._id + '" method="DELETE">\n            <button class="btn btn-danger">DELETE</button>\n            </form>\n            <form></form>\n            </div>\n            </div>\n            </div>\n            </div>\n            ');
+      $row.append('\n            <div class="col-md-4">\n            <div class="card">\n            <img class="card-img-top" src="http://fillmurray.com/300/300" alt="Card image cap">\n            <div class="card-block">\n            <h4 class="card-title">' + user.username + '</h4>\n            <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>\n            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>\n\n            <button class="userPage" data-id="' + user._id + '">See More</button>\n            </div>\n            </div>\n            </div>\n            </div>\n            ');
     });
     $main.html($row);
+  }
+
+  function getUser(userID) {
+
+    if (event) {
+      event.preventDefault();
+    }
+    var id = $(event.target).data('id');
+    var token = localStorage.getItem('token');
+    $.ajax({
+      url: '/api/user/' + id,
+      method: 'GET',
+      beforeSend: function beforeSend(jqXHR) {
+        if (token) return jqXHR.setRequestHeader('Authorization', 'Bearer ' + token);
+      }
+    }).done(function (user) {
+      // needs to be edited so that it places the data where it's meant to go!
+      $main.prepend('\n              <div class="col-md-4">\n              <div class="card">\n              <img class="card-img-top" src="' + user.image + '" alt="Card image cap">\n              <div class="card-block">\n              <h4 class="card-title">' + user.username + '</h4>\n              <p class="card-text">blah</p>\n              <p class="card-text"><small class="text-muted">blah</small></p>\n              <p class="card-text"><small class="text-muted">blah</small></p>\n              <button class="venuePage" data-id="' + user._id + '">See More</button>\n              </div>\n              </div>\n              </div>\n              </div>\n              ');
+
+      console.log(venue);
+      isLoggedInDisplay();
+    });
   }
 
   // checks if user is logged in by checking for token
@@ -117,9 +141,31 @@ $(function () {
     if (event) event.preventDefault();
     var $row = $('<div class="row"></div>');
     venues.forEach(function (venue) {
-      $row.append('\n              <div class="col-md-4">\n              <div class="card">\n              <img class="card-img-top" src="' + venue.image + '" alt="Card image cap">\n              <div class="card-block">\n              <h4 class="card-title">' + venue.venueName + '</h4>\n              <p class="card-text">' + venue.description + '</p>\n              <p class="card-text"><small class="text-muted">' + venue.address + '</small></p>\n              <p class="card-text"><small class="text-muted">' + venue.url + '</small></p>\n\n              </div>\n              </div>\n              </div>\n              </div>\n              ');
+      $row.append('\n              <div class="col-md-4">\n              <div class="card">\n              <img class="card-img-top" src="' + venue.image + '" alt="Card image cap">\n              <div class="card-block">\n              <h4 class="card-title">' + venue.venueName + '</h4>\n              <p class="card-text">' + venue.description + '</p>\n              <p class="card-text"><small class="text-muted">' + venue.address + '</small></p>\n              <p class="card-text"><small class="text-muted">' + venue.url + '</small></p>\n              <button class="venuePage" data-id="' + venue._id + '">See More</button>\n              </div>\n              </div>\n              </div>\n              </div>\n              ');
     });
     $main.html($row);
+  }
+
+  // get One Venue, needs to be edited to display in relevant part of the page.
+  function getVenue(venueID) {
+
+    if (event) {
+      event.preventDefault();
+    }
+    var id = $(event.target).data('id');
+    var token = localStorage.getItem('token');
+    $.ajax({
+      url: '/api/venue/' + id,
+      method: 'GET',
+      beforeSend: function beforeSend(jqXHR) {
+        if (token) return jqXHR.setRequestHeader('Authorization', 'Bearer ' + token);
+      }
+    }).done(function (venue) {
+      // needs to be edited so that it places the data where it's meant to go!
+      $main.prepend('\n                <div class="col-md-4">\n                <div class="card">\n                <img class="card-img-top" src="' + venue.image + '" alt="Card image cap">\n                <div class="card-block">\n                <h4 class="card-title">' + venue.venueName + '</h4>\n                <p class="card-text">' + venue.description + '</p>\n                <p class="card-text"><small class="text-muted">' + venue.address + '</small></p>\n                <p class="card-text"><small class="text-muted">' + venue.url + '</small></p>\n                <button class="venuePage" data-id="' + venue._id + '">See More</button>\n                </div>\n                </div>\n                </div>\n                </div>\n                ');
+
+      isLoggedInDisplay();
+    });
   }
 
   function logout() {
