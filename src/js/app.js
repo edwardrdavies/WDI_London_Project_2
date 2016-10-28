@@ -1,11 +1,19 @@
 $(() => {
   let $main = $('main');
 
+<<<<<<< HEAD
   $('.register').on('click', showRegisterForm);
   $('.login').on('click', showLoginForm);
   $('.logout').on('click', logout);
   $('.sausage').on('click', getUsers);
   $main.on('submit', 'form', handleForm);
+=======
+    $('.register').on('click', showRegisterForm);
+    $('.login').on('click', showLoginForm);
+    $('.logout').on('click', logout);
+    $('.venue').on('click', getUsers);
+    $main.on('submit', 'form', handleForm);
+>>>>>>> development
 
   function handleForm(e){
     e.preventDefault();
