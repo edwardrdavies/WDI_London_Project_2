@@ -6,6 +6,8 @@ const validator = require('validator');
 
 const userSchema = new mongoose.Schema({
 username: { type: String, required: true, unique: true},
+fullname: { type: String, required: true,},
+image: { type: String},
 postcode: { type: String, required: true },
 skillLevel: { type: Sting, required: true },
 availability: { type: String, required: true },
