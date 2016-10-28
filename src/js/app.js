@@ -4,7 +4,7 @@ $(() => {
     $('.register').on('click', showRegisterForm);
     $('.login').on('click', showLoginForm);
     $('.logout').on('click', logout);
-    $('.sausage').on('click', getUsers);
+    $('.venue').on('click', getUsers);
     $main.on('submit', 'form', handleForm);
 
     function handleForm(e){

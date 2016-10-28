@@ -1,9 +1,9 @@
 const mongoose = require('mongoose');
 
-const sausageSchema = new mongoose.Schema({
-  sausage: { type: String, required: true},
+const venueSchema = new mongoose.Schema({
+  venue: { type: String, required: true},
   meat: String,
   girth: Number
 });
 
-module.exports = mongoose.model("Sausage", sausageSchema);
+module.exports = mongoose.model("venue", venueSchema);

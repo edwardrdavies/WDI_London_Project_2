@@ -1,72 +1,72 @@
-const Sausage = require('../models/venue');
+const Venue = require('../models/venue');
 
-function sausageAdd(req, res){
-  Sausage.create(req.body, (err, sausage) => {
+function VenueAdd(req, res){
+  Venue.create(req.body, (err, Venue) => {
     if (err){
       console.log(err);
-      return res.status(500).json({ message: "Ain't not sausages here!"});
+      return res.status(500).json({ message: "Ain't not Venues here!"});
     }
     return res.status(201).json({
-      message: "Success, that's a nice a sausage",
-      sausage
+      message: "Success, that's a nice a Venue",
+      Venue
     });
   });
 }
 
-function sausageIndex(req,res){
-  Sausage.find((err,sausages)=>{
+function VenueIndex(req,res){
+  Venue.find((err,Venues)=>{
     if (err){
       console.log(err);
-      return res.status(500).json({ message: "Ain't not sausages here!"});
+      return res.status(500).json({ message: "Ain't not Venues here!"});
     }
-    return res.status(200).json(sausages);
+    return res.status(200).json(Venues);
 
   });
 }
 
-function sausageShow(req, res){
-  Sausage.findById(req.params.id, (err, sausage) => {
+function VenueShow(req, res){
+  Venue.findById(req.params.id, (err, Venue) => {
     if (err){
       console.log(err);
-      return res.status(500).json({ message: "Ain't not sausages here!"});
+      return res.status(500).json({ message: "Ain't not Venues here!"});
     }
-    return res.status(200).json(sausage);
+    return res.status(200).json(Venue);
   });
 }
 
-function sausageUpdate(req, res){
-  Sausage.findByIdAndUpdate(req.params.id, req.body, { new: true}, (err, sausage) => {
+function VenueUpdate(req, res){
+  Venue.findByIdAndUpdate(req.params.id, req.body, { new: true}, (err, Venue) => {
     console.log(req.params.id, req.body);
     if (err){
       console.log(err);
-      return res.status(500).json({ message: "Ain't not sausages here!"});
+      return res.status(500).json({ message: "Ain't not Venues here!"});
 
     }
-    if (!sausage) {
-      return res.status(404).json({ message: "No sausage, no see"});
+    if (!Venue) {
+      return res.status(404).json({ message: "No Venue, no see"});
     }
-    return res.status(200).json(sausage);
+    return res.status(200).json(Venue);
   });
 }
 
-function sausageDelete(req, res){
-  Sausage.findByIdAndRemove(req.params.id, (err, sausage) => {
+function VenueDelete(req, res){
+  Venue.findByIdAndRemove(req.params.id, (err, Venue) => {
     if (err){
       console.log(err);
-      return res.status(500).json({ message: "Ain't not sausages here!"});
+      return res.status(500).json({ message: "Ain't not Venues here!"});
 
     }
-    if (!sausage) {
-      return res.status(404).json({ message: "No sausage, no see"});
+    if (!Venue) {
+      return res.status(404).json({ message: "No Venue, no see"});
     }
     return res.status(204).send();
   });
 }
 
 module.exports = {
-  add: sausageAdd,
-  index: sausageIndex,
-  show: sausageShow,
-  update: sausageUpdate,
-  delete: sausageDelete
+  add: VenueAdd,
+  index: VenueIndex,
+  show: VenueShow,
+  update: VenueUpdate,
+  delete: VenueDelete
 };
