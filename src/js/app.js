@@ -1,20 +1,17 @@
 $(() => {
+  // assign variables that will be used throughout.
   let $main = $('main');
 
-<<<<<<< HEAD
+  //event handlers go here
   $('.register').on('click', showRegisterForm);
   $('.login').on('click', showLoginForm);
   $('.logout').on('click', logout);
-  $('.sausage').on('click', getUsers);
+  $('.map').on('click', getUsers);
+  $('.clubs').on('click', getVenues);
   $main.on('submit', 'form', handleForm);
-=======
-    $('.register').on('click', showRegisterForm);
-    $('.login').on('click', showLoginForm);
-    $('.logout').on('click', logout);
-    $('.venue').on('click', getUsers);
-    $main.on('submit', 'form', handleForm);
->>>>>>> development
 
+
+  //handles the registration form
   function handleForm(e){
     e.preventDefault();
     let token = localStorage.getItem('token');
@@ -38,6 +35,8 @@ $(() => {
       getUsers();
     });
   }
+
+  // shows the registration form
   function showRegisterForm() {
     if (event) event.preventDefault();
     $main.html(`
@@ -59,6 +58,8 @@ $(() => {
       </form>
       `);
     }
+
+    // shows the login form.
     function showLoginForm() {
       if (event) event.preventDefault();
       $main.html(`
@@ -74,6 +75,8 @@ $(() => {
         </form>
         `);
       }
+
+ // get users sends the GET to the API server to get all users
       function getUsers(){
         if (event) event.preventDefault();
         let token = localStorage.getItem('token');
@@ -89,26 +92,8 @@ $(() => {
           isLoggedInDisplay();
         });
       }
-      function isLoggedIn(){
-        return !!localStorage.getItem('token');
-      }
-      if(isLoggedIn()) {
-        getUsers();
-        isLoggedInDisplay();
-      } else {
-        showLoginForm();
-        isLoggedOutDisplay();
-      }
-      function isLoggedInDisplay(){
-        $('.login--nav-item').hide();
-        $('.register--nav-item').hide();
-        $('.logout--nav-item').show();
-      }
-      function isLoggedOutDisplay() {
-        $('.login--nav-item').show();
-        $('.register--nav-item').show();
-        $('.logout--nav-item').hide();
-      }
+
+// runs a loop on data returned by getUsers to output the user list.
       function showUsers(users) {
         if (event) event.preventDefault();
         let $row = $('<div class="row"></div>');
@@ -134,6 +119,70 @@ $(() => {
           });
           $main.html($row);
         }
+
+// checks if user is logged in by checking for token
+      function isLoggedIn(){
+        return !!localStorage.getItem('token');
+      }
+      if(isLoggedIn()) {
+        getUsers();
+        isLoggedInDisplay();
+      } else {
+        showLoginForm();
+        isLoggedOutDisplay();
+      }
+      function isLoggedInDisplay(){
+        $('.login--nav-item').hide();
+        $('.register--nav-item').hide();
+        $('.logout--nav-item').show();
+      }
+      function isLoggedOutDisplay() {
+        $('.login--nav-item').show();
+        $('.register--nav-item').show();
+        $('.logout--nav-item').hide();
+      }
+
+// similar to getUsers, sends a get request to get venue list.
+        function getVenues(){
+          if (event) event.preventDefault();
+          let token = localStorage.getItem('token');
+          $.ajax({
+            url: '/api/venue',
+            method:'GET',
+            beforeSend: function(jqXHR) {
+              if(token) return jqXHR.setRequestHeader('Authorization',`Bearer ${token}`);
+            }
+          })
+          .done((venues)=> {
+          showVenues(venues);
+            isLoggedInDisplay();
+          });
+        }
+
+// adds HTML for venue list
+        function showVenues(venues) {
+          if (event) event.preventDefault();
+          let $row = $('<div class="row"></div>');
+          venues.forEach((venue) => {
+            $row.append(`
+              <div class="col-md-4">
+              <div class="card">
+              <img class="card-img-top" src="${venue.image}" alt="Card image cap">
+              <div class="card-block">
+              <h4 class="card-title">${venue.venueName}</h4>
+              <p class="card-text">${venue.description}</p>
+              <p class="card-text"><small class="text-muted">${venue.address}</small></p>
+              <p class="card-text"><small class="text-muted">${venue.url}</small></p>
+
+              </div>
+              </div>
+              </div>
+              </div>
+              `);
+            });
+            $main.html($row);
+          }
+
         function logout(){
           if(event) event.preventDefault();
           localStorage.removeItem('token');
