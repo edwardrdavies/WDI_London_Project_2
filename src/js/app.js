@@ -135,20 +135,5 @@ $(() => {
 
 
 
-        const $getDistance = (origin,destination) => {
-
-          $.ajax({
-            url: `https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=${origin}&destinations=${destination}&key=AIzaSyB54_x_Vqe5uUc0eubPI6KSymlhOCJJaAM`,
-            method: 'GET',
-            crossDomain: true,
-          
-
-          })
-          .done((data) => {
-            console.log(data);
-          });
-        };
-
-        $getDistance("peckham","dulwich");
 
       });
