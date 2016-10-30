@@ -45,9 +45,9 @@ body {
   position: absolute;
 
   width: 800px;
-  height: 300px;
+  height: 500px;
   top: 50%;
-  margin-top:-150px;
+  margin-top:-130px;
   left: 80px;
   margin-left: 100px;
 }
@@ -66,8 +66,23 @@ body {
   font-family: sans-serif;
   text-align: center;
   font-weight: bold;
-  margin-top: -15px;
+  margin-top: 300px;
   font-size: 20px;
+  display: block;
+}
+
+.login {
+  text-decoration: none;
+
+  color: white;
+  margin-top: 300px;
+  border: 2px solid white;
+  border-radius: 3px;
+  padding: 15px;
+  text-align: center;
+  margin-left: 500px;
+  display:
+}
 }
 
 .herotxt_overlay {
@@ -76,9 +91,19 @@ body {
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0,0,0,0.3)
+  background: rgba(0,0,0,1)
 }
 
 h2 {
   text-align: center;
+  margin-top: 50px;
+}
+
+.intro {
+  margin-left: 40px;
+}
+
+.thumbnail {
+  margin-left: 20px;
+  margin-top: 20px;
 }
