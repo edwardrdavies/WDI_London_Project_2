@@ -6,10 +6,11 @@ const validator = require('validator');
 const userSchema = new mongoose.Schema({
 username: { type: String, required: true, unique: true},
 fullname: { type: String, },
-image: { type: String},
+image: { type: String },
 postcode: { type: String,  },
 skillLevel: { type: String,  },
 availability: { type: String,  },
+ageRange: { type: String },
 travelDistance: { type: Number,  },
 email: { type: String, required: true, unique: true },
 phoneNumber: { type: String},

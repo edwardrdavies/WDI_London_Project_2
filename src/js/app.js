@@ -1,4 +1,6 @@
 $(() => {
+
+
   // assign variables that will be used throughout.
   let $main = $('main');
 
@@ -40,33 +42,66 @@ $(() => {
 
   // shows the registration form
   function showRegisterForm() {
-    if (event) event.preventDefault();
-    $main.html(`
-      <h2>Register</h2>
-      <form method="post" action="/api/register">
-      <div class="form-group">
-      <input class="form-control" name="username" placeholder="Username">
-      </div>
-      <div class="form-group">
-      <input class="form-control" name="email" placeholder="Email">
-      </div>
-      <div class="form-group">
-      <input class="form-control" type="password" name="password" placeholder="Password">
-      </div>
-      <div class="form-group">
-      <input class="form-control" type="password" name="passwordConfirmation" placeholder="Password Confirmation">
-      </div>
-      <button class="btn btn-primary">Register</button>
-      </form>
-      `);
-    }
-
+  if(event) event.preventDefault();
+  $main.html(`
+    <h2>Register Here</h2>
+    <form method="post" action="/register">
+    <div class="form-group">
+    <input class="form-control" name="username" placeholder="Username">
+    </div>
+    <div class="form-group">
+    <input class="form-control" name="fullname" placeholder="Full Name">
+    </div>
+    <div class="form-group">
+    <input class="form-control" name="image" placeholder="Image">
+    </div>
+    <div class="form-group">
+    <input class="form-control" name="postcode" placeholder="Postcode">
+    </div>
+    <div class="form-group">
+    <select class="form-control" id="skill_level">
+    <option>Absolute Novice</option>
+    <option>Beginner</option>
+    <option>Intermediate</option>
+    <option>Advanced</option>
+    <option>Total Pro</option>
+    </select>
+    </div>
+    <div class="form-group">
+    <input class="form-control" name="availability" placeholder="Availability">
+    </div>
+    <div class="form-group">
+    <select class="form-control" id="ageRange">
+    <option>Under 18</option>
+    <option>18-35</option>
+    <option>35-59</option>
+    </select>
+    </div>
+    <div class="form-group">
+    <input class="form-control" name="travel_distance" placeholder="Travel Distance">
+    </div>
+    <div class="form-group">
+    <input class="form-control" name="email" placeholder="Email">
+    </div>
+    <div class="form-group">
+    <input class="form-control" name="phone_number" placeholder="Phone Number">
+    </div>
+    <div class="form-group">
+    <input class="form-control" type="password" name="password" placeholder="Password">
+    </div>
+    <div class="form-group">
+    <input class="form-control" type="password" name="passwordConfirmation" placeholder="Password Confirmation">
+    </div>
+    <button class="btn btn-primary">Register</button>
+    </form>
+    `);
+  }
     // shows the login form.
     function showLoginForm() {
       if (event) event.preventDefault();
       $main.html(`
         <h2>Login</h2>
-        <form method="post" action="/api/login">
+        <form method="post" action="/login">
         <div class="form-group">
         <input class="form-control" name="email" placeholder="Email">
         </div>

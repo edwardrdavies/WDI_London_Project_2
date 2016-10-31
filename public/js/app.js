@@ -1,6 +1,7 @@
 'use strict';
 
 $(function () {
+
   // assign variables that will be used throughout.
   var $main = $('main');
 
@@ -41,13 +42,12 @@ $(function () {
   // shows the registration form
   function showRegisterForm() {
     if (event) event.preventDefault();
-    $main.html('\n      <h2>Register</h2>\n      <form method="post" action="/api/register">\n      <div class="form-group">\n      <input class="form-control" name="username" placeholder="Username">\n      </div>\n      <div class="form-group">\n      <input class="form-control" name="email" placeholder="Email">\n      </div>\n      <div class="form-group">\n      <input class="form-control" type="password" name="password" placeholder="Password">\n      </div>\n      <div class="form-group">\n      <input class="form-control" type="password" name="passwordConfirmation" placeholder="Password Confirmation">\n      </div>\n      <button class="btn btn-primary">Register</button>\n      </form>\n      ');
+    $main.html('\n    <h2>Register Here</h2>\n    <form method="post" action="/register">\n    <div class="form-group">\n    <input class="form-control" name="username" placeholder="Username">\n    </div>\n    <div class="form-group">\n    <input class="form-control" name="fullname" placeholder="Full Name">\n    </div>\n    <div class="form-group">\n    <input class="form-control" name="image" placeholder="Image">\n    </div>\n    <div class="form-group">\n    <input class="form-control" name="postcode" placeholder="Postcode">\n    </div>\n    <div class="form-group">\n    <select class="form-control" id="skill_level">\n    <option>Absolute Novice</option>\n    <option>Beginner</option>\n    <option>Intermediate</option>\n    <option>Advanced</option>\n    <option>Total Pro</option>\n    </select>\n    </div>\n    <div class="form-group">\n    <input class="form-control" name="availability" placeholder="Availability">\n    </div>\n    <div class="form-group">\n    <select class="form-control" id="ageRange">\n    <option>Under 18</option>\n    <option>18-35</option>\n    <option>35-59</option>\n    </select>\n    </div>\n    <div class="form-group">\n    <input class="form-control" name="travel_distance" placeholder="Travel Distance">\n    </div>\n    <div class="form-group">\n    <input class="form-control" name="email" placeholder="Email">\n    </div>\n    <div class="form-group">\n    <input class="form-control" name="phone_number" placeholder="Phone Number">\n    </div>\n    <div class="form-group">\n    <input class="form-control" type="password" name="password" placeholder="Password">\n    </div>\n    <div class="form-group">\n    <input class="form-control" type="password" name="passwordConfirmation" placeholder="Password Confirmation">\n    </div>\n    <button class="btn btn-primary">Register</button>\n    </form>\n    ');
   }
-
   // shows the login form.
   function showLoginForm() {
     if (event) event.preventDefault();
-    $main.html('\n        <h2>Login</h2>\n        <form method="post" action="/api/login">\n        <div class="form-group">\n        <input class="form-control" name="email" placeholder="Email">\n        </div>\n        <div class="form-group">\n        <input class="form-control" type="password" name="password" placeholder="Password">\n        </div>\n        <button class="btn btn-primary">Register</button>\n        </form>\n        ');
+    $main.html('\n        <h2>Login</h2>\n        <form method="post" action="/login">\n        <div class="form-group">\n        <input class="form-control" name="email" placeholder="Email">\n        </div>\n        <div class="form-group">\n        <input class="form-control" type="password" name="password" placeholder="Password">\n        </div>\n        <button class="btn btn-primary">Register</button>\n        </form>\n        ');
   }
 
   // get users sends the GET to the API server to get all users
@@ -71,9 +71,8 @@ $(function () {
     if (event) event.preventDefault();
     var $row = $('<div class="row"></div>');
     users.forEach(function (user) {
-      $row.append('\n            <div class="col-md-4">\n            <div class="card">\n            <img class="card-img-top" src="http://fillmurray.com/300/300" alt="Card image cap">\n            <div class="card-block">\n            <h4 class="card-title">' + user.username + '</h4>\n            <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>\n            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>\n\n            <button class="userPage" data-id="' + user._id + '">See More</button>\n            </div>\n            </div>\n            </div>\n            </div>\n            ');
+      $row.append('\n            <div class="col-md-4">\n            <div class="card">\n            <img class="card-img-top" src="http://fillmurray.com/300/300" alt="Card image cap">\n            <div class="card-block">\n            <h4 class="card-title">' + user.username + '</h4>\n            <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>\n            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>\n\n            <button class="userPage" data-id="' + user._id + '">See More</button>\n            </div>\n            </div>\n\n            </div>\n            </div>\n\n            <button class="btn btn-primary">Login</button>\n            </form>\n            ');
     });
-    $main.html($row);
   }
 
   function getUser(userID) {
@@ -141,7 +140,7 @@ $(function () {
     if (event) event.preventDefault();
     var $row = $('<div class="row"></div>');
     venues.forEach(function (venue) {
-      $row.append('\n              <div class="col-md-4">\n              <div class="card">\n              <img class="card-img-top" src="' + venue.image + '" alt="Card image cap">\n              <div class="card-block">\n              <h4 class="card-title">' + venue.venueName + '</h4>\n              <p class="card-text">' + venue.description + '</p>\n              <p class="card-text"><small class="text-muted">' + venue.address + '</small></p>\n              <p class="card-text"><small class="text-muted">' + venue.url + '</small></p>\n              <button class="venuePage" data-id="' + venue._id + '">See More</button>\n              </div>\n              </div>\n              </div>\n              </div>\n              ');
+      $row.append('\n                <div class="col-md-4">\n                <div class="card">\n                <img class="card-img-top" src="' + venue.image + '" alt="Card image cap">\n                <div class="card-block">\n                <h4 class="card-title">' + venue.venueName + '</h4>\n                <p class="card-text">' + venue.description + '</p>\n                <p class="card-text"><small class="text-muted">' + venue.address + '</small></p>\n                <p class="card-text"><small class="text-muted">' + venue.url + '</small></p>\n                <button class="venuePage" data-id="' + venue._id + '">See More</button>\n                </div>\n                </div>\n                </div>\n                </div>\n                ');
     });
     $main.html($row);
   }
@@ -162,7 +161,7 @@ $(function () {
       }
     }).done(function (venue) {
       // needs to be edited so that it places the data where it's meant to go!
-      $main.prepend('\n                <div class="col-md-4">\n                <div class="card">\n                <img class="card-img-top" src="' + venue.image + '" alt="Card image cap">\n                <div class="card-block">\n                <h4 class="card-title">' + venue.venueName + '</h4>\n                <p class="card-text">' + venue.description + '</p>\n                <p class="card-text"><small class="text-muted">' + venue.address + '</small></p>\n                <p class="card-text"><small class="text-muted">' + venue.url + '</small></p>\n                <button class="venuePage" data-id="' + venue._id + '">See More</button>\n                </div>\n                </div>\n                </div>\n                </div>\n                ');
+      $main.prepend('\n                  <div class="col-md-4">\n                  <div class="card">\n\n                  <img class="card-img-top" src="' + venue.image + '" alt="Card image cap">\n                  <div class="card-block">\n                  <h4 class="card-title">' + venue.venueName + '</h4>\n                  <p class="card-text">' + venue.description + '</p>\n                  <p class="card-text"><small class="text-muted">' + venue.address + '</small></p>\n                  <p class="card-text"><small class="text-muted">' + venue.url + '</small></p>\n                  <button class="venuePage" data-id="' + venue._id + '">See More</button>\n\n                  </div>\n                  </div>\n                  </div>\n                  </div>\n                  ');
 
       isLoggedInDisplay();
     });
