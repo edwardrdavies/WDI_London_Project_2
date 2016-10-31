@@ -23,14 +23,11 @@ $(function () {
     if ($form.attr('action') === '/api/register') {
       var postcode = $form.find('[name=postcode]').val();
       geocoder.geocode({ address: postcode + ', UK' }, function (results, status) {
-        if (status === "OK") {
+        if (status == google.maps.GeocoderStatus.OK) {
           $form.find('[name=lat]').val(results[0].geometry.location.lat());
           $form.find('[name=lng]').val(results[0].geometry.location.lng());
-        }
-
-        window.setTimeout(function () {
           sendFormData($form);
-        }, 1000);
+        }
       });
     } else {
       sendFormData($form);
@@ -92,7 +89,7 @@ $(function () {
     if (event) event.preventDefault();
     var $row = $('<div class="row"></div>');
     users.forEach(function (user) {
-      $row.append('\n            <div class="col-md-4">\n            <div class="card">\n            <img class="card-img-top" src="http://fillmurray.com/300/300" alt="Card image cap">\n            <div class="card-block">\n            <h4 class="card-title">' + user.username + '</h4>\n            <h4 class="card-title">' + user.latlng + '</h4>\n            <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>\n            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>\n\n            <button class="userPage" data-id="' + user._id + '">See More</button>\n            </div>\n            </div>\n            </div>\n            </div>\n            ');
+      $row.append('\n            <div class="col-md-4">\n            <div class="card">\n            <img class="card-img-top" src="http://fillmurray.com/300/300" alt="Card image cap">\n            <div class="card-block">\n            <h4 class="card-title">' + user.username + '</h4>\n            <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>\n            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>\n\n            <button class="userPage" data-id="' + user._id + '">See More</button>\n            </div>\n            </div>\n            </div>\n            </div>\n            ');
     });
     $main.html($row);
   }

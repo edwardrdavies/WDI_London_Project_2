@@ -11,8 +11,7 @@ googleMap.addInfoWindowForUser = function (user, marker) {
       this.infowindow.close();
     }
     this.infowindow = new google.maps.InfoWindow({
-      content: `${user.name}">
-      <p>${user.location}</p>`
+      content: `${user.username}<p>${user.postcode}</p>`
     });
     this.infowindow.open(this.map, marker);
   });

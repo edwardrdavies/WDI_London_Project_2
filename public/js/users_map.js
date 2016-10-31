@@ -13,7 +13,7 @@ googleMap.addInfoWindowForUser = function (user, marker) {
       _this.infowindow.close();
     }
     _this.infowindow = new google.maps.InfoWindow({
-      content: user.name + "\">\n      <p>" + user.location + "</p>"
+      content: user.username + "<p>" + user.postcode + "</p>"
     });
     _this.infowindow.open(_this.map, marker);
   });

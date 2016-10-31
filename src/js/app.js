@@ -23,15 +23,12 @@ $(() => {
     if($form.attr('action') === '/api/register') {
       let postcode = $form.find('[name=postcode]').val();
       geocoder.geocode({ address: `${postcode}, UK` }, (results, status) => {
-        if(status === "OK") {
+        if(status == google.maps.GeocoderStatus.OK) {
           $form.find('[name=lat]').val(results[0].geometry.location.lat());
           $form.find('[name=lng]').val(results[0].geometry.location.lng());
+          sendFormData($form);
         }
 
-
-        window.setTimeout(function() {
-           sendFormData($form);
-         }, 1000);
       });
     }
     else {
@@ -135,7 +132,6 @@ $(() => {
             <img class="card-img-top" src="http://fillmurray.com/300/300" alt="Card image cap">
             <div class="card-block">
             <h4 class="card-title">${user.username}</h4>
-            <h4 class="card-title">${user.latlng}</h4>
             <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
             <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
 
