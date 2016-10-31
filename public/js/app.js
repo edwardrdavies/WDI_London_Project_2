@@ -3,6 +3,7 @@
 $(function () {
   // assign variables that will be used throughout.
   var $main = $('main');
+  var geocoder = new google.maps.Geocoder();
 
   //event handlers go here
   $('.register').on('click', showRegisterForm);
@@ -17,11 +18,31 @@ $(function () {
   //handles the registration form
   function handleForm(e) {
     e.preventDefault();
-    var token = localStorage.getItem('token');
     var $form = $(this);
+
+    if ($form.attr('action') === '/api/register') {
+      var postcode = $form.find('[name=postcode]').val();
+      geocoder.geocode({ address: postcode + ', UK' }, function (results, status) {
+        if (status === "OK") {
+          $form.find('[name=lat]').val(results[0].geometry.location.lat());
+          $form.find('[name=lng]').val(results[0].geometry.location.lng());
+        }
+
+        window.setTimeout(function () {
+          sendFormData($form);
+        }, 1000);
+      });
+    } else {
+      sendFormData($form);
+    }
+  }
+
+  function sendFormData($form) {
     var url = $form.attr('action');
     var method = $form.attr('method');
     var data = $form.serialize();
+    var token = localStorage.getItem('token');
+
     $.ajax({
       url: url,
       method: method,
@@ -41,7 +62,7 @@ $(function () {
   // shows the registration form
   function showRegisterForm() {
     if (event) event.preventDefault();
-    $main.html('\n      <h2>Register</h2>\n      <form method="post" action="/api/register">\n      <div class="form-group">\n      <input class="form-control" name="username" placeholder="Username">\n      </div>\n      <div class="form-group">\n      <input class="form-control" name="email" placeholder="Email">\n      </div>\n      <div class="form-group">\n      <input class="form-control" type="password" name="password" placeholder="Password">\n      </div>\n      <div class="form-group">\n      <input class="form-control" type="password" name="passwordConfirmation" placeholder="Password Confirmation">\n      </div>\n      <button class="btn btn-primary">Register</button>\n      </form>\n      ');
+    $main.html('\n      <h2>Register</h2>\n      <form method="post" action="/api/register">\n        <input type="hidden" name="lat">\n        <input type="hidden" name="lng">\n        <div class="form-group">\n          <input class="form-control" name="username" placeholder="Username">\n        </div>\n        <div class="form-group">\n          <input class="form-control" name="email" placeholder="Email">\n        </div>\n        <div class="form-group">\n          <input class="form-control" type="password" name="password" placeholder="Password">\n        </div>\n        <div class="form-group">\n          <input class="form-control" type="password" name="passwordConfirmation" placeholder="Password Confirmation">\n        </div>\n        <div class="form-group">\n          <input class="form-control" type="postcode" name="postcode" placeholder="postcode">\n        </div>\n        <button class="btn btn-primary">Register</button>\n      </form>\n      ');
   }
 
   // shows the login form.
@@ -71,7 +92,7 @@ $(function () {
     if (event) event.preventDefault();
     var $row = $('<div class="row"></div>');
     users.forEach(function (user) {
-      $row.append('\n            <div class="col-md-4">\n            <div class="card">\n            <img class="card-img-top" src="http://fillmurray.com/300/300" alt="Card image cap">\n            <div class="card-block">\n            <h4 class="card-title">' + user.username + '</h4>\n            <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>\n            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>\n\n            <button class="userPage" data-id="' + user._id + '">See More</button>\n            </div>\n            </div>\n            </div>\n            </div>\n            ');
+      $row.append('\n            <div class="col-md-4">\n            <div class="card">\n            <img class="card-img-top" src="http://fillmurray.com/300/300" alt="Card image cap">\n            <div class="card-block">\n            <h4 class="card-title">' + user.username + '</h4>\n            <h4 class="card-title">' + user.latlng + '</h4>\n            <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>\n            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>\n\n            <button class="userPage" data-id="' + user._id + '">See More</button>\n            </div>\n            </div>\n            </div>\n            </div>\n            ');
     });
     $main.html($row);
   }
@@ -91,12 +112,39 @@ $(function () {
       }
     }).done(function (user) {
       // needs to be edited so that it places the data where it's meant to go!
-      $main.prepend('\n              <div class="col-md-4">\n              <div class="card">\n              <img class="card-img-top" src="' + user.image + '" alt="Card image cap">\n              <div class="card-block">\n              <h4 class="card-title">' + user.username + '</h4>\n              <p class="card-text">blah</p>\n              <p class="card-text"><small class="text-muted">blah</small></p>\n              <p class="card-text"><small class="text-muted">blah</small></p>\n              <button class="venuePage" data-id="' + user._id + '">See More</button>\n              </div>\n              </div>\n              </div>\n              </div>\n              ');
+      $main.prepend('\n              <div class="col-md-4">\n                <div class="card">\n                  <img class="card-img-top" src="' + user.image + '" alt="Card image cap">\n                  <div class="card-block">\n                    <h4 class="card-title">' + user.username + '</h4>\n                    <p class="card-text">blah</p>\n                    <p class="card-text"><small class="text-muted">blah</small></p>\n                    <p class="card-text"><small class="text-muted">blah</small></p>\n                    <button class="venuePage" data-id="' + user._id + '">See More</button>\n                  </div>\n                  </div>\n                </div>\n              </div>\n              ');
 
       console.log(venue);
       isLoggedInDisplay();
     });
   }
+
+  //   function showMap(){
+  //
+  //     let $mapDiv = $('#map');
+  //
+  //     let map = new google.maps.Map($mapDiv[0], {
+  //       center: { lat: 51.5153427, lng: -0.0721773 },
+  //       zoom: 14
+  //     });
+  //     navigator.geolocation.getCurrentPosition((position) => {
+  //       let latLng = {
+  //         lat: position.coords.latitude,
+  //         lng: position.coords.longitude
+  //       };
+  //       map.panTo(latLng);
+  //       map.setZoom(16);
+  //
+  //       let marker = new google.maps.Marker({
+  //         position: latLng,
+  //         animation: google.maps.Animation.BOUNCE,
+  //         draggable: true,
+  //         map
+  //       });
+  //
+  //     });
+  //   }
+  // showMap();
 
   // checks if user is logged in by checking for token
   function isLoggedIn() {

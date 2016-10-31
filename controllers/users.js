@@ -10,7 +10,7 @@ function userRegister(req, res){
     }
     let payload = {_id:user._id, username: user.username};
     let token = jwt.sign(payload,secret, {expiresIn: 60*60*24});
-
+    console.log(user);
     return res.status(201).json({
       message: "Success, that's a nice a user",
       user,
