@@ -38,7 +38,7 @@ $(() => {
         console.log(data,data.token,"ready to set token");
         localStorage.setItem('token', data.token);
       }
-      getUsers();
+      listUsers();
     });
   }
 
@@ -64,7 +64,7 @@ $(() => {
     }
 
     // get users sends the GET to the API server to get all users
-    function getUsers(){
+    function listUsers(){
       if (event) event.preventDefault();
       let token = localStorage.getItem('token');
 
@@ -261,7 +261,8 @@ isLoggedIn();
 
             // display users if loggedin - users if not.
     if ( isLoggedIn() ) {
-      getUsers();
+      $main.empty();
+      listUsers();
     } else {
     showLoginForm();
   }
