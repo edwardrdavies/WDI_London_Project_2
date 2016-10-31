@@ -4,6 +4,8 @@
 
   <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.4/css/bootstrap.min.css"> -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
   <link rel="stylesheet" href="/css/style.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.3.7/js/tether.min.js" charset="utf-8"></script>
@@ -14,7 +16,7 @@
 </head>
 <body>
 
-  <nav class="navbar navbar-light" style="background-color: #e3f2fd;">
+  <!-- <nav class="navbar navbar-light" style="background-color: #e3f2fd;">
     <div class="container">
       <a class="navbar-brand" href="#">Game, set, match</a>
       <button class="navbar-toggler hidden-sm-up" type="button" data-toggle="collapse" data-target="#exCollapsingNavbar2" aria-controls="exCollapsingNavbar2" aria-expanded="false" aria-label="Toggle navigation">
@@ -38,16 +40,23 @@
       </div>
 
     </div>
-  </nav>
+  </nav> -->
 
-  <main class="container"></main>
-  <ul id="users"></ul>
+  <!-- <main class="container"></main>
+  <ul id="users"></ul> -->
 
     <div id="header">
       <div class="herotxt_overlay"></div>
       <div id="nav">
         <p id="logotxt">Game Set Match!</p>
-        <a href="#" id="tennisanyone">Tennis Anyone?</a>
+        <div class="loginform">
+          <form method="post" action="/login">
+            <input type="text" name="name" placeholder="username">
+            <input type="text" name="password" placeholder="password">
+            <button type="button" name="button">Log In</button>
+          </form>
+        </div>
+
       </div>
       <div id="herotxt_div">
         <p id="herotxt">Got Balls, Play Tennis</p>
@@ -72,23 +81,58 @@
           <p class="jointoday">
             Join the community today!
           </p>
-          <div class="row">
-            <div class="one-half column">1/2
-              <form class="register">
-                <p class="registerform">
-                  Register
-                </p>
-                <input class="u-full-width" type="email" placeholder="test@mailbox.com" id="exampleEmailInput">
-                <input class="u-full-width" type="email" placeholder="Fullname" id="exampleEmailInput">
-                <input class="u-full-width" type="email" placeholder="Username" id="exampleEmailInput">
-                <input class="u-full-width" type="password" placeholder="Password" id="exampleEmailInput">
-                <button class="button-primary">Sign Up</button>
-              </form>
-            </div>
-            <div class="one-half column">1/2</div>
-          </div>
+          <form method="post" action="/register">
 
+            <div class="form-group">
+
+              <input class="form-control" name="username" placeholder="Username">
+            </div>
+            <div class="form-group">
+
+              <input class="form-control" name="fullname" placeholder="Full Name">
+            </div>
+          <div class="form-group">
+          <input class="form-control" name="image" placeholder="Image">
           </div>
+          <div class="form-group">
+          <input class="form-control" name="postcode" placeholder="Postcode">
+          </div>
+          <div class="form-group">
+          <select class="form-control" id="skill_level">
+          <option>Absolute Novice</option>
+          <option>Beginner</option>
+          <option>Intermediate</option>
+          <option>Advanced</option>
+          <option>Total Pro</option>
+          </select>
+          </div>
+          <div class="form-group">
+          <input class="form-control" name="availability" placeholder="Availability">
+          </div>
+          <div class="form-group">
+          <select class="form-control" id="ageRange">
+          <option>Under 18</option>
+          <option>18-35</option>
+          <option>35-59</option>
+          </select>
+          </div>
+          <div class="form-group">
+          <input class="form-control" name="travel_distance" placeholder="Travel Distance">
+          </div>
+          <div class="form-group">
+          <input class="form-control" name="email" placeholder="Email">
+          </div>
+          <div class="form-group">
+          <input class="form-control" name="phone_number" placeholder="Phone Number">
+          </div>
+          <div class="form-group">
+          <input class="form-control" type="password" name="password" placeholder="Password">
+          </div>
+          <div class="form-group">
+          <input class="form-control" type="password" name="passwordConfirmation" placeholder="Password Confirmation">
+          </div>
+          <button class="btn btn-primary">Register</button>
+          </form>
 
       </div>
   </body>
