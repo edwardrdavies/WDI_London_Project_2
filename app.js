@@ -8,7 +8,7 @@ const app = express();
 const port = process.env.PORT || 8000;
 const router = require("./config/routes");
 
-let mongoUri = process.env.MONGODB_URI || 'mongodb://localhost/edsserver';
+let mongoUri = process.env.MONGODB_URI || 'mongodb://localhost/gamesetmatch';
 
 mongoose.connect(mongoUri);
 
@@ -21,7 +21,7 @@ app.use(bodyParser.urlencoded({ extended: true}));
 
 
 
-app.use("/api", router);
+app.use("/", router);
 app.use(express.static(`${__dirname}/public`));
 
 app.listen(port, () => console.log(`Running on port: ${port}`));

@@ -3,11 +3,17 @@ const bcrypt = require('bcrypt');
 const validator = require('validator');
 
 
-
 const userSchema = new mongoose.Schema({
-  username: { type: String, required: true, unique: true},
-  email: { type: String, required: true},
-  passwordHash: { type: String, required: true}
+username: { type: String, required: true, unique: true},
+fullname: { type: String, },
+image: { type: String},
+postcode: { type: String,  },
+skillLevel: { type: String,  },
+availability: { type: String,  },
+travelDistance: { type: Number,  },
+email: { type: String, required: true, unique: true },
+phoneNumber: { type: String},
+passwordHash: { type: String, required: true}
 });
 
 function setPassword(value){

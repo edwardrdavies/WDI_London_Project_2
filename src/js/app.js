@@ -30,39 +30,43 @@ $(() => {
           getUsers();
         });
     }
+
     function showRegisterForm() {
-        if (event) event.preventDefault();
-        $main.html(`
-        <h2>Register</h2>
-        <form method="post" action="/api/register">
-            <div class="form-group">
-                <input class="form-control" name="username" placeholder="Username">
-            </div>
-            <div class="form-group">
-                <input class="form-control" name="email" placeholder="Email">
-            </div>
-            <div class="form-group">
-                <input class="form-control" type="password" name="password" placeholder="Password">
-            </div>
-            <div class="form-group">
-                <input class="form-control" type="password" name="passwordConfirmation" placeholder="Password Confirmation">
-            </div>
-            <button class="btn btn-primary">Register</button>
-        </form>
-        `);
+  if(event) event.preventDefault();
+  $main.html(`
+    <h2>Register Here</h2>
+      <form method="post" action="/register">
+      <div class="form-group">
+      <input class="form-control" name="username" placeholder="HELLLLOOOOO">
+      </div>
+      <div class="form-group">
+      <input class="form-control" name="email" placeholder="Email">
+      </div>
+      <div class="form-group">
+      <input class="form-control" type="password" name="password" placeholder="Password">
+      </div>
+      <div class="form-group">
+      <input class="form-control" type="password" name="passwordConfirmation" placeholder="Password Confirmation">
+      </div>
+      <button class="btn btn-primary">Register</button>
+      </form>
+      `);
     }
+
+
+
     function showLoginForm() {
         if (event) event.preventDefault();
         $main.html(`
         <h2>Login</h2>
-        <form method="post" action="/api/login">
+        <form method="post" action="/login">
             <div class="form-group">
-                <input class="form-control" name="email" placeholder="Email">
+                <input class="form-control" name="username" placeholder="Username">
             </div>
             <div class="form-group">
                 <input class="form-control" type="password" name="password" placeholder="Password">
             </div>
-            <button class="btn btn-primary">Register</button>
+            <button class="btn btn-primary">Login</button>
         </form>
         `);
     }
@@ -70,7 +74,7 @@ $(() => {
       if (event) event.preventDefault();
       let token = localStorage.getItem('token');
       $.ajax({
-        url: '/api/users',
+        url: '/users',
         method:'GET',
         beforeSend: function(jqXHR) {
           if(token) return jqXHR.setRequestHeader('Authorization',`Bearer ${token}`);
@@ -114,7 +118,7 @@ $(() => {
                         <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
                         <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
                         <div id="${user._id}" class="button-container">
-                          <form action="/api/users/${user._id}" method="DELETE">
+                          <form action="/users/${user._id}" method="DELETE">
                             <button class="btn btn-danger">DELETE</button>
                           </form>
                           <form></form>
