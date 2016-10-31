@@ -3,7 +3,7 @@
 $(function () {
 
   // assign variables that will be used throughout.
-  var $main = $('main');
+  var $main = $('.container');
 
   //event handlers go here
   // $('.register').on('click', showRegisterForm);
@@ -17,6 +17,7 @@ $(function () {
 
   //handles the registration form
   function handleForm(e) {
+    console.log("form clicked");
     e.preventDefault();
     var token = localStorage.getItem('token');
     var $form = $(this);
@@ -31,9 +32,10 @@ $(function () {
         if (token) return jqXHR.setRequestHeader('Authorization', 'Bearer ' + token);
       }
     }).done(function (data) {
+      console.log("the done form action has been working");
       if (data && data.token) {
+        console.log(data, data.token, "ready to set token");
         localStorage.setItem('token', data.token);
-        isLoggedInDisplay();
       }
       getUsers();
     });
@@ -41,15 +43,16 @@ $(function () {
 
   // shows the login form.
   function showLoginForm() {
+
     if (event) event.preventDefault();
-    $main.html('\n      <h2>Login</h2>\n      <form method="post" action="/login" class="form-signin">\n      <div class="form-group">\n      <input class="form-control" name="email" placeholder="Email">\n      </div>\n      <div class="form-group">\n      <input class="form-control" type="password" name="password" placeholder="Password">\n      </div>\n      <button class="btn btn-primary">Register</button>\n      </form>\n      ');
+    $main.html('\n\n      <h2 class="form-signin-heading">Login</h2>\n      <form method="post" action="/login">\n    <div class="form-group">\n      <input class="form-control" name="email" placeholder="Email">\n      </div>\n      <div class="form-group">\n      <input class="form-control" type="password" name="password" placeholder="Password">\n      </div>\n      <button class="btn btn-primary" type="submit">Register</button>\n      </form>\n      ');
   }
 
   // get users sends the GET to the API server to get all users
   function getUsers() {
     if (event) event.preventDefault();
     var token = localStorage.getItem('token');
-    console.log("dsadf");
+
     $.ajax({
       url: '/users',
       method: 'GET',
@@ -95,6 +98,7 @@ $(function () {
     });
   }
 
+  isLoggedIn();
   // checks if user is logged in by checking for token
   function isLoggedIn() {
 

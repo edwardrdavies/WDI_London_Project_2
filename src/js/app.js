@@ -2,7 +2,7 @@ $(() => {
 
 
   // assign variables that will be used throughout.
-  let $main = $('main');
+  let $main = $('.container');
 
   //event handlers go here
   // $('.register').on('click', showRegisterForm);
@@ -17,6 +17,7 @@ $(() => {
 
   //handles the registration form
   function handleForm(e){
+    console.log("form clicked");
     e.preventDefault();
     let token = localStorage.getItem('token');
     let $form = $(this);
@@ -32,9 +33,10 @@ $(() => {
       }
     })
     .done((data) => {
+      console.log("the done form action has been working");
       if (data && data.token){
+        console.log(data,data.token,"ready to set token");
         localStorage.setItem('token', data.token);
-        isLoggedInDisplay();
       }
       getUsers();
     });
@@ -44,17 +46,19 @@ $(() => {
 
   // shows the login form.
   function showLoginForm() {
+
     if (event) event.preventDefault();
     $main.html(`
-      <h2>Login</h2>
-      <form method="post" action="/login" class="form-signin">
-      <div class="form-group">
+
+      <h2 class="form-signin-heading">Login</h2>
+      <form method="post" action="/login">
+    <div class="form-group">
       <input class="form-control" name="email" placeholder="Email">
       </div>
       <div class="form-group">
       <input class="form-control" type="password" name="password" placeholder="Password">
       </div>
-      <button class="btn btn-primary">Register</button>
+      <button class="btn btn-primary" type="submit">Register</button>
       </form>
       `);
     }
@@ -63,7 +67,7 @@ $(() => {
     function getUsers(){
       if (event) event.preventDefault();
       let token = localStorage.getItem('token');
-      console.log("dsadf");
+
       $.ajax({
         url: '/users',
         method:'GET',
@@ -153,7 +157,7 @@ $(() => {
           });
         }
 
-
+isLoggedIn();
         // checks if user is logged in by checking for token
         function isLoggedIn(){
 
