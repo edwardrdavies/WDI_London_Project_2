@@ -45,7 +45,7 @@ body {
   position: absolute;
 
   width: 800px;
-  height: 500px;
+  height: 300px;
   top: 50%;
   margin-top:-130px;
   left: 80px;
@@ -113,8 +113,11 @@ h2 {
 }
 
 h5 {
-  margin-top: 60px;
+  margin-top: 90px;
+  font-size: 22px;
 }
+
+
 
 .thirdcontainer {
   margin-top: 40px;
@@ -157,7 +160,49 @@ form {
 
 }
 
-.loginform {
-  float: right;
+#username {
+  /*float: right;*/
+  margin-left: 640px;
+  /*display: inline-block;*/
+  display: inline;
+  position: absolute;
+  margin-top: -18px;
+}
 
+#password {
+  /*float: right;*/
+  margin-left: 820px;
+  /*display: inline-block;*/
+  display: inline;
+  position: absolute;
+  margin-top: -18px;
+}
+
+.btn-default {
+  /*float: right;*/
+  margin-left: 1000px;
+}
+
+.thirdp {
+  margin-left: 40px;
+}
+
+.secondp {
+  margin-left: 40px;
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.secondhfive {
+  margin-left: 40px;
+}
+
+.button-primary-two{
+  margin-left: 40px;
+  background-color: #1EAEDB;
+  color: white;
+}
+
+.fourthcontainer {
+  background-color: #fafafa;
 }
