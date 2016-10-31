@@ -1,7 +1,4 @@
-"use strict";
-
-var will = "Willie";
-console.log(will + " is hungry");
+'use strict';
 
 // let origin = "brixton";
 // let destination = 'dulwich';
