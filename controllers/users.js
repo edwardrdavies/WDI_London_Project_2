@@ -27,7 +27,7 @@ function userLogin(req, res){
     }
     if (!user || !user.validatePassword(req.body.password)) {
       console.log(err);
-      return res.status(401).json({ message: "Unauthorized Sausage Munching"});
+      return res.status(401).json({ message: "Unauthorized Login"});
     }
     let payload = {_id:user._id, username: user.username};
     let token = jwt.sign(payload,secret, {expiresIn: 60*60*24});

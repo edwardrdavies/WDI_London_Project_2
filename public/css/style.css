@@ -1,11 +1,11 @@
 body {
-  margin: 0;
+  margin: auto 0;
 }
 
 #header {
   width: 100%;
   height: 100vh;
-  background: rgba(0,0,0,0.9) url('https://static.pexels.com/photos/7753/sun-ball-tennis-court.jpg');
+  background: url('https://static.pexels.com/photos/7753/sun-ball-tennis-court.jpg');
   background-repeat: no-repeat;
   background-size: 100% 100%;
   position: relative;
@@ -91,8 +91,10 @@ body {
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0,0,0,1)
+  background: rgba(0,0,0,0.5)
 }
+
+
 
 h2 {
   text-align: center;
@@ -103,7 +105,52 @@ h2 {
   margin-left: 40px;
 }
 
-.thumbnail {
- 
-  margin-top: 30px;
+.map {
+  height: 450px;
+  width: 475px;
+  margin-top: 20px;
+  margin-left: 40px;
+}
+
+h5 {
+  margin-top: 60px;
+}
+
+.thirdcontainer {
+  margin-top: 40px;
+  padding-top: 20px;
+  background: url('https://d2lm6fxwu08ot6.cloudfront.net/img-thumbs/960w/T4LLIX5GEX.jpg');
+  width: 100%;
+  height: 100vh;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  position: relative;
+}
+
+.jointoday {
+  color: white;
+  font-family: sans-serif;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 55px;
+  text-align: center;
+}
+
+.u-full-width {
+  height: 33px;
+  width: 268px;
+
+}
+
+.register {
+  width: 300px;
+  margin-left: 250px;
+  padding-left: 5px;
+  padding-top: 80px;
+
+  background-color: #21314d;
+}
+
+.registerform {
+  padding-top: -15px; 
 }
