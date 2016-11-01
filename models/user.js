@@ -2,8 +2,6 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const validator = require('validator');
 
-
-
 const userSchema = new mongoose.Schema({
   username: { type: String, required: true, unique: true},
   fullname: { type: String },
@@ -11,6 +9,7 @@ const userSchema = new mongoose.Schema({
   postcode: { type: String },
   skillLevel: { type: String },
   availability: { type: String },
+  ageRange: { type: String },
   travelDistance: { type: Number },
   email: { type: String, required: true, unique: true },
   phoneNumber: { type: String },
@@ -54,8 +53,6 @@ function validatePassword(password){
  return bcrypt.compareSync(password, this.passwordHash);
 }
 
-
-
 userSchema
  .virtual('password')
  .set(setPassword);
@@ -71,9 +68,6 @@ userSchema
 userSchema
  .path('email')
  .validate(validateEmail);
-
-
-
 
 userSchema.methods.validatePassword = validatePassword;
 
