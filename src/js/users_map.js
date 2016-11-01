@@ -8,11 +8,13 @@ googleMap.getUsers = function () {
 
 googleMap.addInfoWindowForUser = function (user, marker) {
   google.maps.event.addListener(marker, 'click', () => {
+
     if (this.infowindow) {
       this.infowindow.close();
     }
     this.infowindow = new google.maps.InfoWindow({
-      content: `${user.username}<p>${user.postcode}</p>`
+
+      content: `${user.username}<p>${user.postcode}</p><p>${user.email}</p><p>${user.phoneNumber}</p>`
     });
     this.infowindow.open(this.map, marker);
   });
