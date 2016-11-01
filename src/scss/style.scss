@@ -34,9 +34,9 @@ background-size: 50%;
 
 }
 
- .venue h2, .next-match h2, .play-match h2 {
-   padding-top: 60px;
- }
+.venue h2, .next-match h2, .play-match h2 {
+ padding-top: 60px;
+}
 
 .hero p {
   padding-top: 20px;
@@ -47,29 +47,13 @@ h1 {
   color: white;
 }
 
+#map {
 
-
-.firsthtwo {
-  margin-top: 100px;
-}
-
-.secondp {
-  color: black;
-  text-align: left;
-}
-
-.map {
-  width: 100%;
-}
-
-.secondhtwo {
-  margin-top: 100px;
-}
-
-.thirdp {
-  color: black;
-  text-align: left;
-
+  width:500px;
+  height:500px;
+  background-color: red;
+  // height:90vw;
+  // width:90vw;
 }
 
 .court {
