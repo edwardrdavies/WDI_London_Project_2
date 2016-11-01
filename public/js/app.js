@@ -139,7 +139,7 @@ $(function () {
 
     if (isLoggedIn()) {
       $main.empty();
-      listUsers();
+      // listUsers();
       $('.loggedIn').show();
     } else {
       showLoginForm();
