@@ -9,6 +9,7 @@ $(function () {
   // $('.register').on('click', showRegisterForm);
   // $('.login').on('click', showLoginForm);
   $('.logout').on('click', logout);
+  $('.edit').on('click', showEditBar);
   // $('.map').on('click', getUsers);
   // $('.clubs').on('click', getVenues);
   // $main.on('click', '.userPage', getUser);
@@ -62,8 +63,6 @@ $(function () {
     }).done(function (users) {
 
       showUsers(users);
-      // isLoggedInDisplay();
-
     });
   }
 
@@ -105,91 +104,6 @@ $(function () {
     return !!localStorage.getItem('token');
   }
 
-  // // similar to getUsers, sends a get request to get venue list.
-  // function getVenues(){
-  //   if (event) event.preventDefault();
-  //   let token = localStorage.getItem('token');
-  //   $.ajax({
-  //     url: '/api/venue',
-  //     method:'GET',
-  //     beforeSend: function(jqXHR) {
-  //       if(token) return jqXHR.setRequestHeader('Authorization',`Bearer ${token}`);
-  //     }
-  //   })
-  //   .done((venues)=> {
-  //     showVenues(venues);
-  //     isLoggedInDisplay();
-  //   });
-  // }
-  //
-  // // adds HTML for venue list
-  // function showVenues(venues) {
-  //   if (event) event.preventDefault();
-  //   let $row = $('<div class="row"></div>');
-  //   venues.forEach((venue) => {
-  //     $row.append(`
-  //       <div class="col-md-4">
-  //       <div class="card">
-  //       <img class="card-img-top" src="${venue.image}" alt="Card image cap">
-  //       <div class="card-block">
-  //       <h4 class="card-title">${venue.venueName}</h4>
-  //       <p class="card-text">${venue.description}</p>
-  //       <p class="card-text"><small class="text-muted">${venue.address}</small></p>
-  //       <p class="card-text"><small class="text-muted">${venue.url}</small></p>
-  //       <button class="venuePage" data-id="${venue._id}">See More</button>
-  //       </div>
-  //       </div>
-  //       </div>
-  //       </div>
-  //       `);
-  //     });
-  //     $main.html($row);
-  //   }
-
-  // // get One Venue, needs to be edited to display in relevant part of the page.
-  // function getVenue(venueID){
-  //
-  //   if (event) {
-  //     event.preventDefault();
-  //
-  //   }
-  //   let id = $(event.target).data('id');
-  //   let token = localStorage.getItem('token');
-  //   $.ajax({
-  //     url: `/api/venue/${id}`,
-  //     method:'GET',
-  //     beforeSend: function(jqXHR) {
-  //       if(token) return jqXHR.setRequestHeader('Authorization',`Bearer ${token}`);
-  //     }
-  //   })
-  //   .done((venue)=> {
-  //     // needs to be edited so that it places the data where it's meant to go!
-  //     $main.prepend(`
-  //       <div class="col-md-4">
-  //       <div class="card">
-  //
-  //       <img class="card-img-top" src="${venue.image}" alt="Card image cap">
-  //       <div class="card-block">
-  //       <h4 class="card-title">${venue.venueName}</h4>
-  //       <p class="card-text">${venue.description}</p>
-  //       <p class="card-text"><small class="text-muted">${venue.address}</small></p>
-  //       <p class="card-text"><small class="text-muted">${venue.url}</small></p>
-  //       <button class="venuePage" data-id="${venue._id}">See More</button>
-  //
-  //       </div>
-  //       </div>
-  //       </div>
-  //       </div>
-  //       `);
-  //
-  //
-  //
-  //
-  //
-  //     });
-  //   }
-  //
-
   function logout() {
     if (event) event.preventDefault();
     localStorage.removeItem('token');
@@ -212,3 +126,10 @@ $(function () {
 
   showMembersPage();
 });
+
+var showEditBar = function showEditBar() {
+  console.log('clicked');
+  $('.editBar').slideToggle("slow", function () {
+    // Animation complete.
+  });
+};
