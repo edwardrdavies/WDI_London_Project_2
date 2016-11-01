@@ -14,7 +14,7 @@ $(function () {
   var geocoder = new google.maps.Geocoder();
 
   //handles the registration form
-  //handles the registration form
+
   function handleForm(e) {
 
     e.preventDefault();
@@ -48,9 +48,8 @@ $(function () {
         if (token) return jqXHR.setRequestHeader('Authorization', 'Bearer ' + token);
       }
     }).done(function (data) {
-
       if (data && data.token) {
-
+        localStorage.setItem('_id', data.user._id);
         localStorage.setItem('token', data.token);
         if (window.location.pathname === "/") {
           window.location.replace("/members");
@@ -125,6 +124,7 @@ $(function () {
   function logout() {
     if (event) event.preventDefault();
     localStorage.removeItem('token');
+    localStorage.removeItem('_id');
     $map.hide();
     showLoginForm();
     $('.loggedIn').toggle();
@@ -154,6 +154,27 @@ var showEditBar = function showEditBar() {
   });
 };
 
-var showRegForm = function showRegForm() {
+var showRegForm = function showRegForm(action) {
+  var method = "POST";
+  var button = "Register";
+
+  if (action == "edit") {
+    method = "PUT";
+    button = 'Update';
+  }
+
+  var token = localStorage.getItem('token');
+  var _id = localStorage.getItem('_id');
+
+  $.ajax({
+    url: '/user/' + _id,
+    method: 'GET',
+    beforeSend: function beforeSend(jqXHR) {
+      if (token) return jqXHR.setRequestHeader('Authorization', 'Bearer ' + token);
+    }
+  }).done(function (user) {
+
+    console.log(user);
+  });
   $('.register').html('\n    <p class="jointoday">\n      Join the community today!\n    </p>\n  <form method="post" action="/register">\n\n    <input type="hidden" name="lat">\n    <input type="hidden" name="lng">\n\n    <div class="form-group">\n\n      <input class="form-control" name="username" placeholder="Username">\n    </div>\n    <div class="form-group">\n\n      <input class="form-control" name="fullname" placeholder="Full Name">\n    </div>\n    <div class="form-group">\n      <input class="form-control" name="image" placeholder="Image">\n    </div>\n    <div class="form-group">\n      <input class="form-control" name="postcode" placeholder="Postcode">\n    </div>\n    <div class="form-group">\n      <select class="form-control" id="skill_level">\n        <option>Absolute Novice</option>\n        <option>Beginner</option>\n        <option>Intermediate</option>\n        <option>Advanced</option>\n        <option>Total Pro</option>\n      </select>\n    </div>\n    <div class="form-group">\n      <input class="form-control" name="availability" placeholder="Availability">\n    </div>\n    <div class="form-group">\n      <select class="form-control" id="ageRange">\n        <option>Under 18</option>\n        <option>18-35</option>\n        <option>35-59</option>\n      </select>\n    </div>\n    <div class="form-group">\n      <input class="form-control" name="travel_distance" placeholder="Travel Distance">\n    </div>\n    <div class="form-group">\n      <input class="form-control" name="email" placeholder="Email">\n    </div>\n    <div class="form-group">\n      <input class="form-control" name="phoneNumber" placeholder="Phone Number">\n    </div>\n    <div class="form-group">\n      <input class="form-control" type="password" name="password" placeholder="Password">\n    </div>\n    <div class="form-group">\n      <input class="form-control" type="password" name="passwordConfirmation" placeholder="Password Confirmation">\n    </div>\n    <button class="btn btn-primary">Register</button>\n  </form>\n');
 };

@@ -12,7 +12,7 @@ $(() => {
   let geocoder = new google.maps.Geocoder();
 
   //handles the registration form
-  //handles the registration form
+
   function handleForm(e){
 
     e.preventDefault();
@@ -50,9 +50,8 @@ $(() => {
       }
     })
     .done((data) => {
-
       if (data && data.token){
-
+        localStorage.setItem('_id',data.user._id);
         localStorage.setItem('token', data.token);
         if (window.location.pathname === "/") {
        window.location.replace("/members");
@@ -188,6 +187,7 @@ $(() => {
         function logout(){
           if(event) event.preventDefault();
           localStorage.removeItem('token');
+          localStorage.removeItem('_id');
           $map.hide();
           showLoginForm();
           $('.loggedIn').toggle();
@@ -198,7 +198,7 @@ $(() => {
         const showMembersPage = () => {
 
           if ( isLoggedIn() ) {
-          
+
             $map.show();
             $('.loggedIn').show();
             $('.loginForm').hide();
@@ -219,7 +219,30 @@ $(() => {
           });
         };
 
-const showRegForm =() => {
+const showRegForm = (action) => {
+  let method = "POST";
+  let button = "Register";
+
+  if (action == "edit") {
+    method = "PUT";
+    button = 'Update';
+  }
+
+  let token = localStorage.getItem('token');
+  let _id = localStorage.getItem('_id');
+
+  $.ajax({
+    url: `/user/${_id}`,
+    method:'GET',
+    beforeSend: function(jqXHR) {
+      if(token) return jqXHR.setRequestHeader('Authorization',`Bearer ${token}`);
+    }
+  })
+  .done((user)=> {
+
+  console.log(user);
+
+  });
   $('.register').html(`
     <p class="jointoday">
       Join the community today!
