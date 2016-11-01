@@ -5,6 +5,7 @@ var googleMap = googleMap || {};
 googleMap.getUsers = function () {
   $.get("http://localhost:8000/users").done(this.loopThroughtUsers);
 };
+
 googleMap.addInfoWindowForUser = function (user, marker) {
   var _this = this;
 
@@ -24,7 +25,7 @@ googleMap.mapSetup = function () {
 
   var latLng = { lat: 51.5,
     lng: -0.08 };
-  console.log(latLng);
+
   var mapOptions = {
     zoom: 14,
     center: new google.maps.LatLng(51.5, -0.08),
@@ -32,12 +33,22 @@ googleMap.mapSetup = function () {
   };
   this.map = new google.maps.Map(canvas, mapOptions);
   this.getUsers();
-  getVenues(latLng, this.map);
+  getVenues(latLng);
+
+  this.map.addListener('idle', function () {
+    // 3 seconds after the center of the map has changed search for places again.
+    window.setTimeout(function () {
+      var newLocation = googleMap.map.getCenter();
+      var latLng = { lat: newLocation.lat(),
+        lng: newLocation.lng() };
+      getVenues(latLng);
+    }, 3000);
+  });
 };
 
 googleMap.createMarkerForUser = function (user) {
   var latLng = new google.maps.LatLng(user.lat, user.lng);
-  console.log(user);
+
   var marker = new google.maps.Marker({
     position: latLng,
     map: googleMap.map,
@@ -52,8 +63,8 @@ googleMap.loopThroughtUsers = function (users) {
   });
 };
 
-function getVenues(latLng, canvas) {
-  console.log("getvenue", latLng);
+function getVenues(latLng) {
+
   // console.log(google.maps.places);
   var request = {
     location: latLng,
@@ -61,13 +72,13 @@ function getVenues(latLng, canvas) {
     query: 'tennis courts',
     rankby: 'distance'
   };
-  console.log(canvas);
-  var service = new google.maps.places.PlacesService(canvas);
+
+  var service = new google.maps.places.PlacesService(googleMap.map);
   service.textSearch(request, callback);
 }
 
 function callback(results, status, pagination) {
-  console.log(results.length);
+
   if (status == google.maps.places.PlacesServiceStatus.OK) {
     for (var i = 0; i < results.length; i++) {
       var place = results[i];
@@ -91,10 +102,12 @@ function createVenueMarker(place) {
 
   });
   var infowindow = new google.maps.InfoWindow();
+
   google.maps.event.addListener(marker, 'click', function () {
 
     var website = "";
 
+    var service = new google.maps.places.PlacesService(googleMap.map);
     service.getDetails({
       placeId: place.place_id
     }, function (place, status) {
@@ -105,22 +118,12 @@ function createVenueMarker(place) {
         google.maps.places.url = place.url;
       }
     });
+    // console.log(this);
+    //   ${google.maps.places.url}
+    infowindow.setContent("<b>" + place.name + "</b><br>\n          " + place.formatted_address + " <br>\n\n          ");
 
-    infowindow.setContent("<b>" + place.name + "</b><br>\n            " + place.formatted_address + " <br>\n            " + google.maps.places.photo + "\n            ");
-
-    infowindow.open(map, this);
+    infowindow.open(googleMap.map, this);
   });
 }
-
-// map.addListener('idle', function() {
-//   // 3 seconds after the center of the map has changed search for places again.
-//   window.setTimeout(function() {
-//     console.log("changed");
-//     let newLocation = map.getCenter();
-//     let latLng= {lat: newLocation.lat(),
-//       lng:newLocation.lng()};
-//       getVenues(latLng);
-//     }, 3000);
-//   });
 
 $(googleMap.mapSetup.bind(googleMap));
