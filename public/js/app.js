@@ -15,16 +15,35 @@ $(function () {
   // $main.on('click', '.userPage', getUser);
   // $main.on('click', '.venuePage', getVenue);
   $('body').on('submit', 'form', handleForm);
+  var geocoder = new google.maps.Geocoder();
 
+  //handles the registration form
   //handles the registration form
   function handleForm(e) {
     console.log("form clicked");
     e.preventDefault();
-    var token = localStorage.getItem('token');
     var $form = $(this);
+
+    if ($form.attr('action') === '/register') {
+      var postcode = $form.find('[name=postcode]').val();
+      geocoder.geocode({ address: postcode + ', UK' }, function (results, status) {
+        if (status == google.maps.GeocoderStatus.OK) {
+          $form.find('[name=lat]').val(results[0].geometry.location.lat());
+          $form.find('[name=lng]').val(results[0].geometry.location.lng());
+          sendFormData($form);
+        }
+      });
+    } else {
+      sendFormData($form);
+    }
+  }
+
+  function sendFormData($form) {
     var url = $form.attr('action');
     var method = $form.attr('method');
     var data = $form.serialize();
+    var token = localStorage.getItem('token');
+
     $.ajax({
       url: url,
       method: method,
@@ -37,11 +56,11 @@ $(function () {
       if (data && data.token) {
         console.log(data, data.token, "ready to set token");
         localStorage.setItem('token', data.token);
+        if (window.location.pathname === "/") {
+          window.location.replace("/members");
+        }
+        showMembersPage();
       }
-      if (window.location.pathname == "/") {
-        window.location.replace("/members");
-      }
-      showMembersPage();
     });
   }
 

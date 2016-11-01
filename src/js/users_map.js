@@ -2,7 +2,7 @@ var googleMap = googleMap || {};
 
 
 googleMap.getUsers = function () {
-  $.get("http://localhost:8000/api/users")
+  $.get("./users")
     .done(this.loopThroughtUsers);
 };
 googleMap.addInfoWindowForUser = function (user, marker) {

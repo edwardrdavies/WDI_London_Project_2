@@ -3,7 +3,7 @@
 var googleMap = googleMap || {};
 
 googleMap.getUsers = function () {
-  $.get("http://localhost:8000/api/users").done(this.loopThroughtUsers);
+  $.get("./users").done(this.loopThroughtUsers);
 };
 googleMap.addInfoWindowForUser = function (user, marker) {
   var _this = this;

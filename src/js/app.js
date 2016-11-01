@@ -13,17 +13,38 @@ $(() => {
   // $main.on('click', '.userPage', getUser);
   // $main.on('click', '.venuePage', getVenue);
   $('body').on('submit', 'form', handleForm);
+  let geocoder = new google.maps.Geocoder();
 
-
+  //handles the registration form
   //handles the registration form
   function handleForm(e){
     console.log("form clicked");
     e.preventDefault();
-    let token = localStorage.getItem('token');
     let $form = $(this);
+
+
+    if($form.attr('action') === '/register') {
+      let postcode = $form.find('[name=postcode]').val();
+      geocoder.geocode({ address: `${postcode}, UK` }, (results, status) => {
+        if(status == google.maps.GeocoderStatus.OK) {
+          $form.find('[name=lat]').val(results[0].geometry.location.lat());
+          $form.find('[name=lng]').val(results[0].geometry.location.lng());
+          sendFormData($form);
+        }
+
+      });
+    }
+    else {
+      sendFormData($form);
+    }
+  }
+
+  function sendFormData($form) {
     let url = $form.attr('action');
     let method = $form.attr('method');
     let data = $form.serialize();
+    let token = localStorage.getItem('token');
+
     $.ajax({
       url,
       method,
@@ -37,14 +58,14 @@ $(() => {
       if (data && data.token){
         console.log(data,data.token,"ready to set token");
         localStorage.setItem('token', data.token);
+        if (window.location.pathname === "/") {
+       window.location.replace("/members");
+     }
+     showMembersPage();
       }
-      if (window.location.pathname == "/") {
-        window.location.replace("/members");
-      }
-      showMembersPage();
+
     });
   }
-
 
 
   // shows the login form.
