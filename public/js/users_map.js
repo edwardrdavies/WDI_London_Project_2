@@ -103,9 +103,10 @@ function createVenueMarker(place) {
   });
   var infowindow = new google.maps.InfoWindow();
 
-  google.maps.event.addListener(marker, 'click', function () {
+  marker.addListener('click', function () {
 
     var website = "";
+    var marker = this;
 
     var service = new google.maps.places.PlacesService(googleMap.map);
     service.getDetails({
@@ -116,13 +117,13 @@ function createVenueMarker(place) {
 
         google.maps.places.photo = place.photos ? place.photos[0].getUrl({ 'maxWidth': 200, 'maxHeight': 200 }) : "";
         google.maps.places.url = place.url;
+
+        infowindow.setContent("<b>" + place.name + "</b><br>\n              " + place.formatted_address + " <br>\n              " + google.maps.places.url + "\n              ");
+
+        infowindow.open(googleMap.map, marker);
       }
     });
-    // console.log(this);
-    //   ${google.maps.places.url}
-    infowindow.setContent("<b>" + place.name + "</b><br>\n          " + place.formatted_address + " <br>\n\n          ");
-
-    infowindow.open(googleMap.map, this);
+    console.log(this);
   });
 }
 
