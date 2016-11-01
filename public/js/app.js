@@ -9,7 +9,8 @@ $(function () {
   //event handlers go here
   // $('.register').on('click', showRegisterForm);
   // $('.login').on('click', showLoginForm);
-  // $('.logout').on('click', logout);
+  $('.logout').on('click', logout);
+  $('.edit').on('click', showEditBar);
   // $('.map').on('click', getUsers);
   // $('.clubs').on('click', getVenues);
   // $main.on('click', '.userPage', getUser);
@@ -55,7 +56,7 @@ $(function () {
         console.log(data, data.token, "ready to set token");
         localStorage.setItem('token', data.token);
       }
-      listUsers();
+      showMembersPage();
     });
   }
 
@@ -63,7 +64,7 @@ $(function () {
   function showLoginForm() {
 
     if (event) event.preventDefault();
-    $main.html('\n      <h2 class="form-signin-heading">Login</h2>\n      <form method="post" action="/login">\n    <div class="form-group">\n      <input class="form-control" name="email" placeholder="Email">\n      </div>\n      <div class="form-group">\n      <input class="form-control" type="password" name="password" placeholder="Password">\n      </div>\n      <button class="btn btn-primary" type="submit">Register</button>\n      </form>\n      ');
+    $main.html('\n      <h2 class="form-signin-heading">Login</h2>\n      <form method="post" action="/login">\n      <div class="form-group">\n      <input class="form-control" name="email" placeholder="Email">\n      </div>\n      <div class="form-group">\n      <input class="form-control" type="password" name="password" placeholder="Password">\n      </div>\n      <button class="btn btn-primary" type="submit">Login</button>\n      </form>\n      ');
   }
 
   // get users sends the GET to the API server to get all users
@@ -80,8 +81,6 @@ $(function () {
     }).done(function (users) {
 
       showUsers(users);
-      // isLoggedInDisplay();
-
     });
   }
 
@@ -123,63 +122,32 @@ $(function () {
     return !!localStorage.getItem('token');
   }
 
-  // similar to getUsers, sends a get request to get venue list.
-  function getVenues() {
-    if (event) event.preventDefault();
-    var token = localStorage.getItem('token');
-    $.ajax({
-      url: '/api/venue',
-      method: 'GET',
-      beforeSend: function beforeSend(jqXHR) {
-        if (token) return jqXHR.setRequestHeader('Authorization', 'Bearer ' + token);
-      }
-    }).done(function (venues) {
-      showVenues(venues);
-      isLoggedInDisplay();
-    });
-  }
-
-  // adds HTML for venue list
-  function showVenues(venues) {
-    if (event) event.preventDefault();
-    var $row = $('<div class="row"></div>');
-    venues.forEach(function (venue) {
-      $row.append('\n              <div class="col-md-4">\n              <div class="card">\n              <img class="card-img-top" src="' + venue.image + '" alt="Card image cap">\n              <div class="card-block">\n              <h4 class="card-title">' + venue.venueName + '</h4>\n              <p class="card-text">' + venue.description + '</p>\n              <p class="card-text"><small class="text-muted">' + venue.address + '</small></p>\n              <p class="card-text"><small class="text-muted">' + venue.url + '</small></p>\n              <button class="venuePage" data-id="' + venue._id + '">See More</button>\n              </div>\n              </div>\n              </div>\n              </div>\n              ');
-    });
-    $main.html($row);
-  }
-
-  // get One Venue, needs to be edited to display in relevant part of the page.
-  function getVenue(venueID) {
-
-    if (event) {
-      event.preventDefault();
-    }
-    var id = $(event.target).data('id');
-    var token = localStorage.getItem('token');
-    $.ajax({
-      url: '/api/venue/' + id,
-      method: 'GET',
-      beforeSend: function beforeSend(jqXHR) {
-        if (token) return jqXHR.setRequestHeader('Authorization', 'Bearer ' + token);
-      }
-    }).done(function (venue) {
-      // needs to be edited so that it places the data where it's meant to go!
-      $main.prepend('\n                <div class="col-md-4">\n                <div class="card">\n\n                <img class="card-img-top" src="' + venue.image + '" alt="Card image cap">\n                <div class="card-block">\n                <h4 class="card-title">' + venue.venueName + '</h4>\n                <p class="card-text">' + venue.description + '</p>\n                <p class="card-text"><small class="text-muted">' + venue.address + '</small></p>\n                <p class="card-text"><small class="text-muted">' + venue.url + '</small></p>\n                <button class="venuePage" data-id="' + venue._id + '">See More</button>\n\n                </div>\n                </div>\n                </div>\n                </div>\n                ');
-    });
-  }
-
   function logout() {
     if (event) event.preventDefault();
     localStorage.removeItem('token');
     showLoginForm();
+    $('.loggedIn').toggle();
   }
 
   // display users if loggedin - users if not.
-  if (isLoggedIn()) {
-    $main.empty();
-    listUsers();
-  } else {
-    showLoginForm();
-  }
+
+  var showMembersPage = function showMembersPage() {
+
+    if (isLoggedIn()) {
+      $main.empty();
+      listUsers();
+      $('.loggedIn').show();
+    } else {
+      showLoginForm();
+    }
+  };
+
+  showMembersPage();
 });
+
+var showEditBar = function showEditBar() {
+  console.log('clicked');
+  $('.editBar').slideToggle("slow", function () {
+    // Animation complete.
+  });
+};

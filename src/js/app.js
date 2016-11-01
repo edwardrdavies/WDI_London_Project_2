@@ -8,7 +8,8 @@ $(() => {
   //event handlers go here
   // $('.register').on('click', showRegisterForm);
   // $('.login').on('click', showLoginForm);
-  // $('.logout').on('click', logout);
+  $('.logout').on('click', logout);
+  $('.edit').on('click', showEditBar);
   // $('.map').on('click', getUsers);
   // $('.clubs').on('click', getVenues);
   // $main.on('click', '.userPage', getUser);
@@ -59,7 +60,7 @@ $(() => {
         console.log(data,data.token,"ready to set token");
         localStorage.setItem('token', data.token);
       }
-      listUsers();
+      showMembersPage();
     });
   }
 
@@ -72,13 +73,13 @@ $(() => {
     $main.html(`
       <h2 class="form-signin-heading">Login</h2>
       <form method="post" action="/login">
-    <div class="form-group">
+      <div class="form-group">
       <input class="form-control" name="email" placeholder="Email">
       </div>
       <div class="form-group">
       <input class="form-control" type="password" name="password" placeholder="Password">
       </div>
-      <button class="btn btn-primary" type="submit">Register</button>
+      <button class="btn btn-primary" type="submit">Login</button>
       </form>
       `);
     }
@@ -98,8 +99,6 @@ $(() => {
       .done((users)=> {
 
         showUsers(users);
-        // isLoggedInDisplay();
-
 
       });
 
@@ -183,104 +182,32 @@ $(() => {
     }
 
 
-
-        // similar to getUsers, sends a get request to get venue list.
-        function getVenues(){
-          if (event) event.preventDefault();
-          let token = localStorage.getItem('token');
-          $.ajax({
-            url: '/api/venue',
-            method:'GET',
-            beforeSend: function(jqXHR) {
-              if(token) return jqXHR.setRequestHeader('Authorization',`Bearer ${token}`);
-            }
-          })
-          .done((venues)=> {
-            showVenues(venues);
-            isLoggedInDisplay();
-          });
+        function logout(){
+          if(event) event.preventDefault();
+          localStorage.removeItem('token');
+          showLoginForm();
+          $('.loggedIn').toggle();
         }
 
-        // adds HTML for venue list
-        function showVenues(venues) {
-          if (event) event.preventDefault();
-          let $row = $('<div class="row"></div>');
-          venues.forEach((venue) => {
-            $row.append(`
-              <div class="col-md-4">
-              <div class="card">
-              <img class="card-img-top" src="${venue.image}" alt="Card image cap">
-              <div class="card-block">
-              <h4 class="card-title">${venue.venueName}</h4>
-              <p class="card-text">${venue.description}</p>
-              <p class="card-text"><small class="text-muted">${venue.address}</small></p>
-              <p class="card-text"><small class="text-muted">${venue.url}</small></p>
-              <button class="venuePage" data-id="${venue._id}">See More</button>
-              </div>
-              </div>
-              </div>
-              </div>
-              `);
-            });
-            $main.html($row);
-          }
+        // display users if loggedin - users if not.
 
-          // get One Venue, needs to be edited to display in relevant part of the page.
-          function getVenue(venueID){
+        const showMembersPage = () => {
 
-            if (event) {
-              event.preventDefault();
+          if ( isLoggedIn() ) {
+            $main.empty();
+            listUsers();
+            $('.loggedIn').show();
+          } else {
+            showLoginForm();
+          }};
 
-            }
-            let id = $(event.target).data('id');
-            let token = localStorage.getItem('token');
-            $.ajax({
-              url: `/api/venue/${id}`,
-              method:'GET',
-              beforeSend: function(jqXHR) {
-                if(token) return jqXHR.setRequestHeader('Authorization',`Bearer ${token}`);
-              }
-            })
-            .done((venue)=> {
-              // needs to be edited so that it places the data where it's meant to go!
-              $main.prepend(`
-                <div class="col-md-4">
-                <div class="card">
+          showMembersPage();
 
-                <img class="card-img-top" src="${venue.image}" alt="Card image cap">
-                <div class="card-block">
-                <h4 class="card-title">${venue.venueName}</h4>
-                <p class="card-text">${venue.description}</p>
-                <p class="card-text"><small class="text-muted">${venue.address}</small></p>
-                <p class="card-text"><small class="text-muted">${venue.url}</small></p>
-                <button class="venuePage" data-id="${venue._id}">See More</button>
+        });
 
-                </div>
-                </div>
-                </div>
-                </div>
-                `);
-
-
-
-
-
-              });
-            }
-
-
-            function logout(){
-              if(event) event.preventDefault();
-              localStorage.removeItem('token');
-              showLoginForm();
-
-            }
-
-            // display users if loggedin - users if not.
-    if ( isLoggedIn() ) {
-      $main.empty();
-      listUsers();
-    } else {
-    showLoginForm();
-  }
-});
+        const showEditBar = () => {
+          console.log('clicked');
+          $('.editBar').slideToggle( "slow", function() {
+            // Animation complete.
+          });
+        };

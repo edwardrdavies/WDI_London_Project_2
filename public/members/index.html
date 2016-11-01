@@ -2,30 +2,53 @@
 <html>
 <head>
 
-  <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.4/css/bootstrap.min.css"> -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.4/css/bootstrap.min.css">
 
-  <link rel="stylesheet" href="../css/style.css">
-  <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script> -->
+  <link rel="stylesheet" href="../css/members.css">
+
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.3.7/js/tether.min.js" charset="utf-8"></script>
-  <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.4/js/bootstrap.min.js"></script> -->
+
   <script src="../js/app.js" charset="utf-8"></script>
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB54_x_Vqe5uUc0eubPI6KSymlhOCJJaAM" charset="utf-8"></script>
   <script src="../js/map.js" charset="utf-8"></script>
 </head>
 <body>
-<main class="container">
-
-<div id="map">
-</div>
 
 
+  <nav class="navbar navbar-dark bg-inverse">
+    <a class="navbar-brand" href="#">Game, Set, Match</a>
 
-</div>
+    <!-- Tool bar when logged in -->
+    <ul class="nav navbar-nav loggedIn">
+      <li class="nav-item active">
+        <a class="nav-link" href="#">Find a Player<span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link edit" href="#">Edit your profile</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link logout" href="#">Logout</a>
+      </li>
+
+    </ul>
+
+  </nav>
+<div class="editBar"></div>
+
+  <div class="container">
+
+    <div id="map">
+      map goes here
+    </div>
+
+    <main>
+    </main>
+  </div>
 
 
 
-  </body>
+
+
+</body>
 </html>
