@@ -124,7 +124,8 @@ googleMap.mapSetup = function () {
 
             infowindow.setContent(`<b>${place.name}</b><br>
               ${place.formatted_address} <br>
-              ${google.maps.places.url}
+              <a href="${google.maps.places.url}">More Info...</a>
+              <br><img src="${google.maps.places.photo}" alt="venue img">
               `);
 
               infowindow.open(googleMap.map, marker);

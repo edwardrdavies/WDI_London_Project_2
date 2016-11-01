@@ -4,16 +4,12 @@ $(function () {
 
   // assign variables that will be used throughout.
   var $main = $('main');
+  var $map = $('#all-map');
 
   //event handlers go here
-  // $('.register').on('click', showRegisterForm);
-  // $('.login').on('click', showLoginForm);
   $('.logout').on('click', logout);
   $('.edit').on('click', showEditBar);
-  // $('.map').on('click', getUsers);
-  // $('.clubs').on('click', getVenues);
-  // $main.on('click', '.userPage', getUser);
-  // $main.on('click', '.venuePage', getVenue);
+
   $('body').on('submit', 'form', handleForm);
   var geocoder = new google.maps.Geocoder();
 
@@ -59,8 +55,9 @@ $(function () {
         if (window.location.pathname === "/") {
           window.location.replace("/members");
         }
-        showMembersPage();
       }
+      console.log("hellos!");
+      showMembersPage();
     });
   }
 
@@ -68,7 +65,7 @@ $(function () {
   function showLoginForm() {
 
     if (event) event.preventDefault();
-    $main.html('\n\n      <h2 class="form-signin-heading">Login</h2>\n      <form method="post" action="/login">\n      <div class="form-group">\n      <input class="form-control" name="email" placeholder="Email">\n      </div>\n      <div class="form-group">\n      <input class="form-control" type="password" name="password" placeholder="Password">\n      </div>\n      <button class="btn btn-primary" type="submit">Login</button>\n      </form>\n      ');
+    $main.append('\n      <div class="loginForm">\n      <h2 class="form-signin-heading">Login</h2>\n      <form method="post" action="/login">\n      <div class="form-group">\n      <input class="form-control" name="email" placeholder="Email">\n      </div>\n      <div class="form-group">\n      <input class="form-control" type="password" name="password" placeholder="Password">\n      </div>\n      <button class="btn btn-primary" type="submit">Login</button>\n      </form></div>\n      ');
   }
 
   // get users sends the GET to the API server to get all users
@@ -129,6 +126,7 @@ $(function () {
   function logout() {
     if (event) event.preventDefault();
     localStorage.removeItem('token');
+    $map.hide();
     showLoginForm();
     $('.loggedIn').toggle();
   }
@@ -138,20 +136,20 @@ $(function () {
   var showMembersPage = function showMembersPage() {
 
     if (isLoggedIn()) {
-      $main.empty();
-      // listUsers();
+      console.log("i', here");
+      $map.show();
       $('.loggedIn').show();
+      $('.loginForm').hide();
     } else {
       showLoginForm();
       showRegForm();
     }
   };
-
-  showMembersPage();
 });
 
 var showEditBar = function showEditBar() {
-  console.log('clicked');
+  showRegForm();
+  $('.jointoday').remove();
   $('.editBar').slideToggle("slow", function () {
     // Animation complete.
   });

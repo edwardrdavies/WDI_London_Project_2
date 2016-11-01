@@ -2,16 +2,12 @@ $(() => {
 
   // assign variables that will be used throughout.
   let $main = $('main');
+  let $map = $('#all-map');
 
   //event handlers go here
-  // $('.register').on('click', showRegisterForm);
-  // $('.login').on('click', showLoginForm);
   $('.logout').on('click', logout);
   $('.edit').on('click', showEditBar);
-  // $('.map').on('click', getUsers);
-  // $('.clubs').on('click', getVenues);
-  // $main.on('click', '.userPage', getUser);
-  // $main.on('click', '.venuePage', getVenue);
+
   $('body').on('submit', 'form', handleForm);
   let geocoder = new google.maps.Geocoder();
 
@@ -61,9 +57,10 @@ $(() => {
         if (window.location.pathname === "/") {
        window.location.replace("/members");
      }
-     showMembersPage();
-      }
 
+      }
+  console.log("hellos!");
+ showMembersPage();
     });
   }
 
@@ -72,8 +69,8 @@ $(() => {
   function showLoginForm() {
 
     if (event) event.preventDefault();
-    $main.html(`
-
+    $main.append(`
+      <div class="loginForm">
       <h2 class="form-signin-heading">Login</h2>
       <form method="post" action="/login">
       <div class="form-group">
@@ -83,7 +80,7 @@ $(() => {
       <input class="form-control" type="password" name="password" placeholder="Password">
       </div>
       <button class="btn btn-primary" type="submit">Login</button>
-      </form>
+      </form></div>
       `);
     }
 
@@ -191,6 +188,7 @@ $(() => {
         function logout(){
           if(event) event.preventDefault();
           localStorage.removeItem('token');
+          $map.hide();
           showLoginForm();
           $('.loggedIn').toggle();
         }
@@ -200,20 +198,22 @@ $(() => {
         const showMembersPage = () => {
 
           if ( isLoggedIn() ) {
-            $main.empty();
-            // listUsers();
+            console.log("i', here");
+            $map.show();
             $('.loggedIn').show();
+            $('.loginForm').hide();
           } else {
             showLoginForm();
             showRegForm();
           }};
 
-          showMembersPage();
+
 
         });
 
         const showEditBar = () => {
-          console.log('clicked');
+          showRegForm();
+          $('.jointoday').remove();
           $('.editBar').slideToggle( "slow", function() {
             // Animation complete.
           });

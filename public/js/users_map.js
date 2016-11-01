@@ -118,7 +118,7 @@ function createVenueMarker(place) {
         google.maps.places.photo = place.photos ? place.photos[0].getUrl({ 'maxWidth': 200, 'maxHeight': 200 }) : "";
         google.maps.places.url = place.url;
 
-        infowindow.setContent("<b>" + place.name + "</b><br>\n              " + place.formatted_address + " <br>\n              " + google.maps.places.url + "\n              ");
+        infowindow.setContent("<b>" + place.name + "</b><br>\n              " + place.formatted_address + " <br>\n              <a href=\"" + google.maps.places.url + "\">More Info...</a>\n              <br><img src=\"" + google.maps.places.photo + "\" alt=\"venue img\">\n              ");
 
         infowindow.open(googleMap.map, marker);
       }
