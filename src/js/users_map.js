@@ -101,7 +101,7 @@ googleMap.mapSetup = function () {
         position: place.geometry.location,
 
         icon: {
-          url: 'https://s21.postimg.org/4qxzdfjwn/tennis_court.png',
+          url: '../images/tennis-ball.png',
           anchor: new google.maps.Point(10, 10),
           scaledSize: new google.maps.Size(35, 35)
         }
