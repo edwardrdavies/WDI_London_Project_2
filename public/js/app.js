@@ -15,16 +15,35 @@ $(function () {
   // $main.on('click', '.userPage', getUser);
   // $main.on('click', '.venuePage', getVenue);
   $('body').on('submit', 'form', handleForm);
+  var geocoder = new google.maps.Geocoder();
 
+  //handles the registration form
   //handles the registration form
   function handleForm(e) {
     console.log("form clicked");
     e.preventDefault();
-    var token = localStorage.getItem('token');
     var $form = $(this);
+
+    if ($form.attr('action') === '/register') {
+      var postcode = $form.find('[name=postcode]').val();
+      geocoder.geocode({ address: postcode + ', UK' }, function (results, status) {
+        if (status == google.maps.GeocoderStatus.OK) {
+          $form.find('[name=lat]').val(results[0].geometry.location.lat());
+          $form.find('[name=lng]').val(results[0].geometry.location.lng());
+          sendFormData($form);
+        }
+      });
+    } else {
+      sendFormData($form);
+    }
+  }
+
+  function sendFormData($form) {
     var url = $form.attr('action');
     var method = $form.attr('method');
     var data = $form.serialize();
+    var token = localStorage.getItem('token');
+
     $.ajax({
       url: url,
       method: method,
@@ -37,8 +56,11 @@ $(function () {
       if (data && data.token) {
         console.log(data, data.token, "ready to set token");
         localStorage.setItem('token', data.token);
+        if (window.location.pathname === "/") {
+          window.location.replace("/members");
+        }
+        showMembersPage();
       }
-      showMembersPage();
     });
   }
 
@@ -117,10 +139,11 @@ $(function () {
 
     if (isLoggedIn()) {
       $main.empty();
-      listUsers();
+      // listUsers();
       $('.loggedIn').show();
     } else {
       showLoginForm();
+      showRegForm();
     }
   };
 
@@ -132,4 +155,8 @@ var showEditBar = function showEditBar() {
   $('.editBar').slideToggle("slow", function () {
     // Animation complete.
   });
+};
+
+var showRegForm = function showRegForm() {
+  $('.register').html('\n    <p class="jointoday">\n      Join the community today!\n    </p>\n  <form method="post" action="/register">\n\n    <input type="hidden" name="lat">\n    <input type="hidden" name="lng">\n\n    <div class="form-group">\n\n      <input class="form-control" name="username" placeholder="Username">\n    </div>\n    <div class="form-group">\n\n      <input class="form-control" name="fullname" placeholder="Full Name">\n    </div>\n    <div class="form-group">\n      <input class="form-control" name="image" placeholder="Image">\n    </div>\n    <div class="form-group">\n      <input class="form-control" name="postcode" placeholder="Postcode">\n    </div>\n    <div class="form-group">\n      <select class="form-control" id="skill_level">\n        <option>Absolute Novice</option>\n        <option>Beginner</option>\n        <option>Intermediate</option>\n        <option>Advanced</option>\n        <option>Total Pro</option>\n      </select>\n    </div>\n    <div class="form-group">\n      <input class="form-control" name="availability" placeholder="Availability">\n    </div>\n    <div class="form-group">\n      <select class="form-control" id="ageRange">\n        <option>Under 18</option>\n        <option>18-35</option>\n        <option>35-59</option>\n      </select>\n    </div>\n    <div class="form-group">\n      <input class="form-control" name="travel_distance" placeholder="Travel Distance">\n    </div>\n    <div class="form-group">\n      <input class="form-control" name="email" placeholder="Email">\n    </div>\n    <div class="form-group">\n      <input class="form-control" name="phoneNumber" placeholder="Phone Number">\n    </div>\n    <div class="form-group">\n      <input class="form-control" type="password" name="password" placeholder="Password">\n    </div>\n    <div class="form-group">\n      <input class="form-control" type="password" name="passwordConfirmation" placeholder="Password Confirmation">\n    </div>\n    <button class="btn btn-primary">Register</button>\n  </form>\n');
 };
