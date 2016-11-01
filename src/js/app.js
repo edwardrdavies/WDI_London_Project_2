@@ -2,23 +2,19 @@ $(() => {
 
   // assign variables that will be used throughout.
   let $main = $('main');
+  let $map = $('#all-map');
 
   //event handlers go here
-  // $('.register').on('click', showRegisterForm);
-  // $('.login').on('click', showLoginForm);
   $('.logout').on('click', logout);
   $('.edit').on('click', showEditBar);
-  // $('.map').on('click', getUsers);
-  // $('.clubs').on('click', getVenues);
-  // $main.on('click', '.userPage', getUser);
-  // $main.on('click', '.venuePage', getVenue);
+
   $('body').on('submit', 'form', handleForm);
   let geocoder = new google.maps.Geocoder();
 
   //handles the registration form
-  //handles the registration form
+
   function handleForm(e){
-    console.log("form clicked");
+
     e.preventDefault();
     let $form = $(this);
 
@@ -54,16 +50,16 @@ $(() => {
       }
     })
     .done((data) => {
-      console.log("the done form action has been working");
       if (data && data.token){
-        console.log(data,data.token,"ready to set token");
+        localStorage.setItem('_id',data.user._id);
         localStorage.setItem('token', data.token);
         if (window.location.pathname === "/") {
        window.location.replace("/members");
      }
-     showMembersPage();
+
       }
 
+ showMembersPage();
     });
   }
 
@@ -72,8 +68,8 @@ $(() => {
   function showLoginForm() {
 
     if (event) event.preventDefault();
-    $main.html(`
-
+    $main.append(`
+      <div class="loginForm">
       <h2 class="form-signin-heading">Login</h2>
       <form method="post" action="/login">
       <div class="form-group">
@@ -83,7 +79,7 @@ $(() => {
       <input class="form-control" type="password" name="password" placeholder="Password">
       </div>
       <button class="btn btn-primary" type="submit">Login</button>
-      </form>
+      </form></div>
       `);
     }
 
@@ -174,7 +170,7 @@ $(() => {
 
 
 
-            console.log(venue);
+
             isLoggedInDisplay();
           });
         }
@@ -191,6 +187,8 @@ $(() => {
         function logout(){
           if(event) event.preventDefault();
           localStorage.removeItem('token');
+          localStorage.removeItem('_id');
+          $map.hide();
           showLoginForm();
           $('.loggedIn').toggle();
         }
@@ -200,29 +198,65 @@ $(() => {
         const showMembersPage = () => {
 
           if ( isLoggedIn() ) {
-            $main.empty();
-            // listUsers();
+            console.log('is logged in');
+            $map.show();
             $('.loggedIn').show();
+            $('.loginForm').hide();
           } else {
+            $('.loggedIn').hide();
             showLoginForm();
             showRegForm();
+            $map.hide();
           }};
 
-          showMembersPage();
 
+showMembersPage();
         });
 
         const showEditBar = () => {
-          console.log('clicked');
+          showRegForm();
+
           $('.editBar').slideToggle( "slow", function() {
             // Animation complete.
           });
         };
 
-const showRegForm =() => {
+
+
+const showRegForm = (action) => {
+
+
+  let method = "POST";
+  let button = "Register";
+  let message ="Join the community today!";
+
+  if (action == "edit") {
+    method = "PUT";
+    button = 'Update';
+    message ="Update Your Profile";
+  }
+
+  let token = localStorage.getItem('token');
+  let _id = localStorage.getItem('_id');
+if (token) {
+  console.log("I got a toekn");
+  $.ajax({
+    url: `/user/${_id}`,
+    method:'GET',
+    beforeSend: function(jqXHR) {
+      if(token) return jqXHR.setRequestHeader('Authorization',`Bearer ${token}`);
+    }
+  })
+  .done((user)=> {
+
+  console.log(user);
+
+  });
+}
+
   $('.register').html(`
     <p class="jointoday">
-      Join the community today!
+    ${message}
     </p>
   <form method="post" action="/register">
 
