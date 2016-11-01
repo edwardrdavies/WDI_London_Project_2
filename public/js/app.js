@@ -16,7 +16,7 @@ $(function () {
   //handles the registration form
   //handles the registration form
   function handleForm(e) {
-    console.log("form clicked");
+
     e.preventDefault();
     var $form = $(this);
 
@@ -48,15 +48,15 @@ $(function () {
         if (token) return jqXHR.setRequestHeader('Authorization', 'Bearer ' + token);
       }
     }).done(function (data) {
-      console.log("the done form action has been working");
+
       if (data && data.token) {
-        console.log(data, data.token, "ready to set token");
+
         localStorage.setItem('token', data.token);
         if (window.location.pathname === "/") {
           window.location.replace("/members");
         }
       }
-      console.log("hellos!");
+
       showMembersPage();
     });
   }
@@ -111,7 +111,6 @@ $(function () {
       // needs to be edited so that it places the data where it's meant to go!
       $main.prepend('\n            <div class="col-md-4">\n            <div class="card">\n            <img class="card-img-top" src="' + user.image + '" alt="Card image cap">\n            <div class="card-block">\n            <h4 class="card-title">' + user.username + '</h4>\n            <p class="card-text">blah</p>\n            <p class="card-text"><small class="text-muted">blah</small></p>\n            <p class="card-text"><small class="text-muted">blah</small></p>\n            <button class="venuePage" data-id="' + user._id + '">See More</button>\n            </div>\n            </div>\n            </div>\n            </div>\n            ');
 
-      console.log(venue);
       isLoggedInDisplay();
     });
   }
@@ -136,7 +135,7 @@ $(function () {
   var showMembersPage = function showMembersPage() {
 
     if (isLoggedIn()) {
-      console.log("i', here");
+
       $map.show();
       $('.loggedIn').show();
       $('.loginForm').hide();
