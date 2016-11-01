@@ -14,7 +14,7 @@ $(() => {
   //handles the registration form
   //handles the registration form
   function handleForm(e){
-    console.log("form clicked");
+
     e.preventDefault();
     let $form = $(this);
 
@@ -50,16 +50,16 @@ $(() => {
       }
     })
     .done((data) => {
-      console.log("the done form action has been working");
+
       if (data && data.token){
-        console.log(data,data.token,"ready to set token");
+
         localStorage.setItem('token', data.token);
         if (window.location.pathname === "/") {
        window.location.replace("/members");
      }
 
       }
-  console.log("hellos!");
+
  showMembersPage();
     });
   }
@@ -171,7 +171,7 @@ $(() => {
 
 
 
-            console.log(venue);
+
             isLoggedInDisplay();
           });
         }
@@ -198,7 +198,7 @@ $(() => {
         const showMembersPage = () => {
 
           if ( isLoggedIn() ) {
-            console.log("i', here");
+          
             $map.show();
             $('.loggedIn').show();
             $('.loginForm').hide();
