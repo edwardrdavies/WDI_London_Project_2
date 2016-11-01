@@ -269,7 +269,7 @@ const showRegForm =() => {
       <input class="form-control" name="email" placeholder="Email">
     </div>
     <div class="form-group">
-      <input class="form-control" name="phone_number" placeholder="Phone Number">
+      <input class="form-control" name="phoneNumber" placeholder="Phone Number">
     </div>
     <div class="form-group">
       <input class="form-control" type="password" name="password" placeholder="Password">
