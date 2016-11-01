@@ -13,7 +13,7 @@ $(() => {
   // $('.clubs').on('click', getVenues);
   // $main.on('click', '.userPage', getUser);
   // $main.on('click', '.venuePage', getVenue);
-  $main.on('submit', 'form', handleForm);
+  $('body').on('submit', 'form', handleForm);
 
 
   //handles the registration form
