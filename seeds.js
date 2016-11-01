@@ -10,14 +10,124 @@ User.create([{
   fullname: "Dan Krijgsman",
   image: "https://media.licdn.com/mpr/mpr/shrinknp_400_400/AAEAAQAAAAAAAAeSAAAAJGQyZDVmNjVlLTY3ZDktNGEwNi05M2YyLTI3Y2FiMjQ4N2JlYw.jpg",
   postcode: "SE58NZ",
-  skillLevel: "Master",
+  skillLevel: "Advanced",
   availability: "Evenings",
+  ageRange: "18-35",
   travelDistance: 5,
   email: "dan@dan.com",
-  phoneNumber: 07595971006,
+  phoneNumber: "07595971006",
   passwordHash: "12345"
-
-}], (err, users) => {
+},{
+  username: "Nataliemp28",
+  fullname: "Natalie Pateman",
+  image: "http://bit.ly/2eRjEgS",
+  postcode: "E111QA",
+  skillLevel: "Intermediate",
+  availability: "Weekends",
+  ageRange: "18-35",
+  travelDistance: 10,
+  email: "natalie@gmail.com",
+  phoneNumber: "07594263060",
+  passwordHash: "password"
+},{
+  username: "Marco",
+  fullname: "Marco Servidio",
+  image: "https://s-media-cache-ak0.pinimg.com/564x/5b/82/b9/5b82b940f87e02160cda20fc8a4f386d.jpg",
+  postcode: "W1T7RJ",
+  skillLevel: "Beginner",
+  availability: "Tuesday and Thursday",
+  ageRange: "18-35",
+  travelDistance: 15,
+  email: "marco@gmail.com",
+  phoneNumber: "07883575628",
+  passwordHash: "password"
+},{
+  username: "Ed",
+  fullname: "Ed Davies",
+  image: "https://static-secure.guim.co.uk/sys-images/Guardian/About/General/2013/10/8/1381219095197/Jeremy-Paxman-014.jpg",
+  postcode: "E148AG",
+  skillLevel: "Total Pro",
+  availability: "Friday evening",
+  ageRange: "18-35",
+  travelDistance: 8,
+  email: "ed@gmail.com",
+  phoneNumber: "07586380976",
+  passwordHash: "password"
+},{
+  username: "hollywoodbrad",
+  fullname: "Brad Pitt",
+  image: "https://pbs.twimg.com/media/CO0d2ZcUkAA6gjw.jpg",
+  postcode: "SW31DE",
+  skillLevel: "Absolute Novice",
+  availability: "Every day between 9-12",
+  ageRange: "36-59",
+  travelDistance: 15,
+  email: "brad@gmail.com",
+  phoneNumber: "07956387090",
+  passwordHash: "password"
+},{
+  username: "wallBuilder",
+  fullname: "Donald Trump",
+  image: "http://www.dumpaday.com/wp-content/uploads/2015/09/Donald-trump-8.jpg",
+  postcode: "CR00AP",
+  skillLevel: "Absolute Novice",
+  availability: "anytime",
+  ageRange: "60+",
+  travelDistance: 20,
+  email: "donald@gmail.com",
+  phoneNumber: "+1832759359384",
+  passwordHash: "password"
+},{
+  username: "foxymegs",
+  fullname: "Megan Fox",
+  image: "http://bjstlh.com/image.php?pic=/data/images/megan-fox-photos/megan-fox-photos-5.jpg",
+  postcode: "SW40LY",
+  skillLevel: "Intermediate",
+  availability: "Monday evening",
+  ageRange: "18-35",
+  travelDistance: 15,
+  email: "megan@gmail.com",
+  phoneNumber: "074490759432",
+  passwordHash: "password"
+},{
+  username: "lovescakes",
+  fullname: "Mary Berry",
+  image: "http://bzfd.it/2eYckxh",
+  postcode: "SL50AA",
+  skillLevel: "Beginner",
+  availability: "Sundays",
+  ageRange: "60+",
+  travelDistance: 5,
+  email: "mary@gmail.com",
+  phoneNumber: "07889045608",
+  passwordHash: "password"
+},{
+  username: "GokWan",
+  fullname: "Gok Wan",
+  image: "http://www.hamhigh.co.uk/polopoly_fs/1.4175790.1438274323!/image/image.jpg_gen/derivatives/landscape_630/image.jpg",
+  postcode: "NW35HF",
+  skillLevel: "Absolute Pro",
+  availability: "Tuesday, Thursday, Friday",
+  ageRange: "36-59",
+  travelDistance: 3,
+  email: "gok@email.com",
+  phoneNumber: "07452639880",
+  passwordHash: "password"
+},{
+  username: "boselecta",
+  fullname: "Keith Lemon",
+  image: "http://news.images.itv.com/image/file/891331/stream_img.jpg",
+  postcode: "E61AE",
+  skillLevel: "Absolute Novice",
+  availability: "Saturday and Sunday morning",
+  ageRange: "36-59",
+  travelDistance: 10,
+  email: "keith@gmail.com",
+  phoneNumber: "07943277501",
+  passwordHash: "password"
+}
+],
+(err, users) => {
   if(err) console.log("An error occured");
   if(users) console.log(`${users.length} users created`);
 

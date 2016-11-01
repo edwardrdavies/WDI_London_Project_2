@@ -293,7 +293,8 @@ if (token) {
       <select class="form-control" id="ageRange">
         <option>Under 18</option>
         <option>18-35</option>
-        <option>35-59</option>
+        <option>36-59</option>
+        <option>60+</option>
       </select>
     </div>
     <div class="form-group">
