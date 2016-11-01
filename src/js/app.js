@@ -198,39 +198,48 @@ $(() => {
         const showMembersPage = () => {
 
           if ( isLoggedIn() ) {
-
+            console.log('is logged in');
             $map.show();
             $('.loggedIn').show();
             $('.loginForm').hide();
           } else {
+            $('.loggedIn').hide();
             showLoginForm();
             showRegForm();
+            $map.hide();
           }};
 
 
-
+showMembersPage();
         });
 
         const showEditBar = () => {
           showRegForm();
-          $('.jointoday').remove();
+
           $('.editBar').slideToggle( "slow", function() {
             // Animation complete.
           });
         };
 
+
+
 const showRegForm = (action) => {
+
+
   let method = "POST";
   let button = "Register";
+  let message ="Join the community today!";
 
   if (action == "edit") {
     method = "PUT";
     button = 'Update';
+    message ="Update Your Profile";
   }
 
   let token = localStorage.getItem('token');
   let _id = localStorage.getItem('_id');
-
+if (token) {
+  console.log("I got a toekn");
   $.ajax({
     url: `/user/${_id}`,
     method:'GET',
@@ -243,9 +252,11 @@ const showRegForm = (action) => {
   console.log(user);
 
   });
+}
+
   $('.register').html(`
     <p class="jointoday">
-      Join the community today!
+    ${message}
     </p>
   <form method="post" action="/register">
 
