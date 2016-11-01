@@ -1,6 +1,5 @@
 $(() => {
 
-
   // assign variables that will be used throughout.
   let $main = $('main');
 
@@ -38,6 +37,9 @@ $(() => {
       if (data && data.token){
         console.log(data,data.token,"ready to set token");
         localStorage.setItem('token', data.token);
+      }
+      if (window.location.pathname == "/") {
+        window.location.replace("/members");
       }
       showMembersPage();
     });
@@ -182,6 +184,7 @@ $(() => {
             $('.loggedIn').show();
           } else {
             showLoginForm();
+            showRegForm();
           }};
 
           showMembersPage();
@@ -194,3 +197,66 @@ $(() => {
             // Animation complete.
           });
         };
+
+const showRegForm =() => {
+  $('.register').html(`
+    <p class="jointoday">
+      Join the community today!
+    </p>
+  <form method="post" action="/register">
+
+    <input type="hidden" name="lat">
+    <input type="hidden" name="lng">
+
+    <div class="form-group">
+
+      <input class="form-control" name="username" placeholder="Username">
+    </div>
+    <div class="form-group">
+
+      <input class="form-control" name="fullname" placeholder="Full Name">
+    </div>
+    <div class="form-group">
+      <input class="form-control" name="image" placeholder="Image">
+    </div>
+    <div class="form-group">
+      <input class="form-control" name="postcode" placeholder="Postcode">
+    </div>
+    <div class="form-group">
+      <select class="form-control" id="skill_level">
+        <option>Absolute Novice</option>
+        <option>Beginner</option>
+        <option>Intermediate</option>
+        <option>Advanced</option>
+        <option>Total Pro</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <input class="form-control" name="availability" placeholder="Availability">
+    </div>
+    <div class="form-group">
+      <select class="form-control" id="ageRange">
+        <option>Under 18</option>
+        <option>18-35</option>
+        <option>35-59</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <input class="form-control" name="travel_distance" placeholder="Travel Distance">
+    </div>
+    <div class="form-group">
+      <input class="form-control" name="email" placeholder="Email">
+    </div>
+    <div class="form-group">
+      <input class="form-control" name="phone_number" placeholder="Phone Number">
+    </div>
+    <div class="form-group">
+      <input class="form-control" type="password" name="password" placeholder="Password">
+    </div>
+    <div class="form-group">
+      <input class="form-control" type="password" name="passwordConfirmation" placeholder="Password Confirmation">
+    </div>
+    <button class="btn btn-primary">Register</button>
+  </form>
+`);
+};
