@@ -7,35 +7,54 @@
   background-image: url('https://static.pexels.com/photos/7753/sun-ball-tennis-court.jpg');
   background-repeat: no-repeat;
   background-size: cover;
+  background-position: center top;
   text-align: center;
   color: white;
 }
 
 .next-match {
-  min-height: 300px;
-  background-image: url('https://d2lm6fxwu08ot6.cloudfront.net/img-thumbs/960w/NBRVNC5FWO.jpg');
-  background-repeat: no-repeat;
-  background-size: 50%;
+  .col-md-6 {
+    padding-bottom: 15px;
+  }
+  .image {
+    min-height: 300px;
+    background-image: url('https://d2lm6fxwu08ot6.cloudfront.net/img-thumbs/960w/NBRVNC5FWO.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
 }
 
 .venue {
-  min-height: 300px;
-  background-image: url('https://images.unsplash.com/photo-1448743133657-f67644da3008?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&s=26bbf528e41484813a58d28913f9778f');
-  background-repeat: no-repeat;
-  background-size: 50%;
-  background-position: right;
+  .col-md-6 {
+    float: none;
+
+    @media (min-width: 768px) {
+      float: right;
+    }
+    padding-bottom: 15px;
+  }
+  .image {
+    min-height: 300px;
+    background-image: url('https://images.unsplash.com/photo-1448743133657-f67644da3008?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&s=26bbf528e41484813a58d28913f9778f');
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
 }
 
 .play-match {
-min-height: 300px;
-background-image: url('https://d2lm6fxwu08ot6.cloudfront.net/img-thumbs/960w/B1E30E39B7.jpg');
-background-repeat: no-repeat;
-background-size: 50%;
-
+  .col-md-6 {
+    padding-bottom: 15px;
+  }
+  .image {
+    min-height: 300px;
+    background-image: url('https://d2lm6fxwu08ot6.cloudfront.net/img-thumbs/960w/B1E30E39B7.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
 }
 
 .venue h2, .next-match h2, .play-match h2 {
- padding-top: 60px;
+ padding-top: 15px;
 }
 
 .hero p {
@@ -45,6 +64,8 @@ background-size: 50%;
 h1 {
   padding-top: 200px;
   color: white;
+  text-transform: uppercase;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 1);
 }
 
 #map {
