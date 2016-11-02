@@ -19,7 +19,7 @@ googleMap.addInfoWindowForUser = function (user, marker) {
     }
     _this.infowindow = new google.maps.InfoWindow({
 
-      content: "\n      <h4>" + user.fullname + "</h4>\n      <p><b>Location: </b>" + user.postcode + "</p>\n      <b>Phone:</b><p>" + user.phoneNumber + "</p>\n      <p><b>Willing to travel</b>: " + user.travelDistance + " miles</p>\n      <p><b>Typical availability</b>: " + user.availability + "</p>\n      <p><b>Skill Level</b>: " + user.skillLevel + "</p>\n      <a href=\"mailto:" + user.email + "\"><button class=\"btn btn-info\">Email</button></a>\n      "
+      content: "\n      <h4>" + user.fullname + "</h4>\n      <p><b>Location: </b>" + user.postcode + "</p>\n\n      <p><img src=\"" + user.image.url + "\" alt=\"ooops!\" /></p>\n\n      <b>Phone:</b><p>" + user.phoneNumber + "</p>\n      <p><b>Willing to travel</b>: " + user.travelDistance + " miles</p>\n      <p><b>Typical availability</b>: " + user.availability + "</p>\n      <p><b>Skill Level</b>: " + user.skillLevel + "</p>\n      <a href=\"mailto:" + user.email + "\"><button class=\"btn btn-info\">Email</button></a>\n      "
     });
     _this.infowindow.open(_this.map, marker);
   });
@@ -118,6 +118,10 @@ function createVenueMarker(place) {
     map: googleMap.map,
     title: place.name,
     position: place.geometry.location,
+    animation: google.maps.Animation.BOUNCE,
+
+    // googleMap.map.marker.setAnimation(null);
+
 
     icon: {
       url: '../images/tennis-ball.png',
@@ -148,7 +152,7 @@ function createVenueMarker(place) {
 
         venueInfoWindow = new google.maps.InfoWindow();
 
-        venueInfoWindow.setContent("<b>" + place.name + "</b><br>\n              " + place.formatted_address + " <br>\n              <a href=\"" + google.maps.places.url + "\">More Info...</a>\n              <br><img src=\"" + google.maps.places.photo + "\" alt=\"venue img\">\n              ");
+        venueInfoWindow.setContent("<b>" + place.name + "</b><br>\n              " + place.formatted_address + " <br>\n              <a target=\"_blank\" href=\"" + google.maps.places.url + "\">More Info...</a>\n              <br><img src=\"" + google.maps.places.photo + "\" alt=\"venue img\">\n              ");
 
         venueInfoWindow.open(googleMap.map, marker);
       }

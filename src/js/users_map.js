@@ -25,6 +25,9 @@ googleMap.addInfoWindowForUser = function (user, marker) {
       content: `
       <h4>${user.fullname}</h4>
       <p><b>Location: </b>${user.postcode}</p>
+
+      <p><img src="${user.image.url}" alt="ooops!" /></p>
+
       <b>Phone:</b><p>${user.phoneNumber}</p>
       <p><b>Willing to travel</b>: ${user.travelDistance} miles</p>
       <p><b>Typical availability</b>: ${user.availability}</p>
@@ -139,14 +142,20 @@ googleMap.mapSetup = function () {
         map: googleMap.map,
         title: place.name,
         position: place.geometry.location,
+        animation: google.maps.Animation.BOUNCE,
+
+          // googleMap.map.marker.setAnimation(null);
+
 
         icon: {
           url: '../images/tennis-ball.png',
           anchor: new google.maps.Point(10, 10),
-          scaledSize: new google.maps.Size(35, 35)
+          scaledSize: new google.maps.Size(35, 35),
         }
 
       });
+
+
 
       marker.addListener('click', function() {
 
@@ -171,7 +180,7 @@ googleMap.mapSetup = function () {
 
             venueInfoWindow.setContent(`<b>${place.name}</b><br>
               ${place.formatted_address} <br>
-              <a href="${google.maps.places.url}">More Info...</a>
+              <a target="_blank" href="${google.maps.places.url}">More Info...</a>
               <br><img src="${google.maps.places.photo}" alt="venue img">
               `);
 
