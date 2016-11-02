@@ -19,12 +19,12 @@ $(() => {
     e.preventDefault();
     let $form = $(this);
 
-    // if($form.attr('method') === `PUT`) {
+    // if() {
     //   console.log(event);
     //   console.log('need logic to validate form & to remove slider ');
     //     }
 
-    if($form.attr('action') === '/register') {
+    if($form.attr('action') === '/register' || $form.attr('method') === `PUT`) {
       let postcode = $form.find('[name=postcode]').val();
       geocoder.geocode({ address: `${postcode}, UK` }, (results, status) => {
         if(status == google.maps.GeocoderStatus.OK) {
@@ -294,7 +294,7 @@ if (token) {
     </p>
   <form method="${method}" action="${formAction}">
 
-
+ <input type="hidden" name="lat">   <input type="hidden" name="lng">
     <div class="form-group">
       <input class="form-control" name="username" placeholder="Username">
       <small class="error">Some error message</small>
