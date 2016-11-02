@@ -227,6 +227,8 @@ showMembersPage();
 
           $('.editBar').slideToggle( "slow", function() {
             // Animation complete.
+              $('#password').prop("hidden", true);
+              $('#confPassword').prop("hidden", true);
           });
         };
 
@@ -246,6 +248,7 @@ const showRegForm = (action) => {
     button = 'Update';
     formAction = `/user/${_id}`;
     message ="Update Your Profile";
+
   }
 
 
@@ -325,10 +328,10 @@ if (token) {
     </div>
 
       <div class="form-group">
-      <input class="form-control" type="password" name="password" placeholder="Password">
+      <input class="form-control" type="password" name="password" placeholder="Password" id="password">
     </div>
     <div class="form-group">
-      <input class="form-control" type="password" name="passwordConfirmation" placeholder="Password Confirmation">
+      <input class="form-control" type="password" name="passwordConfirmation" placeholder="Password Confirmation" id="confPassword">
     </div><button class="btn btn-primary regButton">${button}</button>
       </form>`);
 
