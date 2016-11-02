@@ -89,7 +89,7 @@ $(() => {
   function showLoginForm() {
 
     if (event) event.preventDefault();
-    $main.append(`
+    $('.login').append(`
       <div class="loginForm">
       <h2 class="form-signin-heading">Login</h2>
       <form method="post" action="/login">
