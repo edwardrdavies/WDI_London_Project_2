@@ -28,11 +28,10 @@
 .form-group {
   small.error {
     display: none;
+
   }
 
-  &.error {
-    small.error {
-      display: block;
-    }
+  small.error {
+    display: block;
+    color:red;
   }
-}

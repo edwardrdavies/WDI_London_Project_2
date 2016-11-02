@@ -69,11 +69,18 @@ $(() => {
       showMembersPage();
     })
     .fail((err) => {
+
+      if (err.responseJSON.message) {
+        $form.find(`small.error`).addClass('error').html(err.responseJSON.message);
+        console.log(err.responseJSON.message);
+      }
+      else {
+
       for(let name in err.responseJSON) {
         console.log(name);
         console.log(err.responseJSON[name].message);
-        $form.find(`[name=${name}]`).parent('.form-group').addClass('error').find('small.error').html(err.responseJSON[name].message);
-      }
+        $form.find(`[name=${name}]`).parent('.form-group').addClass('error').find('small.error').html(`<p> ${err.responseJSON[name].message} </p>`);
+      }}
     });
   }
 
@@ -88,10 +95,12 @@ $(() => {
       <form method="post" action="/login">
       <div class="form-group">
       <input class="form-control" name="email" placeholder="Email">
+
       </div>
       <div class="form-group">
       <input class="form-control" type="password" name="password" placeholder="Password">
       </div>
+          <small class="error"></small><br>
       <button class="btn btn-primary" type="submit">Login</button>
       </form></div>
       `);

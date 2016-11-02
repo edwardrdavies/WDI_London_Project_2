@@ -67,10 +67,17 @@ $(function () {
       }
       showMembersPage();
     }).fail(function (err) {
-      for (var name in err.responseJSON) {
-        console.log(name);
-        console.log(err.responseJSON[name].message);
-        $form.find('[name=' + name + ']').parent('.form-group').addClass('error').find('small.error').html(err.responseJSON[name].message);
+
+      if (err.responseJSON.message) {
+        $form.find('small.error').addClass('error').html(err.responseJSON.message);
+        console.log(err.responseJSON.message);
+      } else {
+
+        for (var name in err.responseJSON) {
+          console.log(name);
+          console.log(err.responseJSON[name].message);
+          $form.find('[name=' + name + ']').parent('.form-group').addClass('error').find('small.error').html('<p> ' + err.responseJSON[name].message + ' </p>');
+        }
       }
     });
   }
@@ -79,7 +86,7 @@ $(function () {
   function showLoginForm() {
 
     if (event) event.preventDefault();
-    $main.append('\n      <div class="loginForm">\n      <h2 class="form-signin-heading">Login</h2>\n      <form method="post" action="/login">\n      <div class="form-group">\n      <input class="form-control" name="email" placeholder="Email">\n      </div>\n      <div class="form-group">\n      <input class="form-control" type="password" name="password" placeholder="Password">\n      </div>\n      <button class="btn btn-primary" type="submit">Login</button>\n      </form></div>\n      ');
+    $main.append('\n      <div class="loginForm">\n      <h2 class="form-signin-heading">Login</h2>\n      <form method="post" action="/login">\n      <div class="form-group">\n      <input class="form-control" name="email" placeholder="Email">\n\n      </div>\n      <div class="form-group">\n      <input class="form-control" type="password" name="password" placeholder="Password">\n      </div>\n          <small class="error"></small><br>\n      <button class="btn btn-primary" type="submit">Login</button>\n      </form></div>\n      ');
   }
 
   // get users sends the GET to the API server to get all users
