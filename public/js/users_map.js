@@ -1,6 +1,7 @@
 "use strict";
 
 var googleMap = googleMap || {};
+var venueInfoWindow = void 0;
 
 googleMap.getUsers = function () {
   $.get("http://localhost:8000/users").done(this.loopThroughtUsers);
@@ -10,13 +11,13 @@ googleMap.addInfoWindowForUser = function (user, marker) {
   var _this = this;
 
   google.maps.event.addListener(marker, 'click', function () {
-
+    console.log(user);
     if (_this.infowindow) {
       _this.infowindow.close();
     }
     _this.infowindow = new google.maps.InfoWindow({
 
-      content: user.username + "<p>" + user.postcode + "</p><p>" + user.email + "</p><p>" + user.phoneNumber + "</p>"
+      content: "\n      <h4>" + user.fullname + "</h4>\n      <p><b>Location: </b>" + user.postcode + "</p>\n      <b>Phone:</b><p>" + user.phoneNumber + "</p>\n      <p><b>Willing to travel</b>: " + user.travelDistance + " miles</p>\n      <p><b>Typical availability</b>: " + user.availability + "</p>\n      <a href=\"mailto:" + user.email + "\"><button class=\"btn btn-info\">Email</button></a>\n      "
     });
     _this.infowindow.open(_this.map, marker);
   });
@@ -103,7 +104,6 @@ function createVenueMarker(place) {
     }
 
   });
-  var infowindow = new google.maps.InfoWindow();
 
   marker.addListener('click', function () {
 
@@ -120,9 +120,15 @@ function createVenueMarker(place) {
         google.maps.places.photo = place.photos ? place.photos[0].getUrl({ 'maxWidth': 200, 'maxHeight': 200 }) : "";
         google.maps.places.url = place.url;
 
-        infowindow.setContent("<b>" + place.name + "</b><br>\n              " + place.formatted_address + " <br>\n              <a href=\"" + google.maps.places.url + "\">More Info...</a>\n              <br><img src=\"" + google.maps.places.photo + "\" alt=\"venue img\">\n              ");
+        if (typeof venueInfoWindow !== "undefined") {
+          venueInfoWindow.close();
+        }
 
-        infowindow.open(googleMap.map, marker);
+        venueInfoWindow = new google.maps.InfoWindow();
+
+        venueInfoWindow.setContent("<b>" + place.name + "</b><br>\n              " + place.formatted_address + " <br>\n              <a href=\"" + google.maps.places.url + "\">More Info...</a>\n              <br><img src=\"" + google.maps.places.photo + "\" alt=\"venue img\">\n              ");
+
+        venueInfoWindow.open(googleMap.map, marker);
       }
     });
     console.log(this);

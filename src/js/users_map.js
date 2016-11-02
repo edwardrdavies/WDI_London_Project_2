@@ -1,5 +1,5 @@
 var googleMap = googleMap || {};
-
+let venueInfoWindow;
 
 googleMap.getUsers = function () {
   $.get("http://localhost:8000/users")
@@ -8,13 +8,21 @@ googleMap.getUsers = function () {
 
 googleMap.addInfoWindowForUser = function (user, marker) {
   google.maps.event.addListener(marker, 'click', () => {
-
+    console.log(user);
     if (this.infowindow) {
       this.infowindow.close();
     }
     this.infowindow = new google.maps.InfoWindow({
 
-      content: `${user.username}<p>${user.postcode}</p><p>${user.email}</p><p>${user.phoneNumber}</p>`
+
+      content: `
+      <h4>${user.fullname}</h4>
+      <p><b>Location: </b>${user.postcode}</p>
+      <b>Phone:</b><p>${user.phoneNumber}</p>
+      <p><b>Willing to travel</b>: ${user.travelDistance} miles</p>
+      <p><b>Typical availability</b>: ${user.availability}</p>
+      <a href="mailto:${user.email}"><button class="btn btn-info">Email</button></a>
+      `
     });
     this.infowindow.open(this.map, marker);
   });
@@ -107,7 +115,6 @@ googleMap.mapSetup = function () {
         }
 
       });
-      let  infowindow = new google.maps.InfoWindow();
 
       marker.addListener('click', function() {
 
@@ -124,25 +131,28 @@ googleMap.mapSetup = function () {
             google.maps.places.photo = place.photos ? place.photos[0].getUrl({'maxWidth': 200, 'maxHeight': 200}) : "";
             google.maps.places.url = place.url;
 
-            infowindow.setContent(`<b>${place.name}</b><br>
+            if (typeof venueInfoWindow !== "undefined") {
+              venueInfoWindow.close();
+            }
+
+            venueInfoWindow = new google.maps.InfoWindow();
+
+            venueInfoWindow.setContent(`<b>${place.name}</b><br>
               ${place.formatted_address} <br>
               <a href="${google.maps.places.url}">More Info...</a>
               <br><img src="${google.maps.places.photo}" alt="venue img">
               `);
 
-              infowindow.open(googleMap.map, marker);
-
+              venueInfoWindow.open(googleMap.map, marker);
             }
+
+
+
           });
           console.log(this);
 
 
         });
       }
-
-
-
-
-
 
       $(googleMap.mapSetup.bind(googleMap));

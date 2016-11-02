@@ -3,17 +3,17 @@ const bcrypt = require('bcrypt');
 const validator = require('validator');
 
 const userSchema = new mongoose.Schema({
-  username: { type: String, required: true, unique: true},
+  username: { type: String, required:"Please put a username", unique: true},
   fullname: { type: String },
   image: { type: String },
   postcode: { type: String },
   skillLevel: { type: String },
   availability: { type: String },
   ageRange: { type: String },
-  travelDistance: { type: Number },
-  email: { type: String, required: true, unique: true },
+  travelDistance: { type: Number, message: 'not a valid number'},
+  email: { type: String, required: "You must put an email to register", unique: true },
   phoneNumber: { type: String },
-  passwordHash: { type: String, required: true },
+  passwordHash: { type: String, required: "You need a password" },
   lat: { type: Number },
   lng: { type: Number }
 });
