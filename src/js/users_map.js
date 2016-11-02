@@ -1,6 +1,7 @@
 var googleMap = googleMap || {};
 let venueInfoWindow;
 
+
 googleMap.getUsers = function () {
   $.get("http://localhost:8000/users")
   .done(this.loopThroughtUsers);
@@ -156,3 +157,19 @@ googleMap.mapSetup = function () {
       }
 
       $(googleMap.mapSetup.bind(googleMap));
+
+      // reset map to current location
+      navigator.geolocation.getCurrentPosition((position) => {
+
+        let latLng= {lat: position.coords.latitude,
+          lng:position.coords.longitude};
+          googleMap.map.panTo(latLng);
+          getVenues(latLng);
+          let market = new google.maps.Marker({
+            position: latLng,
+            animation:google.maps.Animation.DROP,
+            draggable: true,
+            map: googleMap.map,
+            icon: '../images/user-marker.png'
+          });
+        });

@@ -136,3 +136,19 @@ function createVenueMarker(place) {
 }
 
 $(googleMap.mapSetup.bind(googleMap));
+
+// reset map to current location
+navigator.geolocation.getCurrentPosition(function (position) {
+
+  var latLng = { lat: position.coords.latitude,
+    lng: position.coords.longitude };
+  googleMap.map.panTo(latLng);
+  getVenues(latLng);
+  var market = new google.maps.Marker({
+    position: latLng,
+    animation: google.maps.Animation.DROP,
+    draggable: true,
+    map: googleMap.map,
+    icon: '../images/user-marker.png'
+  });
+});
