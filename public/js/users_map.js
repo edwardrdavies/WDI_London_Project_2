@@ -2,34 +2,26 @@
 
 var googleMap = googleMap || {};
 var venueInfoWindow = void 0;
-var markers = [];
+
+googleMap.markers = [];
 
 googleMap.getUsers = function () {
-  var _this = this;
-
-  $.get("http://localhost:8000/users").done(this.forEach = function (mapMarker) {
-    googleMap.loopThroughtUsers(_this);
-  }
-
-  // this.loopThroughtUsers
-
-
-  );
+  $.get("http://localhost:8000/users").done(this.loopThroughtUsers);
 };
 
 googleMap.addInfoWindowForUser = function (user, marker) {
-  var _this2 = this;
+  var _this = this;
 
   google.maps.event.addListener(marker, 'click', function () {
     console.log(user);
-    if (_this2.infowindow) {
-      _this2.infowindow.close();
+    if (_this.infowindow) {
+      _this.infowindow.close();
     }
-    _this2.infowindow = new google.maps.InfoWindow({
+    _this.infowindow = new google.maps.InfoWindow({
 
       content: "\n      <h4>" + user.fullname + "</h4>\n      <p><b>Location: </b>" + user.postcode + "</p>\n      <b>Phone:</b><p>" + user.phoneNumber + "</p>\n      <p><b>Willing to travel</b>: " + user.travelDistance + " miles</p>\n      <p><b>Typical availability</b>: " + user.availability + "</p>\n      <p><b>Skill Level</b>: " + user.skillLevel + "</p>\n      <a href=\"mailto:" + user.email + "\"><button class=\"btn btn-info\">Email</button></a>\n      "
     });
-    _this2.infowindow.open(_this2.map, marker);
+    _this.infowindow.open(_this.map, marker);
   });
 };
 
@@ -65,10 +57,22 @@ googleMap.createMarkerForUser = function (user) {
   var marker = new google.maps.Marker({
     position: latLng,
     map: googleMap.map,
-    icon: '../images/user-marker.png'
+    icon: '../images/user-marker.png',
+    skillLevel: user.skillLevel
   });
   googleMap.addInfoWindowForUser(user, marker);
-  markers.push(marker);
+
+  googleMap.markers.push(marker);
+};
+
+googleMap.filterMarkers = function (skillLevel) {
+  googleMap.markers.forEach(function (marker) {
+    if (marker.skillLevel === skillLevel || skillLevel === 'All Skill Levels') {
+      marker.setMap(googleMap.map);
+    } else {
+      marker.setMap(null);
+    }
+  });
 };
 
 googleMap.loopThroughtUsers = function (users) {
