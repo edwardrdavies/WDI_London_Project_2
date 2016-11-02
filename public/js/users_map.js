@@ -1,6 +1,7 @@
 "use strict";
 
 var googleMap = googleMap || {};
+var venueInfoWindow = void 0;
 
 googleMap.getUsers = function () {
   $.get("http://localhost:8000/users").done(this.loopThroughtUsers);
@@ -103,7 +104,6 @@ function createVenueMarker(place) {
     }
 
   });
-  var infowindow = new google.maps.InfoWindow();
 
   marker.addListener('click', function () {
 
@@ -120,9 +120,15 @@ function createVenueMarker(place) {
         google.maps.places.photo = place.photos ? place.photos[0].getUrl({ 'maxWidth': 200, 'maxHeight': 200 }) : "";
         google.maps.places.url = place.url;
 
-        infowindow.setContent("<b>" + place.name + "</b><br>\n              " + place.formatted_address + " <br>\n              <a href=\"" + google.maps.places.url + "\">More Info...</a>\n              <br><img src=\"" + google.maps.places.photo + "\" alt=\"venue img\">\n              ");
+        if (typeof venueInfoWindow !== "undefined") {
+          venueInfoWindow.close();
+        }
 
-        infowindow.open(googleMap.map, marker);
+        venueInfoWindow = new google.maps.InfoWindow();
+
+        venueInfoWindow.setContent("<b>" + place.name + "</b><br>\n              " + place.formatted_address + " <br>\n              <a href=\"" + google.maps.places.url + "\">More Info...</a>\n              <br><img src=\"" + google.maps.places.photo + "\" alt=\"venue img\">\n              ");
+
+        venueInfoWindow.open(googleMap.map, marker);
       }
     });
     console.log(this);
