@@ -45,7 +45,8 @@ googleMap.mapSetup = function () {
     let mapOptions = {
       zoom: 14,
       center: new google.maps.LatLng(51.5, -0.08),
-      mapTypeId: google.maps.MapTypeId.ROADMAP
+      mapTypeId: google.maps.MapTypeId.ROADMAP,
+      scrollwheel: false
     };
     this.map = new google.maps.Map(canvas, mapOptions);
     this.getUsers();
