@@ -2,6 +2,7 @@
 
 var googleMap = googleMap || {};
 var venueInfoWindow = void 0;
+googleMap.markers = [];
 
 googleMap.getUsers = function () {
   $.get("http://localhost:8000/users").done(this.loopThroughtUsers);
@@ -55,9 +56,21 @@ googleMap.createMarkerForUser = function (user) {
   var marker = new google.maps.Marker({
     position: latLng,
     map: googleMap.map,
-    icon: '../images/user-marker.png'
+    icon: '../images/user-marker.png',
+    skillLevel: user.skillLevel
   });
   googleMap.addInfoWindowForUser(user, marker);
+  googleMap.markers.push(marker);
+};
+
+googleMap.filterMarkers = function (skillLevel) {
+  googleMap.markers.forEach(function (marker) {
+    if (marker.skillLevel === skillLevel || skillLevel === 'All Skill Levels') {
+      marker.setMap(googleMap.map);
+    } else {
+      marker.setMap(null);
+    }
+  });
 };
 
 googleMap.loopThroughtUsers = function (users) {

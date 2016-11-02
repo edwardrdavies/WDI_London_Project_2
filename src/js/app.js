@@ -14,8 +14,8 @@ $(() => {
   //handles the registration form
 
   function resetUsers() {
-    console.log("changed");
-    googleMap.getUsers();
+
+    googleMap.filterMarkers($(this).val());
     // googleMap.clearOverlays();
   }
 
