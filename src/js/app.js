@@ -14,10 +14,15 @@ $(() => {
   //handles the registration form
 
   function handleForm(e){
+    console.log("form has been submitted");
 
     e.preventDefault();
     let $form = $(this);
 
+    // if($form.attr('method') === `PUT`) {
+    //   console.log(event);
+    //   console.log('need logic to validate form & to remove slider ');
+    //     }
 
     if($form.attr('action') === '/register') {
       let postcode = $form.find('[name=postcode]').val();
@@ -50,7 +55,9 @@ $(() => {
       }
     })
     .done((data) => {
+
       if (data && data.token){
+        console.log(data);
         localStorage.setItem('_id',data.user._id);
         localStorage.setItem('token', data.token);
         if (window.location.pathname === "/") {
@@ -214,7 +221,7 @@ showMembersPage();
         });
 
         const showEditBar = () => {
-          showRegForm();
+          showRegForm("edit");
 
           $('.editBar').slideToggle( "slow", function() {
             // Animation complete.
@@ -225,21 +232,23 @@ showMembersPage();
 
 const showRegForm = (action) => {
 
+  let token = localStorage.getItem('token');
+  let _id = localStorage.getItem('_id');
 
   let method = "POST";
   let button = "Register";
   let message ="Join the community today!";
-
+  let formAction ="/register";
   if (action == "edit") {
     method = "PUT";
     button = 'Update';
+    formAction = `/user/${_id}`;
     message ="Update Your Profile";
   }
 
-  let token = localStorage.getItem('token');
-  let _id = localStorage.getItem('_id');
+
 if (token) {
-  console.log("I got a toekn");
+
   $.ajax({
     url: `/user/${_id}`,
     method:'GET',
@@ -249,8 +258,16 @@ if (token) {
   })
   .done((user)=> {
 
-  console.log(user);
-
+  $("input[name=username]").val(user.username);
+  $("input[name=fullname]").val(user.fullname);
+  $("input[name=image]").val(user.image);
+  $("input[name=postcode]").val(user.postcode);
+  $("input[name=skill_level]").val(user.skill_level);
+  $("input[name=availability]").val(user.availability);
+  $("input[name=ageRange]").val(user.ageRange);
+  $("input[name=travelDistance]").val(user.travelDistance);
+  $("input[name=email]").val(user.email);
+  $("input[name=phoneNumber]").val(user.phoneNumber);
   });
 }
 
@@ -258,10 +275,8 @@ if (token) {
     <p class="jointoday">
     ${message}
     </p>
-  <form method="post" action="/register">
+  <form method="${method}" action="${formAction}">
 
-    <input type="hidden" name="lat">
-    <input type="hidden" name="lng">
 
     <div class="form-group">
 
@@ -293,11 +308,12 @@ if (token) {
       <select class="form-control" id="ageRange">
         <option>Under 18</option>
         <option>18-35</option>
-        <option>35-59</option>
+        <option>36-59</option>
+        <option>60+</option>
       </select>
     </div>
     <div class="form-group">
-      <input class="form-control" name="travel_distance" placeholder="Travel Distance">
+      <input class="form-control" name="travelDistance" placeholder="Travel Distance">
     </div>
     <div class="form-group">
       <input class="form-control" name="email" placeholder="Email">
@@ -305,13 +321,14 @@ if (token) {
     <div class="form-group">
       <input class="form-control" name="phoneNumber" placeholder="Phone Number">
     </div>
-    <div class="form-group">
+
+      <div class="form-group">
       <input class="form-control" type="password" name="password" placeholder="Password">
     </div>
     <div class="form-group">
       <input class="form-control" type="password" name="passwordConfirmation" placeholder="Password Confirmation">
-    </div>
-    <button class="btn btn-primary">Register</button>
-  </form>
-`);
+    </div><button class="btn btn-primary regButton">${button}</button>
+      </form>`);
+
+
 };
