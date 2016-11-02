@@ -8,7 +8,6 @@ $(() => {
   $('.logout').on('click', logout);
   $('.edit').on('click', showEditBar);
 
-
   $('body').on('submit', 'form', handleForm);
   let geocoder = new google.maps.Geocoder();
 
@@ -20,12 +19,12 @@ $(() => {
     e.preventDefault();
     let $form = $(this);
 
-    // if($form.attr('method') === `PUT`) {
+    // if() {
     //   console.log(event);
     //   console.log('need logic to validate form & to remove slider ');
     //     }
 
-    if($form.attr('action') === '/register') {
+    if($form.attr('action') === '/register' || $form.attr('method') === `PUT`) {
       let postcode = $form.find('[name=postcode]').val();
       geocoder.geocode({ address: `${postcode}, UK` }, (results, status) => {
         if(status == google.maps.GeocoderStatus.OK) {
@@ -47,6 +46,8 @@ $(() => {
     let data = $form.serialize();
     let token = localStorage.getItem('token');
 
+    console.log("Sending form data");
+
     $.ajax({
       url,
       method,
@@ -62,12 +63,24 @@ $(() => {
         localStorage.setItem('_id',data.user._id);
         localStorage.setItem('token', data.token);
         if (window.location.pathname === "/") {
-       window.location.replace("/members");
-     }
-
+          window.location.replace("/members");
+        }
       }
+      showMembersPage();
+    })
+    .fail((err) => {
 
- showMembersPage();
+      if (err.responseJSON.message) {
+        $form.find(`small.error`).addClass('error').html(err.responseJSON.message);
+        console.log(err.responseJSON.message);
+      }
+      else {
+
+      for(let name in err.responseJSON) {
+        console.log(name);
+        console.log(err.responseJSON[name].message);
+        $form.find(`[name=${name}]`).parent('.form-group').addClass('error').find('small.error').html(`<p> ${err.responseJSON[name].message} </p>`);
+      }}
     });
   }
 
@@ -82,10 +95,12 @@ $(() => {
       <form method="post" action="/login">
       <div class="form-group">
       <input class="form-control" name="email" placeholder="Email">
+
       </div>
       <div class="form-group">
       <input class="form-control" type="password" name="password" placeholder="Password">
       </div>
+          <small class="error"></small><br>
       <button class="btn btn-primary" type="submit">Login</button>
       </form></div>
       `);
@@ -282,10 +297,10 @@ if (token) {
     </p>
   <form method="${method}" action="${formAction}">
 
-
+ <input type="hidden" name="lat">   <input type="hidden" name="lng">
     <div class="form-group">
-
       <input class="form-control" name="username" placeholder="Username">
+      <small class="error">Some error message</small>
     </div>
     <div class="form-group">
 
@@ -319,16 +334,23 @@ if (token) {
     </div>
     <div class="form-group">
       <input class="form-control" name="travelDistance" placeholder="Travel Distance">
+      <small class="error"></small>
     </div>
     <div class="form-group">
       <input class="form-control" name="email" placeholder="Email">
+        <small class="error"></small>
     </div>
     <div class="form-group">
       <input class="form-control" name="phoneNumber" placeholder="Phone Number">
     </div>
 
       <div class="form-group">
+<<<<<<< HEAD
       <input class="form-control" type="password" name="password" placeholder="Password" id="password">
+=======
+      <input class="form-control" type="password" name="password" placeholder="Password">
+      <small class="error"></small>
+>>>>>>> development
     </div>
     <div class="form-group">
       <input class="form-control" type="password" name="passwordConfirmation" placeholder="Password Confirmation" id="confPassword">

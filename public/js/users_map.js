@@ -11,13 +11,13 @@ googleMap.addInfoWindowForUser = function (user, marker) {
   var _this = this;
 
   google.maps.event.addListener(marker, 'click', function () {
-
+    console.log(user);
     if (_this.infowindow) {
       _this.infowindow.close();
     }
     _this.infowindow = new google.maps.InfoWindow({
 
-      content: user.username + "<p>" + user.postcode + "</p><p>" + user.email + "</p><p>" + user.phoneNumber + "</p>"
+      content: "\n      <h4>" + user.fullname + "</h4>\n      <p><b>Location: </b>" + user.postcode + "</p>\n      <b>Phone:</b><p>" + user.phoneNumber + "</p>\n      <p><b>Willing to travel</b>: " + user.travelDistance + " miles</p>\n      <p><b>Typical availability</b>: " + user.availability + "</p>\n      <a href=\"mailto:" + user.email + "\"><button class=\"btn btn-info\">Email</button></a>\n      "
     });
     _this.infowindow.open(_this.map, marker);
   });
