@@ -203,7 +203,7 @@ $(() => {
 
         // display users if loggedin - users if not.
 
-        const showMembersPage = () => {
+        function showMembersPage() {
 
           if ( isLoggedIn() ) {
             console.log('is logged in');
@@ -215,7 +215,8 @@ $(() => {
             showLoginForm();
             showRegForm();
             $map.hide();
-          }};
+          }
+        }
 
 
 showMembersPage();
