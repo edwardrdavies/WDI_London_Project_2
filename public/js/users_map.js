@@ -2,6 +2,7 @@
 
 var googleMap = googleMap || {};
 var venueInfoWindow = void 0;
+googleMap.markers = [];
 
 googleMap.getUsers = function () {
   $.get("http://localhost:8000/users").done(this.loopThroughtUsers);
@@ -17,7 +18,7 @@ googleMap.addInfoWindowForUser = function (user, marker) {
     }
     _this.infowindow = new google.maps.InfoWindow({
 
-      content: "\n      <h4>" + user.fullname + "</h4>\n      <p><b>Location: </b>" + user.postcode + "</p>\n      <b>Phone:</b><p>" + user.phoneNumber + "</p>\n      <p><b>Willing to travel</b>: " + user.travelDistance + " miles</p>\n      <p><b>Typical availability</b>: " + user.availability + "</p>\n      <a href=\"mailto:" + user.email + "\"><button class=\"btn btn-info\">Email</button></a>\n      "
+      content: "\n      <h4>" + user.fullname + "</h4>\n      <p><b>Location: </b>" + user.postcode + "</p>\n      <b>Phone:</b><p>" + user.phoneNumber + "</p>\n      <p><b>Willing to travel</b>: " + user.travelDistance + " miles</p>\n      <p><b>Typical availability</b>: " + user.availability + "</p>\n      <p><b>Skill Level</b>: " + user.skillLevel + "</p>\n      <a href=\"mailto:" + user.email + "\"><button class=\"btn btn-info\">Email</button></a>\n      "
     });
     _this.infowindow.open(_this.map, marker);
   });
@@ -56,14 +57,32 @@ googleMap.createMarkerForUser = function (user) {
   var marker = new google.maps.Marker({
     position: latLng,
     map: googleMap.map,
-    icon: '../images/user-marker.png'
+    icon: '../images/user-marker.png',
+    skillLevel: user.skillLevel
   });
   googleMap.addInfoWindowForUser(user, marker);
+  googleMap.markers.push(marker);
+};
+
+googleMap.filterMarkers = function (skillLevel) {
+  googleMap.markers.forEach(function (marker) {
+    if (marker.skillLevel === skillLevel || skillLevel === 'All Skill Levels') {
+      marker.setMap(googleMap.map);
+    } else {
+      marker.setMap(null);
+    }
+  });
 };
 
 googleMap.loopThroughtUsers = function (users) {
+  console.log(googleMap);
   $.each(users, function (index, user) {
-    googleMap.createMarkerForUser(user);
+    var $skillLevel = $('#skillLevel').val();
+    if ($skillLevel == "All Skill Levels") {
+      googleMap.createMarkerForUser(user);
+    } else if ($skillLevel == user.skillLevel) {
+      googleMap.createMarkerForUser(user);
+    }
   });
 };
 
