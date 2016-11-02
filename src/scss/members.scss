@@ -24,3 +24,15 @@
   padding-top: 20px;
   padding-bottom: 70px;
 }
+
+.form-group {
+  small.error {
+    display: none;
+  }
+
+  &.error {
+    small.error {
+      display: block;
+    }
+  }
+}

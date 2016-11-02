@@ -5,8 +5,7 @@ const secret = require('../config/tokens').secret;
 function userRegister(req, res){
   User.create(req.body, (err, user) => {
     if (err){
-      console.log(err);
-      return res.status(500).json({ message: "Ain't not users here!"});
+      return res.status(500).json(err.errors);
     }
     let payload = {_id:user._id, username: user.username};
     let token = jwt.sign(payload,secret, {expiresIn: 60*60*24});

@@ -41,6 +41,19 @@
   }
 }
 
+.form-group {
+  small.error {
+    display: none;
+  }
+
+  &.error {
+    small.error {
+      display: block;
+      color:red;
+    }
+  }
+}
+
 .play-match {
   .col-md-6 {
     padding-bottom: 15px;

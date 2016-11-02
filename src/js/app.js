@@ -8,7 +8,6 @@ $(() => {
   $('.logout').on('click', logout);
   $('.edit').on('click', showEditBar);
 
-
   $('body').on('submit', 'form', handleForm);
   let geocoder = new google.maps.Geocoder();
 
@@ -70,7 +69,11 @@ $(() => {
       showMembersPage();
     })
     .fail((err) => {
-      console.log(err);
+      for(let name in err.responseJSON) {
+        console.log(name);
+        console.log(err.responseJSON[name].message);
+        $form.find(`[name=${name}]`).parent('.form-group').addClass('error').find('small.error').html(err.responseJSON[name].message);
+      }
     });
   }
 
@@ -283,8 +286,8 @@ if (token) {
 
 
     <div class="form-group">
-
       <input class="form-control" name="username" placeholder="Username">
+      <small class="error">Some error message</small>
     </div>
     <div class="form-group">
 
@@ -318,9 +321,11 @@ if (token) {
     </div>
     <div class="form-group">
       <input class="form-control" name="travelDistance" placeholder="Travel Distance">
+      <small class="error"></small>
     </div>
     <div class="form-group">
       <input class="form-control" name="email" placeholder="Email">
+        <small class="error"></small>
     </div>
     <div class="form-group">
       <input class="form-control" name="phoneNumber" placeholder="Phone Number">
@@ -328,6 +333,7 @@ if (token) {
 
       <div class="form-group">
       <input class="form-control" type="password" name="password" placeholder="Password">
+      <small class="error"></small>
     </div>
     <div class="form-group">
       <input class="form-control" type="password" name="passwordConfirmation" placeholder="Password Confirmation">

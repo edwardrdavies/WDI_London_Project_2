@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const venueSchema = new mongoose.Schema({
-  venueName: { type: String, required: true},
+  venueName: { type: String, required: 'Please supply a venue name' },
   address: String,
   image:String,
   description:String,
