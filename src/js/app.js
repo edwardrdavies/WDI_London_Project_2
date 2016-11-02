@@ -346,7 +346,8 @@ if (token) {
 
       <div class="form-group">
 
-      <input class="form-control" type="password" name="password" placeholder="Password">
+
+      <input class="form-control" type="password" name="password" placeholder="Password" id="password">
       <small class="error"></small>
 
     </div>
