@@ -185,6 +185,9 @@ var showEditBar = function showEditBar() {
     // Animation complete.
     $('#password').prop("hidden", true);
     $('#confPassword').prop("hidden", true);
+    $("button").click(function () {
+      $(".editBar").slideUp();
+    });
   });
 };
 

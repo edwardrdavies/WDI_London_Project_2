@@ -239,7 +239,6 @@ $(() => {
           }
         }
 
-
 showMembersPage();
         });
 
@@ -250,10 +249,12 @@ showMembersPage();
             // Animation complete.
               $('#password').prop("hidden", true);
               $('#confPassword').prop("hidden", true);
+              $("button").click(function(){
+                  $(".editBar").slideUp();
+              });
+
           });
         };
-
-
 
 const showRegForm = (action) => {
 
@@ -295,6 +296,7 @@ if (token) {
   $("input[name=email]").val(user.email);
   $("input[name=phoneNumber]").val(user.phoneNumber);
   });
+
 }
 
   $('.register').html(`
