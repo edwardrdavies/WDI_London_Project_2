@@ -95,7 +95,7 @@ $(() => {
   function showLoginForm() {
 
     if (event) event.preventDefault();
-    $main.append(`
+    $('.login').append(`
       <div class="loginForm">
       <h2 class="form-signin-heading">Login</h2>
       <form method="post" action="/login">
@@ -352,7 +352,8 @@ if (token) {
 
       <div class="form-group">
 
-      <input class="form-control" type="password" name="password" placeholder="Password">
+
+      <input class="form-control" type="password" name="password" placeholder="Password" id="password">
       <small class="error"></small>
 
     </div>
