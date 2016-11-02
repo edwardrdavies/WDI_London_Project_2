@@ -46,6 +46,8 @@ $(function () {
     var data = $form.serialize();
     var token = localStorage.getItem('token');
 
+    console.log("Sending form data");
+
     $.ajax({
       url: url,
       method: method,
@@ -63,8 +65,9 @@ $(function () {
           window.location.replace("/members");
         }
       }
-
       showMembersPage();
+    }).fail(function (err) {
+      console.log(err);
     });
   }
 

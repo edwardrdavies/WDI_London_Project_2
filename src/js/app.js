@@ -46,6 +46,8 @@ $(() => {
     let data = $form.serialize();
     let token = localStorage.getItem('token');
 
+    console.log("Sending form data");
+
     $.ajax({
       url,
       method,
@@ -61,12 +63,13 @@ $(() => {
         localStorage.setItem('_id',data.user._id);
         localStorage.setItem('token', data.token);
         if (window.location.pathname === "/") {
-       window.location.replace("/members");
-     }
-
+          window.location.replace("/members");
+        }
       }
-
- showMembersPage();
+      showMembersPage();
+    })
+    .fail((err) => {
+      console.log(err);
     });
   }
 

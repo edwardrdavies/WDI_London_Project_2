@@ -26,7 +26,6 @@ function userLogin(req, res){
       return res.status(500).json({ message: "No Login Hombre"});
     }
     if (!user || !user.validatePassword(req.body.password)) {
-      console.log(err);
       return res.status(401).json({ message: "Unauthorized Login"});
     }
     let payload = {_id:user._id, username: user.username};
