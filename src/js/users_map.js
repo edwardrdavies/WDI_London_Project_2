@@ -1,4 +1,4 @@
-var googleMap = googleMap || {};
+const googleMap = googleMap || {};
 let venueInfoWindow;
 
 
@@ -22,6 +22,7 @@ googleMap.addInfoWindowForUser = function (user, marker) {
       <b>Phone:</b><p>${user.phoneNumber}</p>
       <p><b>Willing to travel</b>: ${user.travelDistance} miles</p>
       <p><b>Typical availability</b>: ${user.availability}</p>
+      <p><b>Skill Level</b>: ${user.skillLevel}</p>
       <a href="mailto:${user.email}"><button class="btn btn-info">Email</button></a>
       `
     });
@@ -67,10 +68,19 @@ googleMap.mapSetup = function () {
 
     };
 
-
     googleMap.loopThroughtUsers = (users) => {
+      console.log(googleMap);
       $.each(users, (index, user) => {
-        googleMap.createMarkerForUser(user);
+      let $skillLevel = $('#skillLevel').val();
+        if ($skillLevel == "All Skill Levels" ) {
+          googleMap.createMarkerForUser(user);
+        }
+        else if ($skillLevel == user.skillLevel) {
+          googleMap.createMarkerForUser(user);
+
+        }
+
+
       });
     };
 

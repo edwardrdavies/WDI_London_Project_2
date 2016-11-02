@@ -17,7 +17,7 @@ googleMap.addInfoWindowForUser = function (user, marker) {
     }
     _this.infowindow = new google.maps.InfoWindow({
 
-      content: "\n      <h4>" + user.fullname + "</h4>\n      <p><b>Location: </b>" + user.postcode + "</p>\n      <b>Phone:</b><p>" + user.phoneNumber + "</p>\n      <p><b>Willing to travel</b>: " + user.travelDistance + " miles</p>\n      <p><b>Typical availability</b>: " + user.availability + "</p>\n      <a href=\"mailto:" + user.email + "\"><button class=\"btn btn-info\">Email</button></a>\n      "
+      content: "\n      <h4>" + user.fullname + "</h4>\n      <p><b>Location: </b>" + user.postcode + "</p>\n      <b>Phone:</b><p>" + user.phoneNumber + "</p>\n      <p><b>Willing to travel</b>: " + user.travelDistance + " miles</p>\n      <p><b>Typical availability</b>: " + user.availability + "</p>\n      <p><b>Skill Level</b>: " + user.skillLevel + "</p>\n      <a href=\"mailto:" + user.email + "\"><button class=\"btn btn-info\">Email</button></a>\n      "
     });
     _this.infowindow.open(_this.map, marker);
   });
@@ -61,8 +61,14 @@ googleMap.createMarkerForUser = function (user) {
 };
 
 googleMap.loopThroughtUsers = function (users) {
+  console.log(googleMap);
   $.each(users, function (index, user) {
-    googleMap.createMarkerForUser(user);
+    var $skillLevel = $('#skillLevel').val();
+    if ($skillLevel == "All Skill Levels") {
+      googleMap.createMarkerForUser(user);
+    } else if ($skillLevel == user.skillLevel) {
+      googleMap.createMarkerForUser(user);
+    }
   });
 };
 

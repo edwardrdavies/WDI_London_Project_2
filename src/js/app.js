@@ -7,11 +7,17 @@ $(() => {
   //event handlers go here
   $('.logout').on('click', logout);
   $('.edit').on('click', showEditBar);
-
+  $('#skillLevel').on('change', resetUsers);
   $('body').on('submit', 'form', handleForm);
   let geocoder = new google.maps.Geocoder();
 
   //handles the registration form
+
+  function resetUsers() {
+    console.log("changed");
+    googleMap.getUsers();
+    // googleMap.clearOverlays();
+  }
 
   function handleForm(e){
     console.log("form has been submitted");
@@ -313,7 +319,7 @@ if (token) {
       <input class="form-control" name="postcode" placeholder="Postcode">
     </div>
     <div class="form-group">
-      <select class="form-control" id="skill_level">
+      <select class="form-control" name="skillLevel">
         <option>Absolute Novice</option>
         <option>Beginner</option>
         <option>Intermediate</option>
@@ -325,7 +331,7 @@ if (token) {
       <input class="form-control" name="availability" placeholder="Availability">
     </div>
     <div class="form-group">
-      <select class="form-control" id="ageRange">
+      <select class="form-control" name="ageRange">
         <option>Under 18</option>
         <option>18-35</option>
         <option>36-59</option>
