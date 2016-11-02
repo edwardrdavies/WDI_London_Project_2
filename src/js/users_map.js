@@ -1,10 +1,21 @@
-var googleMap = googleMap || {};
+const googleMap = googleMap || {};
 let venueInfoWindow;
-
+let markers =[];
 
 googleMap.getUsers = function () {
   $.get("http://localhost:8000/users")
-  .done(this.loopThroughtUsers);
+  .done(
+
+    this.forEach = (mapMarker) => {
+      googleMap.loopThroughtUsers(this);
+
+    }
+
+
+    // this.loopThroughtUsers
+
+
+  );
 };
 
 googleMap.addInfoWindowForUser = function (user, marker) {
@@ -22,6 +33,7 @@ googleMap.addInfoWindowForUser = function (user, marker) {
       <b>Phone:</b><p>${user.phoneNumber}</p>
       <p><b>Willing to travel</b>: ${user.travelDistance} miles</p>
       <p><b>Typical availability</b>: ${user.availability}</p>
+      <p><b>Skill Level</b>: ${user.skillLevel}</p>
       <a href="mailto:${user.email}"><button class="btn btn-info">Email</button></a>
       `
     });
@@ -64,13 +76,22 @@ googleMap.mapSetup = function () {
         icon: '../images/user-marker.png'
       });
       googleMap.addInfoWindowForUser(user, marker);
-
+      markers.push(marker);
     };
 
-
     googleMap.loopThroughtUsers = (users) => {
+      console.log(googleMap);
       $.each(users, (index, user) => {
-        googleMap.createMarkerForUser(user);
+      let $skillLevel = $('#skillLevel').val();
+        if ($skillLevel == "All Skill Levels" ) {
+          googleMap.createMarkerForUser(user);
+        }
+        else if ($skillLevel == user.skillLevel) {
+          googleMap.createMarkerForUser(user);
+
+        }
+
+
       });
     };
 
