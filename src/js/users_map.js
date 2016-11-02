@@ -1,15 +1,16 @@
 const googleMap = googleMap || {};
 let venueInfoWindow;
+
 googleMap.markers = [];
+
 
 
 googleMap.getUsers = function () {
   $.get("http://localhost:8000/users")
   .done(
 
-
-
     this.loopThroughtUsers);
+
 };
 
 googleMap.addInfoWindowForUser = function (user, marker) {
@@ -72,6 +73,8 @@ googleMap.mapSetup = function () {
         skillLevel: user.skillLevel
       });
       googleMap.addInfoWindowForUser(user, marker);
+
+
       googleMap.markers.push(marker);
     };
 
@@ -84,6 +87,7 @@ googleMap.mapSetup = function () {
         }
       });
     };
+
 
     googleMap.loopThroughtUsers = (users) => {
       console.log(googleMap);

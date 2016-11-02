@@ -2,6 +2,7 @@
 
 var googleMap = googleMap || {};
 var venueInfoWindow = void 0;
+
 googleMap.markers = [];
 
 googleMap.getUsers = function () {
@@ -61,6 +62,7 @@ googleMap.createMarkerForUser = function (user) {
     skillLevel: user.skillLevel
   });
   googleMap.addInfoWindowForUser(user, marker);
+
   googleMap.markers.push(marker);
 };
 

@@ -306,7 +306,7 @@ if (token) {
   <form method="${method}" action="${formAction}">
 
  <input type="hidden" name="lat">   <input type="hidden" name="lng">
-    <div class="form-group">
+    <div class="form-group username">
       <input class="form-control" name="username" placeholder="Username">
       <small class="error">Some error message</small>
     </div>
