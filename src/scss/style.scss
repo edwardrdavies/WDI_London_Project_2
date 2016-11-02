@@ -1,3 +1,7 @@
+.container {
+  padding: 0;
+}
+
 .btn-outline-success {
   float: right;
 }
@@ -92,4 +96,17 @@ h1 {
 
 .court {
   width: 100%;
+}
+
+.loginbtn {
+
+  float: right;
+  color: #fff;
+  background-color: #025aa5;
+  border-color: #01549b;
+  border: 1px solid transparent;
+  padding: .5rem 1rem;
+  font-size: 1rem;
+  border-radius: .25rem;
+
 }

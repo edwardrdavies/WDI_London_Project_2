@@ -154,7 +154,7 @@ $(function () {
 
   // display users if loggedin - users if not.
 
-  var showMembersPage = function showMembersPage() {
+  function showMembersPage() {
 
     if (isLoggedIn()) {
       console.log('is logged in');
@@ -167,7 +167,7 @@ $(function () {
       showRegForm();
       $map.hide();
     }
-  };
+  }
 
   showMembersPage();
 });
