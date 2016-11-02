@@ -8,6 +8,7 @@ $(() => {
   $('.logout').on('click', logout);
   $('.edit').on('click', showEditBar);
 
+
   $('body').on('submit', 'form', handleForm);
   let geocoder = new google.maps.Geocoder();
 
