@@ -10,6 +10,7 @@
 
 }
 
+
 #all-map {
   // height:90vw;
   // width:90vw;
@@ -25,3 +26,14 @@
   padding-top: 20px;
   padding-bottom: 70px;
 }
+
+.form-group {
+  small.error {
+    display: none;
+
+  }}
+
+  small.error {
+    display: block;
+    color:red;
+  }

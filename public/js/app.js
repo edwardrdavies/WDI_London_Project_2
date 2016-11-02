@@ -21,12 +21,12 @@ $(function () {
     e.preventDefault();
     var $form = $(this);
 
-    // if($form.attr('method') === `PUT`) {
+    // if() {
     //   console.log(event);
     //   console.log('need logic to validate form & to remove slider ');
     //     }
 
-    if ($form.attr('action') === '/register') {
+    if ($form.attr('action') === '/register' || $form.attr('method') === 'PUT') {
       var postcode = $form.find('[name=postcode]').val();
       geocoder.geocode({ address: postcode + ', UK' }, function (results, status) {
         if (status == google.maps.GeocoderStatus.OK) {
@@ -46,6 +46,8 @@ $(function () {
     var data = $form.serialize();
     var token = localStorage.getItem('token');
 
+    console.log("Sending form data");
+
     $.ajax({
       url: url,
       method: method,
@@ -63,8 +65,20 @@ $(function () {
           window.location.replace("/members");
         }
       }
-
       showMembersPage();
+    }).fail(function (err) {
+
+      if (err.responseJSON.message) {
+        $form.find('small.error').addClass('error').html(err.responseJSON.message);
+        console.log(err.responseJSON.message);
+      } else {
+
+        for (var name in err.responseJSON) {
+          console.log(name);
+          console.log(err.responseJSON[name].message);
+          $form.find('[name=' + name + ']').parent('.form-group').addClass('error').find('small.error').html('<p> ' + err.responseJSON[name].message + ' </p>');
+        }
+      }
     });
   }
 
@@ -72,7 +86,7 @@ $(function () {
   function showLoginForm() {
 
     if (event) event.preventDefault();
-    $main.append('\n      <div class="loginForm">\n      <h2 class="form-signin-heading">Login</h2>\n      <form method="post" action="/login">\n      <div class="form-group">\n      <input class="form-control" name="email" placeholder="Email">\n      </div>\n      <div class="form-group">\n      <input class="form-control" type="password" name="password" placeholder="Password">\n      </div>\n      <button class="btn btn-primary" type="submit">Login</button>\n      </form></div>\n      ');
+    $main.append('\n      <div class="loginForm">\n      <h2 class="form-signin-heading">Login</h2>\n      <form method="post" action="/login">\n      <div class="form-group">\n      <input class="form-control" name="email" placeholder="Email">\n\n      </div>\n      <div class="form-group">\n      <input class="form-control" type="password" name="password" placeholder="Password">\n      </div>\n          <small class="error"></small><br>\n      <button class="btn btn-primary" type="submit">Login</button>\n      </form></div>\n      ');
   }
 
   // get users sends the GET to the API server to get all users
@@ -163,6 +177,8 @@ var showEditBar = function showEditBar() {
 
   $('.editBar').slideToggle("slow", function () {
     // Animation complete.
+    $('#password').prop("hidden", true);
+    $('#confPassword').prop("hidden", true);
   });
 };
 
@@ -205,5 +221,5 @@ var showRegForm = function showRegForm(action) {
     });
   }
 
-  $('.register').html('\n    <p class="jointoday">\n    ' + message + '\n    </p>\n  <form method="' + method + '" action="' + formAction + '">\n\n\n    <div class="form-group">\n\n      <input class="form-control" name="username" placeholder="Username">\n    </div>\n    <div class="form-group">\n\n      <input class="form-control" name="fullname" placeholder="Full Name">\n    </div>\n    <div class="form-group">\n      <input class="form-control" name="image" placeholder="Image">\n    </div>\n    <div class="form-group">\n      <input class="form-control" name="postcode" placeholder="Postcode">\n    </div>\n    <div class="form-group">\n      <select class="form-control" id="skill_level">\n        <option>Absolute Novice</option>\n        <option>Beginner</option>\n        <option>Intermediate</option>\n        <option>Advanced</option>\n        <option>Total Pro</option>\n      </select>\n    </div>\n    <div class="form-group">\n      <input class="form-control" name="availability" placeholder="Availability">\n    </div>\n    <div class="form-group">\n      <select class="form-control" id="ageRange">\n        <option>Under 18</option>\n        <option>18-35</option>\n        <option>36-59</option>\n        <option>60+</option>\n      </select>\n    </div>\n    <div class="form-group">\n      <input class="form-control" name="travelDistance" placeholder="Travel Distance">\n    </div>\n    <div class="form-group">\n      <input class="form-control" name="email" placeholder="Email">\n    </div>\n    <div class="form-group">\n      <input class="form-control" name="phoneNumber" placeholder="Phone Number">\n    </div>\n\n      <div class="form-group">\n      <input class="form-control" type="password" name="password" placeholder="Password">\n    </div>\n    <div class="form-group">\n      <input class="form-control" type="password" name="passwordConfirmation" placeholder="Password Confirmation">\n    </div><button class="btn btn-primary regButton">' + button + '</button>\n      </form>');
+  $('.register').html('\n    <p class="jointoday">\n    ' + message + '\n    </p>\n  <form method="' + method + '" action="' + formAction + '">\n\n <input type="hidden" name="lat">   <input type="hidden" name="lng">\n    <div class="form-group">\n      <input class="form-control" name="username" placeholder="Username">\n      <small class="error">Some error message</small>\n    </div>\n    <div class="form-group">\n\n      <input class="form-control" name="fullname" placeholder="Full Name">\n    </div>\n    <div class="form-group">\n      <input class="form-control" name="image" placeholder="Image">\n    </div>\n    <div class="form-group">\n      <input class="form-control" name="postcode" placeholder="Postcode">\n    </div>\n    <div class="form-group">\n      <select class="form-control" id="skill_level">\n        <option>Absolute Novice</option>\n        <option>Beginner</option>\n        <option>Intermediate</option>\n        <option>Advanced</option>\n        <option>Total Pro</option>\n      </select>\n    </div>\n    <div class="form-group">\n      <input class="form-control" name="availability" placeholder="Availability">\n    </div>\n    <div class="form-group">\n      <select class="form-control" id="ageRange">\n        <option>Under 18</option>\n        <option>18-35</option>\n        <option>36-59</option>\n        <option>60+</option>\n      </select>\n    </div>\n    <div class="form-group">\n      <input class="form-control" name="travelDistance" placeholder="Travel Distance">\n      <small class="error"></small>\n    </div>\n    <div class="form-group">\n      <input class="form-control" name="email" placeholder="Email">\n        <small class="error"></small>\n    </div>\n    <div class="form-group">\n      <input class="form-control" name="phoneNumber" placeholder="Phone Number">\n    </div>\n\n      <div class="form-group">\n\n      <input class="form-control" type="password" name="password" placeholder="Password">\n      <small class="error"></small>\n\n    </div>\n    <div class="form-group">\n      <input class="form-control" type="password" name="passwordConfirmation" placeholder="Password Confirmation" id="confPassword">\n    </div><button class="btn btn-primary regButton">' + button + '</button>\n      </form>');
 };
