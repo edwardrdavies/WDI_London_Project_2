@@ -16,6 +16,16 @@
   color: white;
 }
 
+.footer {
+  height: 100vh;
+  background-image: url('https://static.pexels.com/photos/7753/sun-ball-tennis-court.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center top;
+  text-align: center;
+  color: white;
+}
+
 .next-match {
   .col-md-6 {
     padding-bottom: 15px;
@@ -25,7 +35,7 @@
     background-image: url('https://d2lm6fxwu08ot6.cloudfront.net/img-thumbs/960w/NBRVNC5FWO.jpg');
     background-repeat: no-repeat;
     background-size: cover;
-    
+
   }
 }
 
@@ -77,6 +87,11 @@
 
 .hero p {
   padding-top: 20px;
+  font-size: 25px;
+}
+
+.footer p {
+  font-size: 25px; 
 }
 
 h1 {
@@ -103,11 +118,22 @@ h1 {
 
   float: right;
   color: #fff;
-  background-color: #025aa5;
-  border-color: #01549b;
+  background-color: #48d5b5;
+  border-color: #48d5b5;;
   border: 1px solid transparent;
   padding: .5rem 1rem;
   font-size: 1rem;
   border-radius: .25rem;
 
+}
+
+.btn-primary {
+  background-color: #48d5b5;
+  border-color: #48d5b5;
+}
+
+.registerbtn {
+  width: 300px;
+  height: 50px;
+  padding: .9rem 1rem;
 }
