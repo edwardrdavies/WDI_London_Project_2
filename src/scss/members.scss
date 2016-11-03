@@ -57,12 +57,27 @@
   .footer {
     background-color:  #70E4CA;
     height:60px;
+  }
 
+  img {
+    height: 30px;
+  }
 
-    img {
-      height: 30px;
+  .you, .courtsimg, .nearbyplayersimg {
+    height: 30px;
+    margin-left: 10px;
+  }
 
-    }
+  .key {
+    height: 20px;
+    display: inline-block;
+    padding-left: 115px;
+    color: white;
+
+  }
+
+  .jointoday {
+    color: white;
   }
 
   .img-container {
