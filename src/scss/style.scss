@@ -149,3 +149,18 @@ h1 {
 .loggedOut {
   display:none;
 }
+
+.logoutbtn {
+  float: right;
+  color: #fff;
+  border: 1px solid transparent;
+  padding: .5rem 1rem;
+  font-size: 1rem;
+  border-radius: .25rem;
+  margin-right: -220px;
+  background-color: #48d5b5;
+}
+
+.loginbtn {
+  margin-right: 70px;
+}
