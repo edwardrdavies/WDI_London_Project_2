@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 var googleMap = googleMap || {};
 var venueInfoWindow = void 0;
@@ -6,11 +6,25 @@ var venueInfoWindow = void 0;
 googleMap.markers = [];
 
 googleMap.getUsers = function () {
-  $.get("http://localhost:8000/users").done(this.loopThroughtUsers);
+  var token = localStorage.getItem('token');
+  $.ajax({
+    url: '/users',
+    method: 'GET',
+    beforeSend: function beforeSend(jqXHR) {
+      if (token) return jqXHR.setRequestHeader('Authorization', 'Bearer ' + token);
+    }
+  }).done(this.loopThroughtUsers);
 };
 
 googleMap.getPlaces = function () {
-  $.get("/place").done(this.loopThroughPlaces);
+  var token = localStorage.getItem('token');
+  $.ajax({
+    url: '/place',
+    method: 'GET',
+    beforeSend: function beforeSend(jqXHR) {
+      if (token) return jqXHR.setRequestHeader('Authorization', 'Bearer ' + token);
+    }
+  }).done(this.loopThroughPlaces);
 };
 
 googleMap.addInfoWindowForUser = function (user, marker) {
@@ -23,7 +37,7 @@ googleMap.addInfoWindowForUser = function (user, marker) {
     }
     _this.infowindow = new google.maps.InfoWindow({
 
-      content: "\n      <h4>" + user.fullname + "</h4>\n      <p><b>Location: </b>" + user.postcode + "</p>\n\n      <p><img src=\"" + user.image + "\"class=\"userpic\" alt=\"Image Coming\"></p>\n\n      <b>Phone:</b><p>" + user.phoneNumber + "</p>\n      <p><b>Willing to travel</b>: " + user.travelDistance + " miles</p>\n      <p><b>Typical availability</b>: " + user.availability + "</p>\n      <p><b>Skill Level</b>: " + user.skillLevel + "</p>\n      <a href=\"mailto:" + user.email + "\"><button class=\"btn btn-info\">Email</button></a>\n      "
+      content: '\n      <h4>' + user.fullname + '</h4>\n      <p><b>Location: </b>' + user.postcode + '</p>\n\n      <p><img src="' + user.image + '"class="userpic" alt="Image Coming"></p>\n\n      <b>Phone:</b><p>' + user.phoneNumber + '</p>\n      <p><b>Willing to travel</b>: ' + user.travelDistance + ' miles</p>\n      <p><b>Typical availability</b>: ' + user.availability + '</p>\n      <p><b>Skill Level</b>: ' + user.skillLevel + '</p>\n      <a href="mailto:' + user.email + '"><button class="btn btn-info">Email</button></a>\n      '
     });
     _this.infowindow.open(_this.map, marker);
   });
@@ -38,7 +52,7 @@ googleMap.addInfoWindowForPlace = function (place, marker) {
       _this2.infowindow.close();
     }
     _this2.infowindow = new google.maps.InfoWindow({
-      content: "" + place.name
+      content: '' + place.name
     });
     _this2.infowindow.open(_this2.map, marker);
   });

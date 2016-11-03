@@ -6,12 +6,26 @@ googleMap.markers = [];
 
 
 googleMap.getUsers = function () {
-  $.get("http://localhost:8000/users")
-  .done(this.loopThroughtUsers);
+  let token = localStorage.getItem('token');
+  $.ajax({
+    url: '/users',
+    method:'GET',
+    beforeSend: function(jqXHR) {
+      if(token) return jqXHR.setRequestHeader('Authorization',`Bearer ${token}`);
+    }
+  })
+  .done((this.loopThroughtUsers));
 };
 
 googleMap.getPlaces = function () {
-  $.get("/place")
+  let token = localStorage.getItem('token');
+  $.ajax({
+    url: '/place',
+    method:'GET',
+    beforeSend: function(jqXHR) {
+      if(token) return jqXHR.setRequestHeader('Authorization',`Bearer ${token}`);
+    }
+  })
   .done(this.loopThroughPlaces);
 };
 

@@ -5,12 +5,16 @@ $(() => {
   let $map = $('#all-map');
   let $loggedIn = $('.loggedIn');
   let $loggedOut = $('.loggedOut');
-
+  let $listUsers = $('.listUsers');
+  let currentUsers = {};
   //event handlers go here
   $('.logout').on('click', logout);
   $('.edit').on('click', showEditBar);
   $('#skillLevel').on('change', resetUsers);
   $('body').on('submit', 'form', handleForm);
+  $('.listUsersButton').on('click', listUsers);
+  $('body').on('click', ".moreUsers", showMoreUsers);
+
   let geocoder = new google.maps.Geocoder();
 
   //handles the registration form
@@ -103,6 +107,8 @@ $(() => {
 
       // get users sends the GET to the API server to get all users
       function listUsers(){
+        $listUsers.empty();
+        $listUsers.toggle();
         if (event) event.preventDefault();
         let token = localStorage.getItem('token');
         $.ajax({
@@ -113,7 +119,7 @@ $(() => {
           }
         })
         .done((users)=> {
-          showUsers(users);
+          showUsers(users,0,10);
         });
 
       }
@@ -123,30 +129,39 @@ $(() => {
 
 
       // runs a loop on data returned by getUsers to output the user list.
-      function showUsers(users) {
+      function showUsers(users,start,finish) {
         if (event) event.preventDefault();
+        currentUsers = users;
+        console.log(currentUsers);
+        if (finish > users.length) {
+          finish = users.length;
 
-        users.forEach((user) => {
-          $main.append(`
-            <div class="col-md-4">
-            <div class="card">
-            <img class="card-img-top" src="http://fillmurray.com/300/300" alt="Card image cap">
-            <div class="card-block">
-            <h4 class="card-title">${user.username}</h4>
-            <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+        }
+        for (let i = start; i < finish; i++) {
+          $listUsers.append(`
 
-            <button class="userPage" data-id="${user._id}">See More</button>
-            </div>
-            </div>
+            <h4>${users[i].fullname}</h4>
+            <p><b>Location: </b>${users[i].postcode}</p>
 
-            </div>
-            </div>
+            <p><img src="${users[i].image}"class="userpic" alt="Image Coming"></p>
 
+            <b>Phone:</b><p>${users[i].phoneNumber}</p>
+            <p><b>Willing to travel</b>: ${users[i].travelDistance} miles</p>
+            <p><b>Typical availability</b>: ${users[i].availability}</p>
+            <p><b>Skill Level</b>: ${users[i].skillLevel}</p>
+            <a href="mailto:${users[i].email}"><button class="btn btn-info">Email</button></a>
 
-            </form>
             `);
-          });
+            if (i==finish-1 && finish != users.length) {
+              $listUsers.append(`<button class="btn btn-primary moreUsers" data-finish="${finish}">More..</button>`);
+            }
+          }
+        }
+
+        function showMoreUsers() {
+          let start = $(event.target).data('finish');
+          $listUsers.empty();
+          showUsers(currentUsers,start,start+10);
         }
 
 
@@ -231,146 +246,146 @@ $(() => {
           showMembersPage();
 
 
-        const $burger = $('.burger');
-        const $navItems = $('.nav-item');
+          const $burger = $('.burger');
+          const $navItems = $('.nav-item');
 
-        $burger.on('click', () => {
-          $navItems.toggle();
-        });
+          $burger.on('click', () => {
+            $navItems.toggle();
+          });
 
-        $(window).on('resize', () => {
-          if ($(window).width() > 767) {
-            $navItems.show();
-          }
-        });
-
-
-
-        function showRegForm(action) {
-
-          let token = localStorage.getItem('token');
-          let _id = localStorage.getItem('_id');
-
-          let method = "POST";
-          let button = "Register";
-          let message ="Join the community today!";
-          let formAction ="/register";
-          if (action == "edit") {
-            method = "PUT";
-            button = 'Update';
-            formAction = `/user/${_id}`;
-            message ="Update Your Profile";
-
-          }
+          $(window).on('resize', () => {
+            if ($(window).width() > 767) {
+              $navItems.show();
+            }
+          });
 
 
-          if (token) {
 
-            $.ajax({
-              url: `/user/${_id}`,
-              method:'GET',
-              beforeSend: function(jqXHR) {
-                if(token) return jqXHR.setRequestHeader('Authorization',`Bearer ${token}`);
-              }
-            })
-            .done((user)=> {
+          function showRegForm(action) {
 
-              $("input[name=username]").val(user.username);
-              $("input[name=fullname]").val(user.fullname);
-              $("input[name=image]").val(user.image);
-              $("input[name=postcode]").val(user.postcode);
-              $("input[name=skill_level]").val(user.skill_level);
-              $("input[name=availability]").val(user.availability);
-              $("input[name=ageRange]").val(user.ageRange);
-              $("input[name=travelDistance]").val(user.travelDistance);
-              $("input[name=email]").val(user.email);
-              $("input[name=phoneNumber]").val(user.phoneNumber);
-            });
+            let token = localStorage.getItem('token');
+            let _id = localStorage.getItem('_id');
 
-          }
+            let method = "POST";
+            let button = "Register";
+            let message ="Join the community today!";
+            let formAction ="/register";
+            if (action == "edit") {
+              method = "PUT";
+              button = 'Update';
+              formAction = `/user/${_id}`;
+              message ="Update Your Profile";
 
-          $('.register').html(`
-            <p class="jointoday">
-            ${message}
-            </p>
-            <form method="${method}" action="${formAction}">
-
-            <input type="hidden" name="lat">   <input type="hidden" name="lng">
-            <div class="form-group username">
-            <input class="form-control" name="username" placeholder="Username">
-            <small class="error">Some error message</small>
-            </div>
-            <div class="form-group">
-
-            <input class="form-control" name="fullname" placeholder="Full Name">
-            </div>
-            <div class="form-group">
-            <input class="form-control" name="image" placeholder="Image">
-            </div>
-            <div class="form-group">
-            <input class="form-control" name="postcode" placeholder="Postcode">
-            </div>
-            <div class="form-group">
-            <select class="form-control" name="skillLevel">
-            <option>Absolute Novice</option>
-            <option>Beginner</option>
-            <option>Intermediate</option>
-            <option>Advanced</option>
-            <option>Total Pro</option>
-            </select>
-            </div>
-            <div class="form-group">
-            <input class="form-control" name="availability" placeholder="Availability">
-            </div>
-            <div class="form-group">
-            <select class="form-control" name="ageRange">
-            <option>Under 18</option>
-            <option>18-35</option>
-            <option>36-59</option>
-            <option>60+</option>
-            </select>
-            </div>
-            <div class="form-group">
-            <input class="form-control" name="travelDistance" placeholder="Travel Distance">
-            <small class="error"></small>
-            </div>
-            <div class="form-group">
-            <input class="form-control" name="email" placeholder="Email">
-            <small class="error"></small>
-            </div>
-            <div class="form-group">
-            <input class="form-control" name="phoneNumber" placeholder="Phone Number">
-            </div>
-
-            <div class="form-group">
+            }
 
 
-            <input class="form-control" type="password" name="password" placeholder="Password" id="password">
-            <small class="error"></small>
+            if (token) {
 
-            </div>
-            <div class="form-group">
-            <input class="form-control" type="password" name="passwordConfirmation" placeholder="Password Confirmation" id="confPassword">
-            </div><button class="btn btn-primary regButton">${button}</button>
-            </form>`);
+              $.ajax({
+                url: `/user/${_id}`,
+                method:'GET',
+                beforeSend: function(jqXHR) {
+                  if(token) return jqXHR.setRequestHeader('Authorization',`Bearer ${token}`);
+                }
+              })
+              .done((user)=> {
+
+                $("input[name=username]").val(user.username);
+                $("input[name=fullname]").val(user.fullname);
+                $("input[name=image]").val(user.image);
+                $("input[name=postcode]").val(user.postcode);
+                $("input[name=skill_level]").val(user.skill_level);
+                $("input[name=availability]").val(user.availability);
+                $("input[name=ageRange]").val(user.ageRange);
+                $("input[name=travelDistance]").val(user.travelDistance);
+                $("input[name=email]").val(user.email);
+                $("input[name=phoneNumber]").val(user.phoneNumber);
+              });
+
+            }
+
+            $('.register').html(`
+              <p class="jointoday">
+              ${message}
+              </p>
+              <form method="${method}" action="${formAction}">
+
+              <input type="hidden" name="lat">   <input type="hidden" name="lng">
+              <div class="form-group username">
+              <input class="form-control" name="username" placeholder="Username">
+              <small class="error">Some error message</small>
+              </div>
+              <div class="form-group">
+
+              <input class="form-control" name="fullname" placeholder="Full Name">
+              </div>
+              <div class="form-group">
+              <input class="form-control" name="image" placeholder="Image">
+              </div>
+              <div class="form-group">
+              <input class="form-control" name="postcode" placeholder="Postcode">
+              </div>
+              <div class="form-group">
+              <select class="form-control" name="skillLevel">
+              <option>Absolute Novice</option>
+              <option>Beginner</option>
+              <option>Intermediate</option>
+              <option>Advanced</option>
+              <option>Total Pro</option>
+              </select>
+              </div>
+              <div class="form-group">
+              <input class="form-control" name="availability" placeholder="Availability">
+              </div>
+              <div class="form-group">
+              <select class="form-control" name="ageRange">
+              <option>Under 18</option>
+              <option>18-35</option>
+              <option>36-59</option>
+              <option>60+</option>
+              </select>
+              </div>
+              <div class="form-group">
+              <input class="form-control" name="travelDistance" placeholder="Travel Distance">
+              <small class="error"></small>
+              </div>
+              <div class="form-group">
+              <input class="form-control" name="email" placeholder="Email">
+              <small class="error"></small>
+              </div>
+              <div class="form-group">
+              <input class="form-control" name="phoneNumber" placeholder="Phone Number">
+              </div>
+
+              <div class="form-group">
 
 
-          };
-        });
+              <input class="form-control" type="password" name="password" placeholder="Password" id="password">
+              <small class="error"></small>
 
-        const showEditBar = () => {
-          // showRegForm("edit");
+              </div>
+              <div class="form-group">
+              <input class="form-control" type="password" name="passwordConfirmation" placeholder="Password Confirmation" id="confPassword">
+              </div><button class="btn btn-primary regButton">${button}</button>
+              </form>`);
 
-          $('.editBar').slideToggle( "slow", function() {
-            // Animation complete.
-              $('#password').prop("hidden", true);
-              $('#confPassword').prop("hidden", true);
-              $("button").click(function(){
+
+            }
+
+            function showEditBar() {
+              showRegForm("edit");
+
+              $('.editBar').slideToggle( "slow", function() {
+                // Animation complete.
+                $('#password').prop("hidden", true);
+                $('#confPassword').prop("hidden", true);
+                $("button").click(function(){
                   $(".editBar").slideUp("slow", function() {
                   });
                   $('.membersLogin').collapse({
-                      toggle: true
+                    toggle: true
                   });
+                });
               });
+            }
           });
-        };

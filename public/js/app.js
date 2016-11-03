@@ -7,12 +7,16 @@ $(function () {
   var $map = $('#all-map');
   var $loggedIn = $('.loggedIn');
   var $loggedOut = $('.loggedOut');
-
+  var $listUsers = $('.listUsers');
+  var currentUsers = {};
   //event handlers go here
   $('.logout').on('click', logout);
   $('.edit').on('click', showEditBar);
   $('#skillLevel').on('change', resetUsers);
   $('body').on('submit', 'form', handleForm);
+  $('.listUsersButton').on('click', listUsers);
+  $('body').on('click', ".moreUsers", showMoreUsers);
+
   var geocoder = new google.maps.Geocoder();
 
   //handles the registration form
@@ -83,6 +87,8 @@ $(function () {
 
   // get users sends the GET to the API server to get all users
   function listUsers() {
+    $listUsers.empty();
+    $listUsers.toggle();
     if (event) event.preventDefault();
     var token = localStorage.getItem('token');
     $.ajax({
@@ -92,17 +98,30 @@ $(function () {
         if (token) return jqXHR.setRequestHeader('Authorization', 'Bearer ' + token);
       }
     }).done(function (users) {
-      showUsers(users);
+      showUsers(users, 0, 10);
     });
   }
 
   // runs a loop on data returned by getUsers to output the user list.
-  function showUsers(users) {
+  function showUsers(users, start, finish) {
     if (event) event.preventDefault();
+    currentUsers = users;
+    console.log(currentUsers);
+    if (finish > users.length) {
+      finish = users.length;
+    }
+    for (var i = start; i < finish; i++) {
+      $listUsers.append('\n\n            <h4>' + users[i].fullname + '</h4>\n            <p><b>Location: </b>' + users[i].postcode + '</p>\n\n            <p><img src="' + users[i].image + '"class="userpic" alt="Image Coming"></p>\n\n            <b>Phone:</b><p>' + users[i].phoneNumber + '</p>\n            <p><b>Willing to travel</b>: ' + users[i].travelDistance + ' miles</p>\n            <p><b>Typical availability</b>: ' + users[i].availability + '</p>\n            <p><b>Skill Level</b>: ' + users[i].skillLevel + '</p>\n            <a href="mailto:' + users[i].email + '"><button class="btn btn-info">Email</button></a>\n\n            ');
+      if (i == finish - 1 && finish != users.length) {
+        $listUsers.append('<button class="btn btn-primary moreUsers" data-finish="' + finish + '">More..</button>');
+      }
+    }
+  }
 
-    users.forEach(function (user) {
-      $main.append('\n            <div class="col-md-4">\n            <div class="card">\n            <img class="card-img-top" src="http://fillmurray.com/300/300" alt="Card image cap">\n            <div class="card-block">\n            <h4 class="card-title">' + user.username + '</h4>\n            <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>\n            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>\n\n            <button class="userPage" data-id="' + user._id + '">See More</button>\n            </div>\n            </div>\n\n            </div>\n            </div>\n\n\n            </form>\n            ');
-    });
+  function showMoreUsers() {
+    var start = $(event.target).data('finish');
+    $listUsers.empty();
+    showUsers(currentUsers, start, start + 10);
   }
 
   function getUser(userID) {
@@ -216,22 +235,22 @@ $(function () {
       });
     }
 
-    $('.register').html('\n            <p class="jointoday">\n            ' + message + '\n            </p>\n            <form method="' + method + '" action="' + formAction + '">\n\n            <input type="hidden" name="lat">   <input type="hidden" name="lng">\n            <div class="form-group username">\n            <input class="form-control" name="username" placeholder="Username">\n            <small class="error">Some error message</small>\n            </div>\n            <div class="form-group">\n\n            <input class="form-control" name="fullname" placeholder="Full Name">\n            </div>\n            <div class="form-group">\n            <input class="form-control" name="image" placeholder="Image">\n            </div>\n            <div class="form-group">\n            <input class="form-control" name="postcode" placeholder="Postcode">\n            </div>\n            <div class="form-group">\n            <select class="form-control" name="skillLevel">\n            <option>Absolute Novice</option>\n            <option>Beginner</option>\n            <option>Intermediate</option>\n            <option>Advanced</option>\n            <option>Total Pro</option>\n            </select>\n            </div>\n            <div class="form-group">\n            <input class="form-control" name="availability" placeholder="Availability">\n            </div>\n            <div class="form-group">\n            <select class="form-control" name="ageRange">\n            <option>Under 18</option>\n            <option>18-35</option>\n            <option>36-59</option>\n            <option>60+</option>\n            </select>\n            </div>\n            <div class="form-group">\n            <input class="form-control" name="travelDistance" placeholder="Travel Distance">\n            <small class="error"></small>\n            </div>\n            <div class="form-group">\n            <input class="form-control" name="email" placeholder="Email">\n            <small class="error"></small>\n            </div>\n            <div class="form-group">\n            <input class="form-control" name="phoneNumber" placeholder="Phone Number">\n            </div>\n\n            <div class="form-group">\n\n\n            <input class="form-control" type="password" name="password" placeholder="Password" id="password">\n            <small class="error"></small>\n\n            </div>\n            <div class="form-group">\n            <input class="form-control" type="password" name="passwordConfirmation" placeholder="Password Confirmation" id="confPassword">\n            </div><button class="btn btn-primary regButton">' + button + '</button>\n            </form>');
-  };
-});
+    $('.register').html('\n              <p class="jointoday">\n              ' + message + '\n              </p>\n              <form method="' + method + '" action="' + formAction + '">\n\n              <input type="hidden" name="lat">   <input type="hidden" name="lng">\n              <div class="form-group username">\n              <input class="form-control" name="username" placeholder="Username">\n              <small class="error">Some error message</small>\n              </div>\n              <div class="form-group">\n\n              <input class="form-control" name="fullname" placeholder="Full Name">\n              </div>\n              <div class="form-group">\n              <input class="form-control" name="image" placeholder="Image">\n              </div>\n              <div class="form-group">\n              <input class="form-control" name="postcode" placeholder="Postcode">\n              </div>\n              <div class="form-group">\n              <select class="form-control" name="skillLevel">\n              <option>Absolute Novice</option>\n              <option>Beginner</option>\n              <option>Intermediate</option>\n              <option>Advanced</option>\n              <option>Total Pro</option>\n              </select>\n              </div>\n              <div class="form-group">\n              <input class="form-control" name="availability" placeholder="Availability">\n              </div>\n              <div class="form-group">\n              <select class="form-control" name="ageRange">\n              <option>Under 18</option>\n              <option>18-35</option>\n              <option>36-59</option>\n              <option>60+</option>\n              </select>\n              </div>\n              <div class="form-group">\n              <input class="form-control" name="travelDistance" placeholder="Travel Distance">\n              <small class="error"></small>\n              </div>\n              <div class="form-group">\n              <input class="form-control" name="email" placeholder="Email">\n              <small class="error"></small>\n              </div>\n              <div class="form-group">\n              <input class="form-control" name="phoneNumber" placeholder="Phone Number">\n              </div>\n\n              <div class="form-group">\n\n\n              <input class="form-control" type="password" name="password" placeholder="Password" id="password">\n              <small class="error"></small>\n\n              </div>\n              <div class="form-group">\n              <input class="form-control" type="password" name="passwordConfirmation" placeholder="Password Confirmation" id="confPassword">\n              </div><button class="btn btn-primary regButton">' + button + '</button>\n              </form>');
+  }
 
-var showEditBar = function showEditBar() {
-  // showRegForm("edit");
+  function showEditBar() {
+    showRegForm("edit");
 
-  $('.editBar').slideToggle("slow", function () {
-    // Animation complete.
-    $('#password').prop("hidden", true);
-    $('#confPassword').prop("hidden", true);
-    $("button").click(function () {
-      $(".editBar").slideUp("slow", function () {});
-      $('.membersLogin').collapse({
-        toggle: true
+    $('.editBar').slideToggle("slow", function () {
+      // Animation complete.
+      $('#password').prop("hidden", true);
+      $('#confPassword').prop("hidden", true);
+      $("button").click(function () {
+        $(".editBar").slideUp("slow", function () {});
+        $('.membersLogin').collapse({
+          toggle: true
+        });
       });
     });
-  });
-};
+  }
+});
