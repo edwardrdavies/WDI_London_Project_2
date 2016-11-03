@@ -248,11 +248,16 @@ $(() => {
 
           $('.editBar').slideToggle( "slow", function() {
             // Animation complete.
-            $('#password').prop("hidden", true);
-            $('#confPassword').prop("hidden", true);
-            $("button").click(function(){
-              $(".editBar").slideUp();
-            });
+              $('#password').prop("hidden", true);
+              $('#confPassword').prop("hidden", true);
+              $("button").click(function(){
+                  $(".editBar").slideUp("slow", function() {
+                  });
+                  $('.membersLogin').collapse({
+                      toggle: true
+});
+              });
+
 
           });
         };

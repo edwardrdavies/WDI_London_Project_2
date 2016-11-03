@@ -26,7 +26,7 @@ googleMap.addInfoWindowForUser = function (user, marker) {
       <h4>${user.fullname}</h4>
       <p><b>Location: </b>${user.postcode}</p>
 
-      <p><img src="${user.image.url}" alt="ooops!" /></p>
+      <p><img src="${user.image}"class="userpic" alt="Image Coming"></p>
 
       <b>Phone:</b><p>${user.phoneNumber}</p>
       <p><b>Willing to travel</b>: ${user.travelDistance} miles</p>
@@ -142,9 +142,8 @@ googleMap.mapSetup = function () {
         map: googleMap.map,
         title: place.name,
         position: place.geometry.location,
-        animation: google.maps.Animation.BOUNCE,
+        // animation: google.maps.Animation.DROP,
 
-          // googleMap.map.marker.setAnimation(null);
 
 
         icon: {
