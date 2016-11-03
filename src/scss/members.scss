@@ -39,8 +39,8 @@
 .form-group {
   small.error {
     display: none;
-
-  }}
+  }
+}
 
   small.error {
     display: block;
@@ -108,7 +108,26 @@
    display: none;
  }
 
- @media (max-width: 767px) {
+
+ #all-map {
+    position: relative;
+
+ }
+
+ .listUsers {
+   position: absolute;
+   top: 145px;
+   height: calc(100vh - 135px);
+   right: 10px;
+   width:250px;
+   background-color: rgba(0,0,0,0.3);
+   display: none;
+   overflow: scroll;
+   padding: 20px;
+ }
+
+
+@media (max-width: 767px) {
    .burger {
      display: inline-block;
      font-size: 22px;
@@ -127,13 +146,5 @@
    .navbar-nav .nav-item+.nav-item {
      margin: 0;
    }
- }
 
- .listUsers {
-   width:150px;
-   height:100%;
-   background-color: #04284D;
-   display:none;
-   position: center;
-
- }
+}
