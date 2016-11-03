@@ -1,7 +1,8 @@
 const router = require('express').Router();
 const jwt = require("jsonwebtoken");
-const Venues = require("../controllers/venues.js");
+
 const User = require("../controllers/users.js");
+const Places = require("../controllers/places.js");
 const secret = require('./tokens').secret;
 
 
@@ -21,16 +22,15 @@ function secureRoute(req, res, next) {
 
 // const authController = require('../controllers/auth');
 
-router.route("/venue")
-  .all(secureRoute)
-  .post(Venues.add)
-  .get(Venues.index);
+router.route("/place")
+  // .all(secureRoute)
+  .get(Places.index);
 
-router.route('/venue/:id')
+router.route('/place/:id')
   .all(secureRoute)
-  .get(Venues.show)
-  .put(Venues.update)
-  .delete(Venues.delete);
+  .get(Places.show)
+  .put(Places.update)
+  .delete(Places.delete);
 
 router.route("/users")
   .post(User.register)
