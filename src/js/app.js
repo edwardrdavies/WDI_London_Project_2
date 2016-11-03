@@ -250,7 +250,11 @@ showMembersPage();
               $('#password').prop("hidden", true);
               $('#confPassword').prop("hidden", true);
               $("button").click(function(){
-                  $(".editBar").slideUp();
+                  $(".editBar").slideUp("slow", function() {
+                  });
+                  $('.membersLogin').collapse({
+                      toggle: true
+});
               });
 
           });
