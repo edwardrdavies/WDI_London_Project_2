@@ -1,5 +1,5 @@
-
 const Place = require('../models/place');
+
 
 
 function PlaceIndex(req,res){
