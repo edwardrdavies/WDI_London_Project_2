@@ -25,7 +25,7 @@
     background-image: url('https://d2lm6fxwu08ot6.cloudfront.net/img-thumbs/960w/NBRVNC5FWO.jpg');
     background-repeat: no-repeat;
     background-size: cover;
-    
+
   }
 }
 
@@ -110,4 +110,10 @@ h1 {
   font-size: 1rem;
   border-radius: .25rem;
 
+}
+.loggedIn {
+  display:none;
+}
+.loggedOut {
+  display:none;
 }

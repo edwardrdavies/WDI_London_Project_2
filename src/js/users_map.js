@@ -15,7 +15,7 @@ googleMap.getUsers = function () {
 
 googleMap.addInfoWindowForUser = function (user, marker) {
   google.maps.event.addListener(marker, 'click', () => {
-    console.log(user);
+
     if (this.infowindow) {
       this.infowindow.close();
     }
@@ -93,7 +93,7 @@ googleMap.mapSetup = function () {
 
 
     googleMap.loopThroughtUsers = (users) => {
-      console.log(googleMap);
+
       $.each(users, (index, user) => {
       let $skillLevel = $('#skillLevel').val();
         if ($skillLevel == "All Skill Levels" ) {
@@ -112,7 +112,7 @@ googleMap.mapSetup = function () {
 
     function getVenues(latLng) {
 
-      // console.log(google.maps.places);
+    
       var request = {
         location: latLng,
         // radius: 50,
@@ -190,7 +190,7 @@ googleMap.mapSetup = function () {
 
 
           });
-          console.log(this);
+
 
 
         });
@@ -204,12 +204,10 @@ googleMap.mapSetup = function () {
         let latLng= {lat: position.coords.latitude,
           lng:position.coords.longitude};
           googleMap.map.panTo(latLng);
-          getVenues(latLng);
           let market = new google.maps.Marker({
             position: latLng,
             animation:google.maps.Animation.DROP,
             draggable: true,
             map: googleMap.map,
-            icon: '../images/user-marker.png'
           });
         });
