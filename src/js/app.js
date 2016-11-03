@@ -161,7 +161,9 @@ $(() => {
         function showMoreUsers() {
           let start = $(event.target).data('finish');
           $listUsers.empty();
+          $editBar.hide();
           showUsers(currentUsers,start,start+10);
+          $listUsers.scrollTop(0);
         }
 
 
@@ -374,7 +376,7 @@ $(() => {
 
             function showEditBar() {
               showRegForm("edit");
-
+              $listUsers.hide();
               $('.editBar').slideToggle( "slow", function() {
                 // Animation complete.
                 $('#password').prop("hidden", true);

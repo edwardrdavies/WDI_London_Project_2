@@ -121,7 +121,9 @@ $(function () {
   function showMoreUsers() {
     var start = $(event.target).data('finish');
     $listUsers.empty();
+    $editBar.hide();
     showUsers(currentUsers, start, start + 10);
+    $listUsers.scrollTop(0);
   }
 
   function getUser(userID) {
@@ -240,7 +242,7 @@ $(function () {
 
   function showEditBar() {
     showRegForm("edit");
-
+    $listUsers.hide();
     $('.editBar').slideToggle("slow", function () {
       // Animation complete.
       $('#password').prop("hidden", true);

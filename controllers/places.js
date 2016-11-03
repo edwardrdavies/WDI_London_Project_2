@@ -1,4 +1,4 @@
-const Place = require('../models/place_js');
+const Place = require('../models/place');
 
 
 function PlaceIndex(req,res){
