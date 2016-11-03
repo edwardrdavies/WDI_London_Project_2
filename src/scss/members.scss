@@ -80,19 +80,28 @@
     color: white;
   }
 
-  .img-container {
-   width: 100px;
-   height: auto;
-   border: 1px solid;
-   position: relative;
- }
- .img-container img {
-   width: 100%;
-   height: auto;
-   position: absolute;
-   left: 50%;
-   top: 50%;
-   transform: translate(-50%, -50%);
+ //  .img-container {
+ //   width: 204;
+ //   height: 153;
+ //   border: 1px solid;
+ //   position: relative;
+ // }
+ // .img-container img {
+ //   width: 100%;
+ //   height: auto;
+ //   position: absolute;
+ //   left: 50%;
+ //   top: 50%;
+ //   transform: translate(-50%, -50%);
+ // }
+
+ .userImage {
+   width: 150px;
+   height: 150px;
+   background-position: center;
+   background-size: cover;
+   border-radius: 50%;
+   margin: 0 auto 20px;
  }
 
  .burger {
