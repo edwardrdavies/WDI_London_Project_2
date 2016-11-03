@@ -26,7 +26,7 @@ googleMap.addInfoWindowForUser = function (user, marker) {
       <h4>${user.fullname}</h4>
       <p><b>Location: </b>${user.postcode}</p>
 
-      <p><img src="${user.image}"class="userpic" alt="Image Coming"></p>
+      <p><img src="${user.image}" class="img-circle img-container" alt="Image Coming"></p>
 
       <b>Phone:</b><p>${user.phoneNumber}</p>
       <p><b>Willing to travel</b>: ${user.travelDistance} miles</p>
@@ -49,7 +49,8 @@ googleMap.mapSetup = function () {
       zoom: 14,
       center: new google.maps.LatLng(51.5, -0.08),
       mapTypeId: google.maps.MapTypeId.ROADMAP,
-      scrollwheel: false
+      scrollwheel: false,
+      styles: [{"stylers":[{"hue":"#007fff"},{"saturation":89}]},{"featureType":"water","stylers":[{"color":"#ffffff"}]},{"featureType":"administrative.country","elementType":"labels","stylers":[{"visibility":"off"}]}]
     };
     this.map = new google.maps.Map(canvas, mapOptions);
     this.getUsers();
@@ -112,7 +113,7 @@ googleMap.mapSetup = function () {
 
     function getVenues(latLng) {
 
-    
+
       var request = {
         location: latLng,
         // radius: 50,
