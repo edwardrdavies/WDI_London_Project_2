@@ -240,6 +240,19 @@ $(() => {
           }
 
           showMembersPage();
+
+
+        const $burger = $('.burger');
+        const $navItems = $('.nav-item');
+
+        $burger.on('click', () => {
+          $navItems.toggle();
+        });
+
+        $(window).on('resize', () => {
+          if ($(window).width() > 767) {
+            $navItems.show();
+          }
         });
 
         const showEditBar = () => {
@@ -254,10 +267,8 @@ $(() => {
                   });
                   $('.membersLogin').collapse({
                       toggle: true
-});
+                  });
               });
-
-
           });
         };
 
@@ -371,3 +382,4 @@ $(() => {
 
 
           };
+        });

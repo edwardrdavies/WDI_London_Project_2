@@ -28,7 +28,7 @@ googleMap.addInfoWindowForUser = function (user, marker) {
       <h4>${user.fullname}</h4>
       <p><b>Location: </b>${user.postcode}</p>
 
-      <p><img src="${user.image}"class="userpic" alt="Image Coming"></p>
+      <p><img src="${user.image}" class="img-circle img-container" alt="Image Coming"></p>
 
       <b>Phone:</b><p>${user.phoneNumber}</p>
       <p><b>Willing to travel</b>: ${user.travelDistance} miles</p>
@@ -66,7 +66,8 @@ googleMap.mapSetup = function () {
       zoom: 14,
       center: new google.maps.LatLng(51.5, -0.08),
       mapTypeId: google.maps.MapTypeId.ROADMAP,
-      scrollwheel: false
+      scrollwheel: false,
+      styles: [{"stylers":[{"hue":"#007fff"},{"saturation":89}]},{"featureType":"water","stylers":[{"color":"#ffffff"}]},{"featureType":"administrative.country","elementType":"labels","stylers":[{"visibility":"off"}]}]
     };
     this.map = new google.maps.Map(canvas, mapOptions);
     this.getUsers();
@@ -101,7 +102,7 @@ googleMap.mapSetup = function () {
 
   googleMap.createMarkerForPlace = (place) => {
     let latLng = new google.maps.LatLng(place.location.lat, place.location.lng);
-    
+
     var icon = {
       url: "../images/tennis-ball.png", // url
       scaledSize: new google.maps.Size(20, 20), // scaled size
@@ -135,17 +136,54 @@ googleMap.mapSetup = function () {
 
     $.each(users, (index, user) => {
       let $skillLevel = $('#skillLevel').val();
+        if ($skillLevel == "All Skill Levels" ) {
+          googleMap.createMarkerForUser(user);
+        }
+        else if ($skillLevel == user.skillLevel) {
+          googleMap.createMarkerForUser(user);
+
+        }
+
+
+      });
+    };
+
+
+
+    function getVenues(latLng) {
+
+
+      var request = {
+        location: latLng,
+        // radius: 50,
+        query: 'tennis courts',
+        rankby: 'distance'
+      };
+
+      let service = new google.maps.places.PlacesService(googleMap.map);
+      service.textSearch(request, callback);
+    }
+
+
+
+    function callback(results, status, pagination) {
+
+      if (status == google.maps.places.PlacesServiceStatus.OK) {
+        for (var i = 0; i < results.length; i++) {
+          var place = results[i];
+          createVenueMarker(results[i]);
+        }
       if ($skillLevel == "All Skill Levels" ) {
         googleMap.createMarkerForUser(user);
+
       }
       else if ($skillLevel == user.skillLevel) {
         googleMap.createMarkerForUser(user);
 
       }
+      }
+    }
 
-
-    });
-  };
 
 
   //
