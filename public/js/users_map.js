@@ -23,7 +23,7 @@ googleMap.addInfoWindowForUser = function (user, marker) {
     }
     _this.infowindow = new google.maps.InfoWindow({
 
-      content: "\n      <h4>" + user.fullname + "</h4>\n      <p><b>Location: </b>" + user.postcode + "</p>\n\n      <p><img src=\"" + user.image + "\" class=\"img-circle img-container\" alt=\"Image Coming\"></p>\n\n      <b>Phone:</b><p>" + user.phoneNumber + "</p>\n      <p><b>Willing to travel</b>: " + user.travelDistance + " miles</p>\n      <p><b>Typical availability</b>: " + user.availability + "</p>\n      <p><b>Skill Level</b>: " + user.skillLevel + "</p>\n      <a href=\"mailto:" + user.email + "\"><button class=\"btn btn-info\">Email</button></a>\n      "
+      content: "\n      <h4>" + user.fullname + "</h4>\n      <p><b>Location: </b>" + user.postcode + "</p>\n\n      <p><img src=\"" + user.image + "\"class=\"userpic\" alt=\"Image Coming\"></p>\n\n      <b>Phone:</b><p>" + user.phoneNumber + "</p>\n      <p><b>Willing to travel</b>: " + user.travelDistance + " miles</p>\n      <p><b>Typical availability</b>: " + user.availability + "</p>\n      <p><b>Skill Level</b>: " + user.skillLevel + "</p>\n      <a href=\"mailto:" + user.email + "\"><button class=\"btn btn-info\">Email</button></a>\n      "
     });
     _this.infowindow.open(_this.map, marker);
   });
@@ -54,8 +54,7 @@ googleMap.mapSetup = function () {
     zoom: 14,
     center: new google.maps.LatLng(51.5, -0.08),
     mapTypeId: google.maps.MapTypeId.ROADMAP,
-    scrollwheel: false,
-    styles: [{ "stylers": [{ "hue": "#007fff" }, { "saturation": 89 }] }, { "featureType": "water", "stylers": [{ "color": "#ffffff" }] }, { "featureType": "administrative.country", "elementType": "labels", "stylers": [{ "visibility": "off" }] }]
+    scrollwheel: false
   };
   this.map = new google.maps.Map(canvas, mapOptions);
   this.getUsers();
@@ -89,7 +88,6 @@ googleMap.createMarkerForUser = function (user) {
 
 googleMap.createMarkerForPlace = function (place) {
   var latLng = new google.maps.LatLng(place.location.lat, place.location.lng);
-
   var icon = {
     url: "../images/tennis-ball.png", // url
     scaledSize: new google.maps.Size(20, 20) };
@@ -128,34 +126,6 @@ googleMap.loopThroughtUsers = function (users) {
     }
   });
 };
-
-function getVenues(latLng) {
-
-  var request = {
-    location: latLng,
-    // radius: 50,
-    query: 'tennis courts',
-    rankby: 'distance'
-  };
-
-  var service = new google.maps.places.PlacesService(googleMap.map);
-  service.textSearch(request, callback);
-}
-
-function callback(results, status, pagination) {
-
-  if (status == google.maps.places.PlacesServiceStatus.OK) {
-    for (var i = 0; i < results.length; i++) {
-      var place = results[i];
-      createVenueMarker(results[i]);
-    }
-    if ($skillLevel == "All Skill Levels") {
-      googleMap.createMarkerForUser(user);
-    } else if ($skillLevel == user.skillLevel) {
-      googleMap.createMarkerForUser(user);
-    }
-  }
-}
 
 //
 // function getVenues(latLng) {
