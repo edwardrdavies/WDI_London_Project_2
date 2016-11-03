@@ -129,6 +129,34 @@ googleMap.loopThroughtUsers = function (users) {
   });
 };
 
+function getVenues(latLng) {
+
+  var request = {
+    location: latLng,
+    // radius: 50,
+    query: 'tennis courts',
+    rankby: 'distance'
+  };
+
+  var service = new google.maps.places.PlacesService(googleMap.map);
+  service.textSearch(request, callback);
+}
+
+function callback(results, status, pagination) {
+
+  if (status == google.maps.places.PlacesServiceStatus.OK) {
+    for (var i = 0; i < results.length; i++) {
+      var place = results[i];
+      createVenueMarker(results[i]);
+    }
+    if ($skillLevel == "All Skill Levels") {
+      googleMap.createMarkerForUser(user);
+    } else if ($skillLevel == user.skillLevel) {
+      googleMap.createMarkerForUser(user);
+    }
+  }
+}
+
 //
 // function getVenues(latLng) {
 //
