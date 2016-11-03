@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const request = require('request-promise');
 const Promise = require('bluebird');
 mongoose.Promise = Promise;
-const Place = require('../models/place_js');
+const Place = require('../models/place');
 
 let mongoUri = process.env.MONGODB_URI || 'mongodb://localhost/gamesetmatch';
 mongoose.connect(mongoUri);
@@ -32,6 +32,7 @@ request({
   }));
 })
 .then((data) => {
+  console.log(data);
   let places = [];
   data.forEach((place) => {
     if(place.result) {
@@ -48,6 +49,9 @@ request({
 })
 .then((places) => {
   return Place.create(places);
+})
+.then((places) => {
+  console.log(`${places.length} places created`);
 })
 .catch((err) => {
   console.log("ERROR", err);
