@@ -101,7 +101,7 @@ googleMap.mapSetup = function () {
 
   googleMap.createMarkerForPlace = (place) => {
     let latLng = new google.maps.LatLng(place.location.lat, place.location.lng);
-    console.log(latLng);
+    
     var icon = {
       url: "../images/tennis-ball.png", // url
       scaledSize: new google.maps.Size(20, 20), // scaled size
@@ -200,34 +200,7 @@ googleMap.mapSetup = function () {
   //     let website = "";
   //     let marker = this;
   //
-  //     let service = new google.maps.places.PlacesService(googleMap.map);
-  //     service.getDetails({
-  //       placeId: place.place_id
-  //     }, function(place, status) {
-  //
-  //       if (status === google.maps.places.PlacesServiceStatus.OK) {
-  //
-  //         google.maps.places.photo = place.photos ? place.photos[0].getUrl({'maxWidth': 200, 'maxHeight': 200}) : "";
-  //         google.maps.places.url = place.url;
-  //
-  //         if (typeof venueInfoWindow !== "undefined") {
-  //           venueInfoWindow.close();
-  //         }
-  //
-  //         venueInfoWindow = new google.maps.InfoWindow();
-  //
-  //         venueInfoWindow.setContent(`<b>${place.name}</b><br>
-  //           ${place.formatted_address} <br>
-  //           <a target="_blank" href="${google.maps.places.url}">More Info...</a>
-  //           <br><img src="${google.maps.places.photo}" alt="venue img">
-  //           `);
-  //
-  //           venueInfoWindow.open(googleMap.map, marker);
-  //         }
-  //
-  //
-  //
-  //       });
+
   //
   //
   //
