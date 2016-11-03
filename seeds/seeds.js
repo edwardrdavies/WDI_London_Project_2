@@ -2,7 +2,9 @@ const mongoose = require('mongoose');
 const User = require('./models/user');
 const Venue = require('./models/venue');
 
-mongoose.connect('mongodb://localhost/gamesetmatch');
+let mongoUri = process.env.MONGODB_URI || 'mongodb://localhost/gamesetmatch';
+mongoose.connect(mongoUri);
+
 Venue.collection.drop();
 User.collection.drop();
 
