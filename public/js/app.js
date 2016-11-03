@@ -111,7 +111,7 @@ $(function () {
       finish = users.length;
     }
     for (var i = start; i < finish; i++) {
-      $listUsers.append('\n\n            <h4>' + users[i].fullname + '</h4>\n            <p><b>Location: </b>' + users[i].postcode + '</p>\n\n            <p><img src="' + users[i].image + '"class="userpic" alt="Image Coming"></p>\n\n            <b>Phone:</b><p>' + users[i].phoneNumber + '</p>\n            <p><b>Willing to travel</b>: ' + users[i].travelDistance + ' miles</p>\n            <p><b>Typical availability</b>: ' + users[i].availability + '</p>\n            <p><b>Skill Level</b>: ' + users[i].skillLevel + '</p>\n            <a href="mailto:' + users[i].email + '"><button class="btn btn-info">Email</button></a>\n\n            ');
+      $listUsers.append('\n            <div class="user-card">\n            <h4>' + users[i].fullname + '</h4>\n            <p><img src="' + users[i].image + '"class="userpic" alt="Image Coming"></p>\n            <p><b>Location: </b>' + users[i].postcode + '</p>\n            <p><b>Phone:</b><p>' + users[i].phoneNumber + '</p>\n            <p><b>Willing to travel</b>: ' + users[i].travelDistance + ' miles</p>\n            <p><b>Typical availability</b>: ' + users[i].availability + '</p>\n            <p><b>Skill Level</b>: ' + users[i].skillLevel + '</p>\n            <a href="mailto:' + users[i].email + '"><button class="btn btn-info">Email</button></a>\n            </div></br>\n            ');
       if (i == finish - 1 && finish != users.length) {
         $listUsers.append('<button class="btn btn-primary moreUsers" data-finish="' + finish + '">More..</button>');
       }

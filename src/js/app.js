@@ -139,18 +139,16 @@ $(() => {
         }
         for (let i = start; i < finish; i++) {
           $listUsers.append(`
-
+            <div class="user-card">
             <h4>${users[i].fullname}</h4>
-            <p><b>Location: </b>${users[i].postcode}</p>
-
             <p><img src="${users[i].image}"class="userpic" alt="Image Coming"></p>
-
-            <b>Phone:</b><p>${users[i].phoneNumber}</p>
+            <p><b>Location: </b>${users[i].postcode}</p>
+            <p><b>Phone:</b><p>${users[i].phoneNumber}</p>
             <p><b>Willing to travel</b>: ${users[i].travelDistance} miles</p>
             <p><b>Typical availability</b>: ${users[i].availability}</p>
             <p><b>Skill Level</b>: ${users[i].skillLevel}</p>
             <a href="mailto:${users[i].email}"><button class="btn btn-info">Email</button></a>
-
+            </div></br>
             `);
             if (i==finish-1 && finish != users.length) {
               $listUsers.append(`<button class="btn btn-primary moreUsers" data-finish="${finish}">More..</button>`);
