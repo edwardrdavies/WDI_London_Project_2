@@ -9,6 +9,10 @@ googleMap.getUsers = function () {
   $.get("http://localhost:8000/users").done(this.loopThroughtUsers);
 };
 
+googleMap.getPlaces = function () {
+  $.get("/place").done(this.loopThroughPlaces);
+};
+
 googleMap.addInfoWindowForUser = function (user, marker) {
   var _this = this;
 
@@ -22,6 +26,21 @@ googleMap.addInfoWindowForUser = function (user, marker) {
       content: "\n      <h4>" + user.fullname + "</h4>\n      <p><b>Location: </b>" + user.postcode + "</p>\n\n      <p><img src=\"" + user.image + "\" class=\"img-circle img-container\" alt=\"Image Coming\"></p>\n\n      <b>Phone:</b><p>" + user.phoneNumber + "</p>\n      <p><b>Willing to travel</b>: " + user.travelDistance + " miles</p>\n      <p><b>Typical availability</b>: " + user.availability + "</p>\n      <p><b>Skill Level</b>: " + user.skillLevel + "</p>\n      <a href=\"mailto:" + user.email + "\"><button class=\"btn btn-info\">Email</button></a>\n      "
     });
     _this.infowindow.open(_this.map, marker);
+  });
+};
+
+googleMap.addInfoWindowForPlace = function (place, marker) {
+  var _this2 = this;
+
+  google.maps.event.addListener(marker, 'click', function () {
+
+    if (_this2.infowindow) {
+      _this2.infowindow.close();
+    }
+    _this2.infowindow = new google.maps.InfoWindow({
+      content: "" + place.name
+    });
+    _this2.infowindow.open(_this2.map, marker);
   });
 };
 
@@ -40,17 +59,18 @@ googleMap.mapSetup = function () {
   };
   this.map = new google.maps.Map(canvas, mapOptions);
   this.getUsers();
-  getVenues(latLng);
+  this.getPlaces();
+  // getVenues(latLng);
 
-  this.map.addListener('idle', function () {
-    // 3 seconds after the center of the map has changed search for places again.
-    window.setTimeout(function () {
-      var newLocation = googleMap.map.getCenter();
-      var latLng = { lat: newLocation.lat(),
-        lng: newLocation.lng() };
-      getVenues(latLng);
-    }, 3000);
-  });
+  // this.map.addListener('idle', function() {
+  //   // 3 seconds after the center of the map has changed search for places again.
+  //   window.setTimeout(function() {
+  //     let newLocation = googleMap.map.getCenter();
+  //     let latLng= {lat: newLocation.lat(),
+  //       lng:newLocation.lng()};
+  //       getVenues(latLng);
+  //     }, 3000);
+  //   });
 };
 
 googleMap.createMarkerForUser = function (user) {
@@ -67,6 +87,20 @@ googleMap.createMarkerForUser = function (user) {
   googleMap.markers.push(marker);
 };
 
+googleMap.createMarkerForPlace = function (place) {
+  var latLng = new google.maps.LatLng(place.location.lat, place.location.lng);
+
+  var icon = {
+    url: "../images/tennis-ball.png", // url
+    scaledSize: new google.maps.Size(20, 20) };
+  var marker = new google.maps.Marker({
+    position: latLng,
+    map: googleMap.map,
+    icon: icon
+  });
+  googleMap.addInfoWindowForPlace(place, marker);
+};
+
 googleMap.filterMarkers = function (skillLevel) {
   googleMap.markers.forEach(function (marker) {
     if (marker.skillLevel === skillLevel || skillLevel === 'All Skill Levels') {
@@ -74,6 +108,12 @@ googleMap.filterMarkers = function (skillLevel) {
     } else {
       marker.setMap(null);
     }
+  });
+};
+
+googleMap.loopThroughPlaces = function (places) {
+  $.each(places, function (index, place) {
+    googleMap.createMarkerForPlace(place);
   });
 };
 
@@ -89,74 +129,63 @@ googleMap.loopThroughtUsers = function (users) {
   });
 };
 
-function getVenues(latLng) {
-
-  var request = {
-    location: latLng,
-    // radius: 50,
-    query: 'tennis courts',
-    rankby: 'distance'
-  };
-
-  var service = new google.maps.places.PlacesService(googleMap.map);
-  service.textSearch(request, callback);
-}
-
-function callback(results, status, pagination) {
-
-  if (status == google.maps.places.PlacesServiceStatus.OK) {
-    for (var i = 0; i < results.length; i++) {
-      var place = results[i];
-      createVenueMarker(results[i]);
-    }
-  }
-}
-
-function createVenueMarker(place) {
-  var placeLoc = place.geometry.location;
-  var marker = new google.maps.Marker({
-    map: googleMap.map,
-    title: place.name,
-    position: place.geometry.location,
-    // animation: google.maps.Animation.DROP,
+//
+// function getVenues(latLng) {
+//
+//
+//   var request = {
+//     location: latLng,
+//     // radius: 50,
+//     query: 'tennis courts',
+//     rankby: 'distance'
+//   };
+//
+//   let service = new google.maps.places.PlacesService(googleMap.map);
+//   service.textSearch(request, callback);
+// }
 
 
-    icon: {
-      url: '../images/tennis-ball.png',
-      anchor: new google.maps.Point(10, 10),
-      scaledSize: new google.maps.Size(35, 35)
-    }
+// function callback(results, status, pagination) {
+//
+//   if (status == google.maps.places.PlacesServiceStatus.OK) {
+//     for (var i = 0; i < results.length; i++) {
+//       var place = results[i];
+//       createVenueMarker(results[i]);
+//     }
+//   }
+// }
 
-  });
+// function createVenueMarker(place) {
+//   var placeLoc = place.geometry.location;
+//   var marker = new google.maps.Marker({
+//     map: googleMap.map,
+//     title: place.name,
+//     position: place.geometry.location,
+//     // animation: google.maps.Animation.DROP,
+//
+//
+//
+//     icon: {
+//       url: '../images/tennis-ball.png',
+//       anchor: new google.maps.Point(10, 10),
+//       scaledSize: new google.maps.Size(35, 35),
+//     }
+//
+//   });
+//
+//
+//
+//   marker.addListener('click', function() {
+//
+//     let website = "";
+//     let marker = this;
+//
 
-  marker.addListener('click', function () {
-
-    var website = "";
-    var marker = this;
-
-    var service = new google.maps.places.PlacesService(googleMap.map);
-    service.getDetails({
-      placeId: place.place_id
-    }, function (place, status) {
-
-      if (status === google.maps.places.PlacesServiceStatus.OK) {
-
-        google.maps.places.photo = place.photos ? place.photos[0].getUrl({ 'maxWidth': 200, 'maxHeight': 200 }) : "";
-        google.maps.places.url = place.url;
-
-        if (typeof venueInfoWindow !== "undefined") {
-          venueInfoWindow.close();
-        }
-
-        venueInfoWindow = new google.maps.InfoWindow();
-
-        venueInfoWindow.setContent("<b>" + place.name + "</b><br>\n              " + place.formatted_address + " <br>\n              <a target=\"_blank\" href=\"" + google.maps.places.url + "\">More Info...</a>\n              <br><img src=\"" + google.maps.places.photo + "\" alt=\"venue img\">\n              ");
-
-        venueInfoWindow.open(googleMap.map, marker);
-      }
-    });
-  });
-}
+//
+//
+//
+//     });
+//   }
 
 $(googleMap.mapSetup.bind(googleMap));
 

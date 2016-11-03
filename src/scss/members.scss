@@ -11,6 +11,14 @@
 
 }
 
+.navbar {
+  background-color: #48d5b5
+}
+
+.navbar-brand {
+  font-family: 'Pacifico', cursive;
+  font-size: 30px;
+}
 
 #all-map {
   // height:90vw;
@@ -40,11 +48,21 @@
   }
   .membersLogin {
     float: right;
-
   }
   .container-fluid {
     padding-left: 0;
     padding-right: 0;
+  }
+
+  .footer {
+    background-color:  #70E4CA;
+    height:60px;
+
+
+    img {
+      height: 30px;
+
+    }
   }
 
   .img-container {

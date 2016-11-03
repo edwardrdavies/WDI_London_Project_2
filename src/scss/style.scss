@@ -16,14 +16,49 @@
   color: white;
 }
 
+.hero-image {
+  display: none;
+}
+
+.hero-video {
+  position: relative;
+  .hero-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    h1 {
+      padding: 0;
+      // text-decoration: overline underline;
+      text-align: center;
+      border-style: solid;
+      background-color: rgba(255,255,255,0.2);
+    }
+    p {
+      text-align: center;
+      color: white;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-video {
+    display: none;
+  }
+  .hero-image {
+    display: block;
+  }
+}
+
 .footer {
-  height: 100vh;
-  background-image: url('https://static.pexels.com/photos/7753/sun-ball-tennis-court.jpg');
+  height: 500px;
+  background-image: url('https://images.unsplash.com/photo-1465125672495-63cdc2fa22ed?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&s=3b711f654cd18b1d2ffd42c5fbcfe671');
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center top;
   text-align: center;
   color: white;
+  margin-top: 10px;
 }
 
 .next-match {
@@ -127,6 +162,10 @@ h1 {
 
 }
 
+.navbar-brand {
+  font-family: 'Pacifico', cursive;
+  font-size: 30px;
+}
 
 .btn-primary {
   background-color: #48d5b5;
@@ -144,4 +183,19 @@ h1 {
 }
 .loggedOut {
   display:none;
+}
+
+.logoutbtn {
+  float: right;
+  color: #fff;
+  border: 1px solid transparent;
+  padding: .5rem 1rem;
+  font-size: 1rem;
+  border-radius: .25rem;
+  margin-right: -220px;
+  background-color: #48d5b5;
+}
+
+.loginbtn {
+  margin-right: 70px;
 }
