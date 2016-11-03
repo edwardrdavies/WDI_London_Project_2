@@ -23,7 +23,7 @@ function secureRoute(req, res, next) {
 // const authController = require('../controllers/auth');
 
 router.route("/place")
-  // .all(secureRoute)
+  .all(secureRoute)
   .get(Places.index);
 
 router.route('/place/:id')
@@ -34,7 +34,7 @@ router.route('/place/:id')
 
 router.route("/users")
   .post(User.register)
-  .get(User.index);
+  .get(secureRoute,User.index);
 
 router.route('/user/:id')
   .all(secureRoute)
