@@ -170,62 +170,75 @@ $(function () {
   }
 
   showMembersPage();
-});
 
-var showEditBar = function showEditBar() {
-  showRegForm("edit");
+  var $burger = $('.burger');
+  var $navItems = $('.nav-item');
 
-  $('.editBar').slideToggle("slow", function () {
-    // Animation complete.
-    $('#password').prop("hidden", true);
-    $('#confPassword').prop("hidden", true);
-    $("button").click(function () {
-      $(".editBar").slideUp("slow", function () {});
-      $('.membersLogin').collapse({
-        toggle: true
+  $burger.on('click', function () {
+    $navItems.toggle();
+  });
+
+  $(window).on('resize', function () {
+    if ($(window).width() > 767) {
+      $navItems.show();
+    }
+  });
+
+  var showEditBar = function showEditBar() {
+    showRegForm("edit");
+
+    $('.editBar').slideToggle("slow", function () {
+      // Animation complete.
+      $('#password').prop("hidden", true);
+      $('#confPassword').prop("hidden", true);
+      $("button").click(function () {
+        $(".editBar").slideUp("slow", function () {});
+        $('.membersLogin').collapse({
+          toggle: true
+        });
       });
     });
-  });
-};
+  };
 
-var showRegForm = function showRegForm(action) {
+  var showRegForm = function showRegForm(action) {
 
-  var token = localStorage.getItem('token');
-  var _id = localStorage.getItem('_id');
+    var token = localStorage.getItem('token');
+    var _id = localStorage.getItem('_id');
 
-  var method = "POST";
-  var button = "Register";
-  var message = "Join the community today!";
-  var formAction = "/register";
-  if (action == "edit") {
-    method = "PUT";
-    button = 'Update';
-    formAction = '/user/' + _id;
-    message = "Update Your Profile";
-  }
+    var method = "POST";
+    var button = "Register";
+    var message = "Join the community today!";
+    var formAction = "/register";
+    if (action == "edit") {
+      method = "PUT";
+      button = 'Update';
+      formAction = '/user/' + _id;
+      message = "Update Your Profile";
+    }
 
-  if (token) {
+    if (token) {
 
-    $.ajax({
-      url: '/user/' + _id,
-      method: 'GET',
-      beforeSend: function beforeSend(jqXHR) {
-        if (token) return jqXHR.setRequestHeader('Authorization', 'Bearer ' + token);
-      }
-    }).done(function (user) {
+      $.ajax({
+        url: '/user/' + _id,
+        method: 'GET',
+        beforeSend: function beforeSend(jqXHR) {
+          if (token) return jqXHR.setRequestHeader('Authorization', 'Bearer ' + token);
+        }
+      }).done(function (user) {
 
-      $("input[name=username]").val(user.username);
-      $("input[name=fullname]").val(user.fullname);
-      $("input[name=image]").val(user.image);
-      $("input[name=postcode]").val(user.postcode);
-      $("input[name=skill_level]").val(user.skill_level);
-      $("input[name=availability]").val(user.availability);
-      $("input[name=ageRange]").val(user.ageRange);
-      $("input[name=travelDistance]").val(user.travelDistance);
-      $("input[name=email]").val(user.email);
-      $("input[name=phoneNumber]").val(user.phoneNumber);
-    });
-  }
+        $("input[name=username]").val(user.username);
+        $("input[name=fullname]").val(user.fullname);
+        $("input[name=image]").val(user.image);
+        $("input[name=postcode]").val(user.postcode);
+        $("input[name=skill_level]").val(user.skill_level);
+        $("input[name=availability]").val(user.availability);
+        $("input[name=ageRange]").val(user.ageRange);
+        $("input[name=travelDistance]").val(user.travelDistance);
+        $("input[name=email]").val(user.email);
+        $("input[name=phoneNumber]").val(user.phoneNumber);
+      });
+    }
 
-  $('.register').html('\n            <p class="jointoday">\n            ' + message + '\n            </p>\n            <form method="' + method + '" action="' + formAction + '">\n\n            <input type="hidden" name="lat">   <input type="hidden" name="lng">\n            <div class="form-group username">\n            <input class="form-control" name="username" placeholder="Username">\n            <small class="error">Some error message</small>\n            </div>\n            <div class="form-group">\n\n            <input class="form-control" name="fullname" placeholder="Full Name">\n            </div>\n            <div class="form-group">\n            <input class="form-control" name="image" placeholder="Image">\n            </div>\n            <div class="form-group">\n            <input class="form-control" name="postcode" placeholder="Postcode">\n            </div>\n            <div class="form-group">\n            <select class="form-control" name="skillLevel">\n            <option>Absolute Novice</option>\n            <option>Beginner</option>\n            <option>Intermediate</option>\n            <option>Advanced</option>\n            <option>Total Pro</option>\n            </select>\n            </div>\n            <div class="form-group">\n            <input class="form-control" name="availability" placeholder="Availability">\n            </div>\n            <div class="form-group">\n            <select class="form-control" name="ageRange">\n            <option>Under 18</option>\n            <option>18-35</option>\n            <option>36-59</option>\n            <option>60+</option>\n            </select>\n            </div>\n            <div class="form-group">\n            <input class="form-control" name="travelDistance" placeholder="Travel Distance">\n            <small class="error"></small>\n            </div>\n            <div class="form-group">\n            <input class="form-control" name="email" placeholder="Email">\n            <small class="error"></small>\n            </div>\n            <div class="form-group">\n            <input class="form-control" name="phoneNumber" placeholder="Phone Number">\n            </div>\n\n            <div class="form-group">\n\n\n            <input class="form-control" type="password" name="password" placeholder="Password" id="password">\n            <small class="error"></small>\n\n            </div>\n            <div class="form-group">\n            <input class="form-control" type="password" name="passwordConfirmation" placeholder="Password Confirmation" id="confPassword">\n            </div><button class="btn btn-primary regButton">' + button + '</button>\n            </form>');
-};
+    $('.register').html('\n            <p class="jointoday">\n            ' + message + '\n            </p>\n            <form method="' + method + '" action="' + formAction + '">\n\n            <input type="hidden" name="lat">   <input type="hidden" name="lng">\n            <div class="form-group username">\n            <input class="form-control" name="username" placeholder="Username">\n            <small class="error">Some error message</small>\n            </div>\n            <div class="form-group">\n\n            <input class="form-control" name="fullname" placeholder="Full Name">\n            </div>\n            <div class="form-group">\n            <input class="form-control" name="image" placeholder="Image">\n            </div>\n            <div class="form-group">\n            <input class="form-control" name="postcode" placeholder="Postcode">\n            </div>\n            <div class="form-group">\n            <select class="form-control" name="skillLevel">\n            <option>Absolute Novice</option>\n            <option>Beginner</option>\n            <option>Intermediate</option>\n            <option>Advanced</option>\n            <option>Total Pro</option>\n            </select>\n            </div>\n            <div class="form-group">\n            <input class="form-control" name="availability" placeholder="Availability">\n            </div>\n            <div class="form-group">\n            <select class="form-control" name="ageRange">\n            <option>Under 18</option>\n            <option>18-35</option>\n            <option>36-59</option>\n            <option>60+</option>\n            </select>\n            </div>\n            <div class="form-group">\n            <input class="form-control" name="travelDistance" placeholder="Travel Distance">\n            <small class="error"></small>\n            </div>\n            <div class="form-group">\n            <input class="form-control" name="email" placeholder="Email">\n            <small class="error"></small>\n            </div>\n            <div class="form-group">\n            <input class="form-control" name="phoneNumber" placeholder="Phone Number">\n            </div>\n\n            <div class="form-group">\n\n\n            <input class="form-control" type="password" name="password" placeholder="Password" id="password">\n            <small class="error"></small>\n\n            </div>\n            <div class="form-group">\n            <input class="form-control" type="password" name="passwordConfirmation" placeholder="Password Confirmation" id="confPassword">\n            </div><button class="btn btn-primary regButton">' + button + '</button>\n            </form>');
+  };
+});

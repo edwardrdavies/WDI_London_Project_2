@@ -15,7 +15,7 @@ function createUsers(callbackWhenFinished) {
   User.create([{
     username: "test",
     fullname: "Dan Krijgsman",
-    image: "https://media.licdn.com/mpr/mpr/shrinknp_400_400/AAEAAQAAAAAAAAeSAAAAJGQyZDVmNjVlLTY3ZDktNGEwNi05M2YyLTI3Y2FiMjQ4N2JlYw.jpg",
+    image: "./public/images/Dan_pic.jpg",
     postcode: "SE58NZ",
     lat: 51.4721,
     lng: 0.0846,
@@ -30,7 +30,7 @@ function createUsers(callbackWhenFinished) {
   },{
     username: "Nataliemp28",
     fullname: "Natalie Pateman",
-    image: "http://bit.ly/2eRjEgS",
+    image: "./public/images/Natalie_pic.jpg",
     postcode: "E111QA",
     lat: 51.5808,
     lng: 0.0208,
@@ -45,7 +45,7 @@ function createUsers(callbackWhenFinished) {
   },{
     username: "Marco",
     fullname: "Marco Servidio",
-    image: "https://s-media-cache-ak0.pinimg.com/564x/5b/82/b9/5b82b940f87e02160cda20fc8a4f386d.jpg",
+    image: "./public/images/Marco_pic.jpg",
     postcode: "W1T7RJ",
     lat: 51.5166,
     lng: -0.1299,
@@ -60,7 +60,7 @@ function createUsers(callbackWhenFinished) {
   },{
     username: "Ed",
     fullname: "Ed Davies",
-    image: "https://static-secure.guim.co.uk/sys-images/Guardian/About/General/2013/10/8/1381219095197/Jeremy-Paxman-014.jpg",
+    image: "./public/images/Ed_pic.jpg",
     postcode: "E148AG",
     lat: 51.5095,
     lng: 0.0293,
@@ -75,7 +75,7 @@ function createUsers(callbackWhenFinished) {
   },{
     username: "hollywoodbrad",
     fullname: "Brad Pitt",
-    image: "https://pbs.twimg.com/media/CO0d2ZcUkAA6gjw.jpg",
+    image: "./public/images/Brad_pic.jpg",
     postcode: "SW31DE",
     lat: 51.5009,
     lng: -0.1614,
@@ -90,7 +90,7 @@ function createUsers(callbackWhenFinished) {
   },{
     username: "wallBuilder",
     fullname: "Donald Trump",
-    image: "http://www.dumpaday.com/wp-content/uploads/2015/09/Donald-trump-8.jpg",
+    image: "./public/images/Donald_pic.jpg",
     postcode: "CR00AP",
     lat: 51.3347,
     lng: 0.0115,
@@ -105,7 +105,7 @@ function createUsers(callbackWhenFinished) {
   },{
     username: "foxymegs",
     fullname: "Megan Fox",
-    image: "http://bjstlh.com/image.php?pic=/data/images/megan-fox-photos/megan-fox-photos-5.jpg",
+    image: "./public/images/Megan_pic.jpg",
     postcode: "SW40LY",
     lat: 51.4665,
     lng: -0.1464,
@@ -120,7 +120,7 @@ function createUsers(callbackWhenFinished) {
   },{
     username: "lovescakes",
     fullname: "Mary Berry",
-    image: "http://bzfd.it/2eYckxh",
+    image: ".public/images/Mary_pic.jpg",
     postcode: "SL50AA",
     lat: 51.4027,
     lng: -0.6527,
@@ -135,7 +135,7 @@ function createUsers(callbackWhenFinished) {
   },{
     username: "GokWan",
     fullname: "Gok Wan",
-    image: "http://www.hamhigh.co.uk/polopoly_fs/1.4175790.1438274323!/image/image.jpg_gen/derivatives/landscape_630/image.jpg",
+    image: ".public/images/Gok_pic.jpg",
     postcode: "NW15HF",
     lat: 51.5235,
     lng: -0.1505,
@@ -150,7 +150,7 @@ function createUsers(callbackWhenFinished) {
   },{
     username: "boselecta",
     fullname: "Keith Lemon",
-    image: "http://news.images.itv.com/image/file/891331/stream_img.jpg",
+    image: ".public/images/Keith_pic.jpg",
     postcode: "E61AE",
     lat: 51.5370,
     lng: 0.0362,
@@ -165,7 +165,7 @@ function createUsers(callbackWhenFinished) {
   },{
     username: "wimbledonchamp",
     fullname: "Andy Murray",
-    image: "http://bit.ly/2eoAfrO",
+    image: ".public/images/Andy_pic.jpg",
     postcode: "W129AP",
     lat: 51.5031,
     lng: -0.2425,
@@ -180,7 +180,7 @@ function createUsers(callbackWhenFinished) {
   },{
     username: "royalkate",
     fullname: "Kate Middleton",
-    image: "http://bit.ly/2e34Pby",
+    image: ".public/images/Kate_pic.jpg",
     postcode: "SW1A1AA",
     lat: 51.5014,
     lng: -0.1419,
@@ -195,7 +195,7 @@ function createUsers(callbackWhenFinished) {
   },{
     username: "bojo",
     fullname: "Boris Johnson",
-    image: "http://bit.ly/2f23DSN",
+    image: ".public/images/Boris_pic.jpg",
     postcode: "W120AD",
     lat: 51.5185,
     lng: -0.2470,
@@ -210,7 +210,7 @@ function createUsers(callbackWhenFinished) {
   },{
     username: "harryginge",
     fullname: "Harry Windsor",
-    image: "http://bit.ly/2e3h6Nv",
+    image: "./public.images/Harry_pic.jpg",
     postcode: "SL41NJ",
     lat: 51.4840,
     lng: -0.6066,
@@ -225,7 +225,7 @@ function createUsers(callbackWhenFinished) {
   },{
     username: "partykate",
     fullname: "Kate Moss",
-    image: "http://bit.ly/2fFsQ9f",
+    image: "./public/images/KateM_pic.jpg",
     postcode: "N103JP",
     lat: 51.5814,
     lng: -0.1463,
@@ -240,7 +240,7 @@ function createUsers(callbackWhenFinished) {
   },{
     username: "stickyricky",
     fullname: "Ricky Gervais",
-    image: "http://bit.ly/1Mfhlta",
+    image: ".public/images/Ricky_pic.jpg",
     postcode: "SL30AD",
     lat: 51.482281,
     lng: -0.530137,
@@ -255,7 +255,7 @@ function createUsers(callbackWhenFinished) {
   },{
     username: "gazza",
     fullname: "Gary Lineker",
-    image: "http://bit.ly/2f28bsu",
+    image: ".public/images/Gary_pic.jpg",
     postcode: "N17 0FA",
     lat: 51.599391,
     lng: -0.067283,
@@ -270,7 +270,7 @@ function createUsers(callbackWhenFinished) {
   },{
     username: "lenny",
     fullname: "Lenny Henry",
-    image: "https://c7.staticflickr.com/5/4020/4565384382_055cf5681d_m.jpg",
+    image: "./public/images/Lenny_pic.jpg",
     postcode: "SE10BD",
     lat: 51.5025,
     lng: 0.1010,
