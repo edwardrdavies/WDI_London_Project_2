@@ -156,7 +156,6 @@ $(function () {
   function showMembersPage() {
 
     if (isLoggedIn()) {
-
       $map.show();
       $loggedIn.show();
       $loggedOut.hide();
