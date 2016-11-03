@@ -18,16 +18,13 @@ $(function () {
   //handles the registration form
 
   function resetUsers() {
-
     googleMap.filterMarkers($(this).val());
     // googleMap.clearOverlays();
   }
 
   function handleForm(e) {
-
     e.preventDefault();
     var $form = $(this);
-
     if ($form.attr('action') === '/register' || $form.attr('method') === 'PUT') {
       var postcode = $form.find('[name=postcode]').val();
       geocoder.geocode({ address: postcode + ', UK' }, function (results, status) {
@@ -58,7 +55,6 @@ $(function () {
     }).done(function (data) {
 
       if (data && data.token) {
-
         localStorage.setItem('_id', data.user._id);
         localStorage.setItem('token', data.token);
         if (window.location.pathname === "/") {
@@ -71,9 +67,7 @@ $(function () {
       if (err.responseJSON.message) {
         $form.find('small.error').addClass('error').html(err.responseJSON.message);
       } else {
-
         for (var name in err.responseJSON) {
-
           $form.find('[name=' + name + ']').parent('.form-group').addClass('error').find('small.error').html('<p> ' + err.responseJSON[name].message + ' </p>');
         }
       }
@@ -91,7 +85,6 @@ $(function () {
   function listUsers() {
     if (event) event.preventDefault();
     var token = localStorage.getItem('token');
-
     $.ajax({
       url: '/users',
       method: 'GET',
@@ -99,7 +92,6 @@ $(function () {
         if (token) return jqXHR.setRequestHeader('Authorization', 'Bearer ' + token);
       }
     }).done(function (users) {
-
       showUsers(users);
     });
   }
@@ -148,6 +140,7 @@ $(function () {
     $map.hide();
     window.location.replace("/");
     $loggedIn.hide();
+    console.log("I'm loggd out");
     $loggedOut.show();
   }
 
@@ -184,23 +177,7 @@ $(function () {
     }
   });
 
-  var showEditBar = function showEditBar() {
-    showRegForm("edit");
-
-    $('.editBar').slideToggle("slow", function () {
-      // Animation complete.
-      $('#password').prop("hidden", true);
-      $('#confPassword').prop("hidden", true);
-      $("button").click(function () {
-        $(".editBar").slideUp("slow", function () {});
-        $('.membersLogin').collapse({
-          toggle: true
-        });
-      });
-    });
-  };
-
-  var showRegForm = function showRegForm(action) {
+  function showRegForm(action) {
 
     var token = localStorage.getItem('token');
     var _id = localStorage.getItem('_id');
@@ -242,3 +219,19 @@ $(function () {
     $('.register').html('\n            <p class="jointoday">\n            ' + message + '\n            </p>\n            <form method="' + method + '" action="' + formAction + '">\n\n            <input type="hidden" name="lat">   <input type="hidden" name="lng">\n            <div class="form-group username">\n            <input class="form-control" name="username" placeholder="Username">\n            <small class="error">Some error message</small>\n            </div>\n            <div class="form-group">\n\n            <input class="form-control" name="fullname" placeholder="Full Name">\n            </div>\n            <div class="form-group">\n            <input class="form-control" name="image" placeholder="Image">\n            </div>\n            <div class="form-group">\n            <input class="form-control" name="postcode" placeholder="Postcode">\n            </div>\n            <div class="form-group">\n            <select class="form-control" name="skillLevel">\n            <option>Absolute Novice</option>\n            <option>Beginner</option>\n            <option>Intermediate</option>\n            <option>Advanced</option>\n            <option>Total Pro</option>\n            </select>\n            </div>\n            <div class="form-group">\n            <input class="form-control" name="availability" placeholder="Availability">\n            </div>\n            <div class="form-group">\n            <select class="form-control" name="ageRange">\n            <option>Under 18</option>\n            <option>18-35</option>\n            <option>36-59</option>\n            <option>60+</option>\n            </select>\n            </div>\n            <div class="form-group">\n            <input class="form-control" name="travelDistance" placeholder="Travel Distance">\n            <small class="error"></small>\n            </div>\n            <div class="form-group">\n            <input class="form-control" name="email" placeholder="Email">\n            <small class="error"></small>\n            </div>\n            <div class="form-group">\n            <input class="form-control" name="phoneNumber" placeholder="Phone Number">\n            </div>\n\n            <div class="form-group">\n\n\n            <input class="form-control" type="password" name="password" placeholder="Password" id="password">\n            <small class="error"></small>\n\n            </div>\n            <div class="form-group">\n            <input class="form-control" type="password" name="passwordConfirmation" placeholder="Password Confirmation" id="confPassword">\n            </div><button class="btn btn-primary regButton">' + button + '</button>\n            </form>');
   };
 });
+
+var showEditBar = function showEditBar() {
+  // showRegForm("edit");
+
+  $('.editBar').slideToggle("slow", function () {
+    // Animation complete.
+    $('#password').prop("hidden", true);
+    $('#confPassword').prop("hidden", true);
+    $("button").click(function () {
+      $(".editBar").slideUp("slow", function () {});
+      $('.membersLogin').collapse({
+        toggle: true
+      });
+    });
+  });
+};
