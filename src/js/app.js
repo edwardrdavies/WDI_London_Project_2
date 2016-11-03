@@ -16,19 +16,13 @@ $(() => {
   //handles the registration form
 
   function resetUsers() {
-
     googleMap.filterMarkers($(this).val());
     // googleMap.clearOverlays();
   }
 
   function handleForm(e){
-
-
     e.preventDefault();
     let $form = $(this);
-
-
-
     if($form.attr('action') === '/register' || $form.attr('method') === `PUT`) {
       let postcode = $form.find('[name=postcode]').val();
       geocoder.geocode({ address: `${postcode}, UK` }, (results, status) => {
@@ -64,7 +58,6 @@ $(() => {
     .done((data) => {
 
       if (data && data.token){
-
         localStorage.setItem('_id',data.user._id);
         localStorage.setItem('token', data.token);
         if (window.location.pathname === "/") {
@@ -80,9 +73,7 @@ $(() => {
 
       }
       else {
-
         for(let name in err.responseJSON) {
-
           $form.find(`[name=${name}]`).parent('.form-group').addClass('error').find('small.error').html(`<p> ${err.responseJSON[name].message} </p>`);
         }}
       });
@@ -114,7 +105,6 @@ $(() => {
       function listUsers(){
         if (event) event.preventDefault();
         let token = localStorage.getItem('token');
-
         $.ajax({
           url: '/users',
           method:'GET',
@@ -123,9 +113,7 @@ $(() => {
           }
         })
         .done((users)=> {
-
           showUsers(users);
-
         });
 
       }
@@ -218,6 +206,7 @@ $(() => {
             $map.hide();
             window.location.replace("/");
             $loggedIn.hide();
+            console.log("I'm loggd out");
             $loggedOut.show();
           }
 
@@ -255,24 +244,9 @@ $(() => {
           }
         });
 
-        const showEditBar = () => {
-          showRegForm("edit");
 
-          $('.editBar').slideToggle( "slow", function() {
-            // Animation complete.
-              $('#password').prop("hidden", true);
-              $('#confPassword').prop("hidden", true);
-              $("button").click(function(){
-                  $(".editBar").slideUp("slow", function() {
-                  });
-                  $('.membersLogin').collapse({
-                      toggle: true
-                  });
-              });
-          });
-        };
 
-        const showRegForm = (action) => {
+        function showRegForm(action) {
 
           let token = localStorage.getItem('token');
           let _id = localStorage.getItem('_id');
@@ -383,3 +357,20 @@ $(() => {
 
           };
         });
+
+        const showEditBar = () => {
+          // showRegForm("edit");
+
+          $('.editBar').slideToggle( "slow", function() {
+            // Animation complete.
+              $('#password').prop("hidden", true);
+              $('#confPassword').prop("hidden", true);
+              $("button").click(function(){
+                  $(".editBar").slideUp("slow", function() {
+                  });
+                  $('.membersLogin').collapse({
+                      toggle: true
+                  });
+              });
+          });
+        };

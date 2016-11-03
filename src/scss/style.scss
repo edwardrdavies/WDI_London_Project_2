@@ -52,14 +52,14 @@
 
 .footer {
   height: 500px;
-  background-image: url('https://images.unsplash.com/photo-1465125672495-63cdc2fa22ed?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&s=3b711f654cd18b1d2ffd42c5fbcfe671');
+  background-image: url("../images/footerimg.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center top;
   text-align: center;
   color: white;
   margin-top: 10px;
-  
+
 }
 
 .next-match {
@@ -68,7 +68,7 @@
   }
   .image {
     min-height: 300px;
-    background-image: url('https://d2lm6fxwu08ot6.cloudfront.net/img-thumbs/960w/NBRVNC5FWO.jpg');
+    background-image: url("../images/map.jpg");
     background-repeat: no-repeat;
     background-size: cover;
 
@@ -86,7 +86,7 @@
   }
   .image {
     min-height: 300px;
-    background-image: url('https://images.unsplash.com/photo-1448743133657-f67644da3008?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&s=26bbf528e41484813a58d28913f9778f');
+    background-image: url("../images/greencourt.jpg");
     background-repeat: no-repeat;
     background-size: cover;
   }
@@ -111,7 +111,7 @@
   }
   .image {
     min-height: 300px;
-    background-image: url('https://d2lm6fxwu08ot6.cloudfront.net/img-thumbs/960w/B1E30E39B7.jpg');
+    background-image: url("../images/stadium.jpg");
     background-repeat: no-repeat;
     background-size: cover;
   }
