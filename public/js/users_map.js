@@ -13,13 +13,13 @@ googleMap.addInfoWindowForUser = function (user, marker) {
   var _this = this;
 
   google.maps.event.addListener(marker, 'click', function () {
-    console.log(user);
+
     if (_this.infowindow) {
       _this.infowindow.close();
     }
     _this.infowindow = new google.maps.InfoWindow({
 
-      content: "\n      <h4>" + user.fullname + "</h4>\n      <p><b>Location: </b>" + user.postcode + "</p>\n      <b>Phone:</b><p>" + user.phoneNumber + "</p>\n      <p><b>Willing to travel</b>: " + user.travelDistance + " miles</p>\n      <p><b>Typical availability</b>: " + user.availability + "</p>\n      <p><b>Skill Level</b>: " + user.skillLevel + "</p>\n      <a href=\"mailto:" + user.email + "\"><button class=\"btn btn-info\">Email</button></a>\n      "
+      content: "\n      <h4>" + user.fullname + "</h4>\n      <p><b>Location: </b>" + user.postcode + "</p>\n\n      <p><img src=\"" + user.image + "\"class=\"userpic\" alt=\"Image Coming\"></p>\n\n      <b>Phone:</b><p>" + user.phoneNumber + "</p>\n      <p><b>Willing to travel</b>: " + user.travelDistance + " miles</p>\n      <p><b>Typical availability</b>: " + user.availability + "</p>\n      <p><b>Skill Level</b>: " + user.skillLevel + "</p>\n      <a href=\"mailto:" + user.email + "\"><button class=\"btn btn-info\">Email</button></a>\n      "
     });
     _this.infowindow.open(_this.map, marker);
   });
@@ -77,7 +77,7 @@ googleMap.filterMarkers = function (skillLevel) {
 };
 
 googleMap.loopThroughtUsers = function (users) {
-  console.log(googleMap);
+
   $.each(users, function (index, user) {
     var $skillLevel = $('#skillLevel').val();
     if ($skillLevel == "All Skill Levels") {
@@ -90,7 +90,6 @@ googleMap.loopThroughtUsers = function (users) {
 
 function getVenues(latLng) {
 
-  // console.log(google.maps.places);
   var request = {
     location: latLng,
     // radius: 50,
@@ -118,6 +117,8 @@ function createVenueMarker(place) {
     map: googleMap.map,
     title: place.name,
     position: place.geometry.location,
+    // animation: google.maps.Animation.DROP,
+
 
     icon: {
       url: '../images/tennis-ball.png',
@@ -148,12 +149,11 @@ function createVenueMarker(place) {
 
         venueInfoWindow = new google.maps.InfoWindow();
 
-        venueInfoWindow.setContent("<b>" + place.name + "</b><br>\n              " + place.formatted_address + " <br>\n              <a href=\"" + google.maps.places.url + "\">More Info...</a>\n              <br><img src=\"" + google.maps.places.photo + "\" alt=\"venue img\">\n              ");
+        venueInfoWindow.setContent("<b>" + place.name + "</b><br>\n              " + place.formatted_address + " <br>\n              <a target=\"_blank\" href=\"" + google.maps.places.url + "\">More Info...</a>\n              <br><img src=\"" + google.maps.places.photo + "\" alt=\"venue img\">\n              ");
 
         venueInfoWindow.open(googleMap.map, marker);
       }
     });
-    console.log(this);
   });
 }
 
@@ -165,12 +165,10 @@ navigator.geolocation.getCurrentPosition(function (position) {
   var latLng = { lat: position.coords.latitude,
     lng: position.coords.longitude };
   googleMap.map.panTo(latLng);
-  getVenues(latLng);
   var market = new google.maps.Marker({
     position: latLng,
     animation: google.maps.Animation.DROP,
     draggable: true,
-    map: googleMap.map,
-    icon: '../images/user-marker.png'
+    map: googleMap.map
   });
 });

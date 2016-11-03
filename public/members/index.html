@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet">
 
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.4/css/bootstrap.min.css">
 
@@ -15,39 +16,45 @@
   <script src="../js/users_map.js">
 
   </script>
-  <title>Game, Set, Match - Got Balls, Play Tennis</title>
+  <title>Game Set Match - Got Balls, Play Tennis</title>
 </head>
 <body>
 
 
+
+
+
+
+
+
   <nav class="navbar navbar-light bg-faded">
     <div class="container">
-    <a class="navbar-brand" href="../">Game, Set, Match</a>
+      <a class="navbar-brand" href="../">Game Set Match</a>
 
-    <!-- Tool bar when logged in -->
-    <ul class="nav navbar-nav loggedIn">
-      <li class="nav-item active">
-        <a class="nav-link" href="#" >Find a Player<span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link edit" href="#">Edit your profile</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link logout" href="#">Logout</a>
-      </li>
-      <li>
-        <div class="form-group">
-          <select class="form-control" id="skillLevel">
-            <option selected>All Skill Levels</option>
-            <option>Absolute Novice</option>
-            <option>Beginner</option>
-            <option>Intermediate</option>
-            <option>Advanced</option>
-            <option>Total Pro</option>
-          </select>
-        </div>
-      </li>
-    </ul>
+      <!-- Tool bar when logged in -->
+      <ul class="nav navbar-nav loggedIn membersLogin">
+        <li class="nav-item active">
+          <a class="nav-link" href="#" >Find a Player<span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link edit" href="#">Edit your profile</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link logout" href="#">Logout</a>
+        </li>
+        <li>
+          <div class="form-group">
+            <select class="form-control" id="skillLevel">
+              <option selected>All Skill Levels</option>
+              <option>Absolute Novice</option>
+              <option>Beginner</option>
+              <option>Intermediate</option>
+              <option>Advanced</option>
+              <option>Total Pro</option>
+            </select>
+          </div>
+        </li>
+      </ul>
     </div>
 
   </nav>
@@ -68,10 +75,21 @@
 
       </div>
     </main>
-  </div>
+
+</div>
+
+
+  <footer class="footer">
+        <div class="container">
+          <p class="text-muted"></p>
+          <div class="key">
+          Tennis Courts<img src="../images/tennis-ball.png" alt="Venues" / class="key">
+        Nearby Players<img src="../images/user-marker.png" alt="Players" class="key" />
 
 
 
+        </div></div>
+      </footer>
 
 
 </body>

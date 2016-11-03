@@ -10,6 +10,14 @@
 
 }
 
+.navbar {
+  background-color: #48d5b5
+}
+
+.navbar-brand {
+  font-family: 'Pacifico', cursive;
+  font-size: 30px;
+}
 
 #all-map {
   // height:90vw;
@@ -36,4 +44,18 @@
   small.error {
     display: block;
     color:red;
+  }
+  .membersLogin {
+    float: right;
+  }
+
+  .footer {
+    background-color:  #70E4CA;
+    height:60px;
+
+
+    img {
+      height: 30px;
+
+    }
   }
