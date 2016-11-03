@@ -37,7 +37,7 @@ googleMap.addInfoWindowForUser = function (user, marker) {
     }
     _this.infowindow = new google.maps.InfoWindow({
 
-      content: '\n      <h4>' + user.fullname + '</h4>\n      <p><b>Location: </b>' + user.postcode + '</p>\n\n      <p><img src="' + user.image + '"class="userpic" alt="Image Coming"></p>\n\n      <b>Phone:</b><p>' + user.phoneNumber + '</p>\n      <p><b>Willing to travel</b>: ' + user.travelDistance + ' miles</p>\n      <p><b>Typical availability</b>: ' + user.availability + '</p>\n      <p><b>Skill Level</b>: ' + user.skillLevel + '</p>\n      <a href="mailto:' + user.email + '"><button class="btn btn-info">Email</button></a>\n      '
+      content: '\n      <h4>' + user.fullname + '</h4>\n      <p><b>Location: </b>' + user.postcode + '</p>\n\n\n\n      <div class="userImage" style="background-image: url(' + user.image + ')"></div>\n\n      <b>Phone:</b><p>' + user.phoneNumber + '</p>\n      <p><b>Willing to travel</b>: ' + user.travelDistance + ' miles</p>\n      <p><b>Typical availability</b>: ' + user.availability + '</p>\n      <p><b>Skill Level</b>: ' + user.skillLevel + '</p>\n      <a href="mailto:' + user.email + '"><button class="btn btn-info">Email</button></a>\n      '
     });
     _this.infowindow.open(_this.map, marker);
   });
@@ -65,7 +65,7 @@ googleMap.mapSetup = function () {
     lng: -0.08 };
 
   var mapOptions = {
-    zoom: 14,
+    zoom: 12,
     center: new google.maps.LatLng(51.5, -0.08),
     mapTypeId: google.maps.MapTypeId.ROADMAP,
     scrollwheel: false,

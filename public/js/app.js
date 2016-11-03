@@ -8,6 +8,7 @@ $(function () {
   var $loggedIn = $('.loggedIn');
   var $loggedOut = $('.loggedOut');
   var $listUsers = $('.listUsers');
+  var $editBar = $('.editBar');
   var currentUsers = {};
   //event handlers go here
   $('.logout').on('click', logout);
@@ -23,7 +24,8 @@ $(function () {
 
   function resetUsers() {
     googleMap.filterMarkers($(this).val());
-    // googleMap.clearOverlays();
+    listUsers();
+    $listUsers.show();
   }
 
   function handleForm(e) {
@@ -89,7 +91,9 @@ $(function () {
   function listUsers() {
     $listUsers.empty();
     $listUsers.toggle();
+
     if (event) event.preventDefault();
+
     var token = localStorage.getItem('token');
     $.ajax({
       url: '/users',
@@ -106,15 +110,25 @@ $(function () {
   function showUsers(users, start, finish) {
     if (event) event.preventDefault();
     currentUsers = users;
-    console.log(currentUsers);
+
+    var $skillLevel = $('#skillLevel').val();
     if (finish > users.length) {
       finish = users.length;
     }
+
     for (var i = start; i < finish; i++) {
-      $listUsers.append('\n\n            <h4>' + users[i].fullname + '</h4>\n            <p><b>Location: </b>' + users[i].postcode + '</p>\n\n            <p><img src="' + users[i].image + '"class="userpic" alt="Image Coming"></p>\n\n            <b>Phone:</b><p>' + users[i].phoneNumber + '</p>\n            <p><b>Willing to travel</b>: ' + users[i].travelDistance + ' miles</p>\n            <p><b>Typical availability</b>: ' + users[i].availability + '</p>\n            <p><b>Skill Level</b>: ' + users[i].skillLevel + '</p>\n            <a href="mailto:' + users[i].email + '"><button class="btn btn-info">Email</button></a>\n\n            ');
-      if (i == finish - 1 && finish != users.length) {
-        $listUsers.append('<button class="btn btn-primary moreUsers" data-finish="' + finish + '">More..</button>');
+      console.log(users[i].skillLevel);
+      if (users[i].skillLevel === $skillLevel || $skillLevel === 'All Skill Levels') {
+        $listUsers.append('\n\n              <h4>' + users[i].fullname + '</h4>\n              <p><b>Location: </b>' + users[i].postcode + '</p>\n\n              <p><img src="' + users[i].image + '"class="userpic" alt="Image Coming"></p>\n\n              <b>Phone:</b><p>' + users[i].phoneNumber + '</p>\n              <p><b>Willing to travel</b>: ' + users[i].travelDistance + ' miles</p>\n              <p><b>Typical availability</b>: ' + users[i].availability + '</p>\n              <p><b>Skill Level</b>: ' + users[i].skillLevel + '</p>\n              <a href="mailto:' + users[i].email + '"><button class="btn btn-info">Email</button></a>\n\n              ');
+
+        if (i == finish - 1 && finish != users.length) {
+          $listUsers.append('<button class="btn btn-primary moreUsers" data-finish="' + finish + '">More..</button>');
+        }
       }
+    }
+    //check if userList is empty and provide a message
+    if ($listUsers.is(':empty')) {
+      $listUsers.append('Sorry no players were found!');
     }
   }
 
@@ -243,7 +257,7 @@ $(function () {
   function showEditBar() {
     showRegForm("edit");
     $listUsers.hide();
-    $('.editBar').slideToggle("slow", function () {
+    $editBar.slideToggle("slow", function () {
       // Animation complete.
       $('#password').prop("hidden", true);
       $('#confPassword').prop("hidden", true);

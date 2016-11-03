@@ -42,7 +42,9 @@ googleMap.addInfoWindowForUser = function (user, marker) {
       <h4>${user.fullname}</h4>
       <p><b>Location: </b>${user.postcode}</p>
 
-      <p><img src="${user.image}"class="userpic" alt="Image Coming"></p>
+
+
+      <div class="userImage" style="background-image: url(${user.image})"></div>
 
       <b>Phone:</b><p>${user.phoneNumber}</p>
       <p><b>Willing to travel</b>: ${user.travelDistance} miles</p>
@@ -77,7 +79,7 @@ googleMap.mapSetup = function () {
     lng:-0.08};
 
     let mapOptions = {
-      zoom: 14,
+      zoom: 12,
       center: new google.maps.LatLng(51.5, -0.08),
       mapTypeId: google.maps.MapTypeId.ROADMAP,
       scrollwheel: false,
