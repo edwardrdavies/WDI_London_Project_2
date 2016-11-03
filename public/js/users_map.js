@@ -13,7 +13,7 @@ googleMap.addInfoWindowForUser = function (user, marker) {
   var _this = this;
 
   google.maps.event.addListener(marker, 'click', function () {
-    console.log(user);
+
     if (_this.infowindow) {
       _this.infowindow.close();
     }
@@ -77,7 +77,7 @@ googleMap.filterMarkers = function (skillLevel) {
 };
 
 googleMap.loopThroughtUsers = function (users) {
-  console.log(googleMap);
+
   $.each(users, function (index, user) {
     var $skillLevel = $('#skillLevel').val();
     if ($skillLevel == "All Skill Levels") {
@@ -90,7 +90,6 @@ googleMap.loopThroughtUsers = function (users) {
 
 function getVenues(latLng) {
 
-  // console.log(google.maps.places);
   var request = {
     location: latLng,
     // radius: 50,
@@ -157,7 +156,6 @@ function createVenueMarker(place) {
         venueInfoWindow.open(googleMap.map, marker);
       }
     });
-    console.log(this);
   });
 }
 
@@ -169,12 +167,10 @@ navigator.geolocation.getCurrentPosition(function (position) {
   var latLng = { lat: position.coords.latitude,
     lng: position.coords.longitude };
   googleMap.map.panTo(latLng);
-  getVenues(latLng);
   var market = new google.maps.Marker({
     position: latLng,
     animation: google.maps.Animation.DROP,
     draggable: true,
-    map: googleMap.map,
-    icon: '../images/user-marker.png'
+    map: googleMap.map
   });
 });
