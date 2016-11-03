@@ -33,10 +33,16 @@
       text-align: center;
       border-style: solid;
       background-color: rgba(255,255,255,0.2);
+      padding: 10px;
     }
     p {
       text-align: center;
       color: white;
+    }
+    a.btn.btn-primary.loggedOut {
+      display: block;
+      width: 50%;
+      margin: 0 auto;
     }
   }
 }
@@ -118,7 +124,7 @@
 }
 
 .venue h2, .next-match h2, .play-match h2 {
- padding-top: 15px;
+  padding-top: 15px;
 }
 
 .hero p {
