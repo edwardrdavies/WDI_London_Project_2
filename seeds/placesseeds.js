@@ -53,4 +53,5 @@ request({
 })
 .finally(() => {
   mongoose.connection.close();
+  console.log('I worked like a charm')
 });
