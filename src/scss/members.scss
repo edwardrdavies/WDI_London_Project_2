@@ -126,16 +126,17 @@
    padding: 20px;
  }
  .user-card {
-   background-color: rgba(255,255,255,0.4);
+   background-color: rgba(255,255,255,0.7);
    border-radius: 5px;
    font-size: 14px;
 
    h4 {
-     background-color: rgba(255,255,255,0.7);
+     background-color: rgba(255,255,255,0.9);
      text-align: center;
    }
    p {
-     background-color: red;
+     margin: 5px auto;
+     text-align: center;
    }
    button.btn.btn-info {
      width: 100%;
