@@ -281,7 +281,7 @@ User.collection.drop();
   },{
     username: "destinysChild",
     fullname: "Beyonce Knowles",
-    image: "/images/users_img/beyonce_pic.jpg",
+    image: "/images/users_img/Beyonce_pic.jpg",
     postcode: "N160AF",
     lat: 51.564579,
     lng: -0.080288,
@@ -296,7 +296,7 @@ User.collection.drop();
   },{
     username: "gingerEd",
     fullname: "Ed Sheeran",
-    image: "/images/users_img/eds_pic.jpg",
+    image: "/images/users_img/Ed_pic.jpg",
     postcode: "SE161DU",
     lat: 51.50188,
     lng: -0.04745,
