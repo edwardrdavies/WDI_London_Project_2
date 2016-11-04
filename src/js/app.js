@@ -6,22 +6,28 @@ $(() => {
   let $loggedIn = $('.loggedIn');
   let $loggedOut = $('.loggedOut');
   let $listUsers = $('.listUsers');
+  let $editBar = $('.editBar');
   let currentUsers = {};
   //event handlers go here
   $('.logout').on('click', logout);
   $('.edit').on('click', showEditBar);
   $('#skillLevel').on('change', resetUsers);
   $('body').on('submit', 'form', handleForm);
-  $('.listUsersButton').on('click', listUsers);
+  $('.listUsersButton').on('click', listUsersButton);
   $('body').on('click', ".moreUsers", showMoreUsers);
 
   let geocoder = new google.maps.Geocoder();
 
   //handles the registration form
 
+  function listUsersButton() {
+    listUsers()
+    $listUsers.toggle();
+  }
+
   function resetUsers() {
     googleMap.filterMarkers($(this).val());
-    // googleMap.clearOverlays();
+    listUsers();
   }
 
   function handleForm(e){
@@ -108,8 +114,10 @@ $(() => {
       // get users sends the GET to the API server to get all users
       function listUsers(){
         $listUsers.empty();
-        $listUsers.toggle();
+
+
         if (event) event.preventDefault();
+
         let token = localStorage.getItem('token');
         $.ajax({
           url: '/users',
@@ -124,44 +132,50 @@ $(() => {
 
       }
 
-
-
-
-
       // runs a loop on data returned by getUsers to output the user list.
       function showUsers(users,start,finish) {
         if (event) event.preventDefault();
         currentUsers = users;
-        console.log(currentUsers);
-        if (finish > users.length) {
-          finish = users.length;
 
-        }
+        let $skillLevel = $('#skillLevel').val();
+        if (finish > users.length) {finish = users.length;}
+
         for (let i = start; i < finish; i++) {
-          $listUsers.append(`
+          console.log(users[i].skillLevel);
+          if(users[i].skillLevel === $skillLevel || $skillLevel === 'All Skill Levels') {
+            $listUsers.append(`
 
-            <h4>${users[i].fullname}</h4>
-            <p><b>Location: </b>${users[i].postcode}</p>
+              <div class="user-card">
+                <h4>${users[i].fullname}</h4>
+                <p><img src="${users[i].image}"class="userImage" alt="Image Coming"></p>
+                <p><b>Location: </b>${users[i].postcode}</p>
+                <p><b>Phone:</b>${users[i].phoneNumber}</p>
+                <p><b>Willing to travel</b>: ${users[i].travelDistance} miles</p>
+                <p><b>Typical availability</b>: ${users[i].availability}</p>
+                <p><b>Skill Level</b>: ${users[i].skillLevel}</p>
+                <a href="mailto:${users[i].email}"><button class="btn btn-info">Email</button></a>
+              </div><br/>
+              `);
 
-            <p><img src="${users[i].image}"class="userpic" alt="Image Coming"></p>
-
-            <b>Phone:</b><p>${users[i].phoneNumber}</p>
-            <p><b>Willing to travel</b>: ${users[i].travelDistance} miles</p>
-            <p><b>Typical availability</b>: ${users[i].availability}</p>
-            <p><b>Skill Level</b>: ${users[i].skillLevel}</p>
-            <a href="mailto:${users[i].email}"><button class="btn btn-info">Email</button></a>
-
-            `);
-            if (i==finish-1 && finish != users.length) {
-              $listUsers.append(`<button class="btn btn-primary moreUsers" data-finish="${finish}">More..</button>`);
+              if (i==finish-1 && finish != users.length) {
+                $listUsers.append(`<button class="btn btn-primary moreUsers" data-finish="${finish}">More..</button>`);
+              }
             }
+
+
+          }
+          //check if userList is empty and provide a message
+          if( $listUsers.is(':empty') ) {
+            $listUsers.append(`Sorry no players were found!`);
           }
         }
 
         function showMoreUsers() {
           let start = $(event.target).data('finish');
           $listUsers.empty();
+          $editBar.hide();
           showUsers(currentUsers,start,start+10);
+          $listUsers.scrollTop(0);
         }
 
 
@@ -374,8 +388,8 @@ $(() => {
 
             function showEditBar() {
               showRegForm("edit");
-
-              $('.editBar').slideToggle( "slow", function() {
+              $listUsers.hide();
+              $editBar.slideToggle( "slow", function() {
                 // Animation complete.
                 $('#password').prop("hidden", true);
                 $('#confPassword').prop("hidden", true);

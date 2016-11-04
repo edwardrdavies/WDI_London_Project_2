@@ -19,13 +19,13 @@
         <a class="navbar-brand" href="#">Game Set Match</a>
           <ul class="nav navbar-nav loggedIn">
             <a href="/members" class="loginbtn">Find a Player</a>
+              </ul>
+                <ul class="nav navbar-nav loggedIn logout">
+                  <a href="" class="logoutbtn">Logout</a>
+                    </ul>
+                <ul class="nav navbar-nav loggedOut">
+              <a href="#" class="loginbtn" data-toggle="modal" data-target="#myModalLogin">Login</a>
           </ul>
-        <ul class="nav navbar-nav loggedIn logout">
-          <a href="" class="logoutbtn">Logout</a>
-        </ul>
-        <ul class="nav navbar-nav loggedOut">
-          <a href="#" class="loginbtn" data-toggle="modal" data-target="#myModalLogin">Login</a>
-        </ul>
       </div>
     </nav>
       <div class="hero-video">
@@ -34,9 +34,9 @@
           </video>
       <div class="hero-text">
         <h1>Got Balls, Play Tennis!</h1>
-          <p>Teamwork Makes the Dreamwork!</p>
-            <a href="#" class="btn btn-primary loggedOut" data-toggle="modal" data-target="#myModal">Register Today!</a>
-            <a href="/members" class="btn btn-primary registerbtn loggedIn">Find a Player</a>
+        <p>Teamwork Makes the Dreamwork!</p>
+        <a href="#" class="btn btn-primary loggedOut" data-toggle="modal" data-target="#myModal">Register Today!</a>
+        <!-- <a href="/members" class="btn btn-primary registerbtn loggedIn">Find a Player</a> -->
       </div>
     </div>
     <div class="container-fluid hero-image">
@@ -73,7 +73,7 @@
         <div class="col-md-6">
           <h2>Choose a Venue to Play!</h2>
           <p>
-          Select which venue to play your match! Choose which tennis court is best for both players.Then book the venue with the contact details provided on the map.
+          Select a venue to play your match! Choose which tennis court is best for both players. Then book the venue with the contact details provided on the map.
           </p>
           <a href="#" class="btn btn-primary">Choose Venue!</a>
         </div>
@@ -85,7 +85,7 @@
       <div class="col-md-6">
         <h2>Start Playing Tennis!</h2>
           <p class="fourthp">
-            Once you've selected a tennis partner and picked a venue, all you need now is a racket and ball!
+            Once you've selected a tennis partner and picked a venue, all you need is a racket and ball!
           </p>
           <a href="#" class="btn btn-primary">Start Playing!</a>
       </div>
@@ -124,8 +124,8 @@
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             <h4 class="modal-title" id="myModalLabel"></h4>
           </div>
-          <div class="modal-body login"></div>
-          <div class="modal-footer">
+        <div class="modal-body login"></div>
+          <div class="modal-footer"></div>
             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
   </body>
 </html>
