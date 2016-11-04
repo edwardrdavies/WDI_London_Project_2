@@ -202,10 +202,30 @@ h1 {
   padding: .5rem 1rem;
   font-size: 1rem;
   border-radius: .25rem;
-  margin-right: -220px;
+  // margin-right: -220px;
+  margin-right: 10px;
   background-color: #48d5b5;
 }
 
 .loginbtn {
-  margin-right: 70px;
+  // margin-right: 70px;
+}
+
+@media (max-width: 767px) {
+  .navbar-brand {
+    font-size: 20px;
+  }
+  .loginbtn, .logoutbtn {
+    font-size: 12px;
+    padding: 0.5rem 0.75rem;
+  }
+
+}
+
+@media (max-width: 460px) {
+  .logoutbtn {
+      margin-right: 0;
+      clear: both;
+  }
+
 }
