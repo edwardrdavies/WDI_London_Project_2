@@ -144,7 +144,7 @@ $(() => {
                 <h4>${users[i].fullname}</h4>
                 <p><img src="${users[i].image}"class="userImage" alt="Image Coming"></p>
                 <p><b>Location: </b>${users[i].postcode}</p>
-                <b>Phone:</b><p>${users[i].phoneNumber}</p>
+                <p><b>Phone:</b>${users[i].phoneNumber}</p>
                 <p><b>Willing to travel</b>: ${users[i].travelDistance} miles</p>
                 <p><b>Typical availability</b>: ${users[i].availability}</p>
                 <p><b>Skill Level</b>: ${users[i].skillLevel}</p>
