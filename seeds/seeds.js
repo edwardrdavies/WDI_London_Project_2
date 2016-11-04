@@ -11,7 +11,7 @@ User.collection.drop();
   User.create([{
     username: "test",
     fullname: "Dan Krijgsman",
-    image: "/images/users_img/dan_pic.jpg",
+    image: "/images/users_img/Dan_pic.jpg",
     postcode: "SE58NZ",
     lat: 51.4721,
     lng: 0.0846,
@@ -26,7 +26,7 @@ User.collection.drop();
   },{
     username: "Nataliemp28",
     fullname: "Natalie Pateman",
-    image: "/images/users_img/natalie_pic.jpg",
+    image: "/images/users_img/Natalie_pic.jpg",
     postcode: "E111QA",
     lat: 51.5808,
     lng: 0.0208,
@@ -41,7 +41,7 @@ User.collection.drop();
   },{
     username: "Marco",
     fullname: "Marco Servidio",
-    image: "/images/users_img/marco_pic.jpg",
+    image: "/images/users_img/Marco_pic.jpg",
     postcode: "W1T7RJ",
     lat: 51.5166,
     lng: -0.1299,
@@ -56,7 +56,7 @@ User.collection.drop();
   },{
     username: "Ed",
     fullname: "Ed Davies",
-    image: "/images/users_img/ed_pic.jpg",
+    image: "/images/users_img/Ed_pic.jpg",
     postcode: "E148AG",
     lat: 51.5095,
     lng: 0.0293,
@@ -71,7 +71,7 @@ User.collection.drop();
   },{
     username: "hollywoodbrad",
     fullname: "Brad Pitt",
-    image: "/images/users_img/dan_pic.jpg",
+    image: "/images/users_img/Dan_pic.jpg",
     postcode: "SW31DE",
     lat: 51.5009,
     lng: -0.1614,
@@ -86,7 +86,7 @@ User.collection.drop();
   },{
     username: "wallBuilder",
     fullname: "Donald Trump",
-    image: "/images/users_img/donald_pic.jpg",
+    image: "/images/users_img/Donald_pic.jpg",
     postcode: "CR00AP",
     lat: 51.3347,
     lng: 0.0115,
@@ -101,7 +101,7 @@ User.collection.drop();
   },{
     username: "foxymegs",
     fullname: "Megan Fox",
-    image: "/images/users_img/megan_pic.jpg",
+    image: "/images/users_img/Megan_pic.jpg",
     postcode: "SW40LY",
     lat: 51.4665,
     lng: -0.1464,
@@ -116,7 +116,7 @@ User.collection.drop();
   },{
     username: "lovescakes",
     fullname: "Mary Berry",
-    image: "/images/users_img/mary_pic.jpg",
+    image: "/images/users_img/Mary_pic.jpg",
     postcode: "SL50AA",
     lat: 51.4027,
     lng: -0.6527,
@@ -131,7 +131,7 @@ User.collection.drop();
   },{
     username: "GokWan",
     fullname: "Gok Wan",
-    image: "/images/users_img/gok_pic.jpg",
+    image: "/images/users_img/Gok_pic.jpg",
     postcode: "NW15HF",
     lat: 51.5235,
     lng: -0.1505,
@@ -146,7 +146,7 @@ User.collection.drop();
   },{
     username: "boselecta",
     fullname: "Keith Lemon",
-    image: "/images/users_img/keith_pic.jpg",
+    image: "/images/users_img/Keith_pic.jpg",
     postcode: "E61AE",
     lat: 51.5370,
     lng: 0.0362,
@@ -161,7 +161,7 @@ User.collection.drop();
   },{
     username: "wimbledonchamp",
     fullname: "Andy Murray",
-    image: "/images/users_img/andy_pic.jpg",
+    image: "/images/users_img/Andy_pic.jpg",
     postcode: "W129AP",
     lat: 51.5031,
     lng: -0.2425,
@@ -176,7 +176,7 @@ User.collection.drop();
   },{
     username: "royalkate",
     fullname: "Kate Middleton",
-    image: "/images/users_img/katem_pic.jpg",
+    image: "/images/users_img/KateM_pic.jpg",
     postcode: "SW1A1AA",
     lat: 51.5014,
     lng: -0.1419,
@@ -191,7 +191,7 @@ User.collection.drop();
   },{
     username: "bojo",
     fullname: "Boris Johnson",
-    image: "/images/users_img/boris_pic.jpg",
+    image: "/images/users_img/Boris_pic.jpg",
     postcode: "W120AD",
     lat: 51.5185,
     lng: -0.2470,
@@ -206,7 +206,7 @@ User.collection.drop();
   },{
     username: "harryginge",
     fullname: "Harry Windsor",
-    image: "/images/users_img/harry_pic.jpg",
+    image: "/images/users_img/Harry_pic.jpg",
     postcode: "SL41NJ",
     lat: 51.4840,
     lng: -0.6066,
@@ -221,7 +221,7 @@ User.collection.drop();
   },{
     username: "partykate",
     fullname: "Kate Moss",
-    image: "/images/users_img/kate_pic.jpg",
+    image: "/images/users_img/Kate_pic.jpg",
     postcode: "N103JP",
     lat: 51.5814,
     lng: -0.1463,
@@ -236,7 +236,7 @@ User.collection.drop();
   },{
     username: "stickyricky",
     fullname: "Ricky Gervais",
-    image: "/images/users_img/ricky_pic.jpg",
+    image: "/images/users_img/Ricky_pic.jpg",
     postcode: "SL30AD",
     lat: 51.482281,
     lng: -0.530137,
@@ -251,7 +251,7 @@ User.collection.drop();
   },{
     username: "gazza",
     fullname: "Gary Lineker",
-    image: "/images/users_img/gary_pic.jpg",
+    image: "/images/users_img/Gary_pic.jpg",
     postcode: "N17 0FA",
     lat: 51.599391,
     lng: -0.067283,
@@ -266,7 +266,7 @@ User.collection.drop();
   },{
     username: "lenny",
     fullname: "Lenny Henry",
-    image: "/images/users_img/lenny_pic.jpg",
+    image: "/images/users_img/Lenny_pic.jpg",
     postcode: "SE10BD",
     lat: 51.5025,
     lng: 0.1010,
@@ -281,7 +281,7 @@ User.collection.drop();
   },{
     username: "destinysChild",
     fullname: "Beyonce Knowles",
-    image: "/images/users_img/beyonce_pic",
+    image: "/images/users_img/beyonce_pic.jpg",
     postcode: "N160AF",
     lat: 51.564579,
     lng: -0.080288,
@@ -296,7 +296,7 @@ User.collection.drop();
   },{
     username: "gingerEd",
     fullname: "Ed Sheeran",
-    image: "/images/users_img/eds_pic",
+    image: "/images/users_img/eds_pic.jpg",
     postcode: "SE161DU",
     lat: 51.50188,
     lng: -0.04745,
