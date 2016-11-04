@@ -3,8 +3,6 @@ let venueInfoWindow;
 
 googleMap.markers = [];
 
-
-
 googleMap.getUsers = function () {
   let token = localStorage.getItem('token');
   $.ajax({
