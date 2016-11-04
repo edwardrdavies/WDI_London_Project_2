@@ -15,17 +15,21 @@ $(function () {
   $('.edit').on('click', showEditBar);
   $('#skillLevel').on('change', resetUsers);
   $('body').on('submit', 'form', handleForm);
-  $('.listUsersButton').on('click', listUsers);
+  $('.listUsersButton').on('click', listUsersButton);
   $('body').on('click', ".moreUsers", showMoreUsers);
 
   var geocoder = new google.maps.Geocoder();
 
   //handles the registration form
 
+  function listUsersButton() {
+    listUsers();
+    $listUsers.toggle();
+  }
+
   function resetUsers() {
     googleMap.filterMarkers($(this).val());
     listUsers();
-    $listUsers.show();
   }
 
   function handleForm(e) {
@@ -90,7 +94,6 @@ $(function () {
   // get users sends the GET to the API server to get all users
   function listUsers() {
     $listUsers.empty();
-    $listUsers.toggle();
 
     if (event) event.preventDefault();
 
@@ -119,7 +122,7 @@ $(function () {
     for (var i = start; i < finish; i++) {
       console.log(users[i].skillLevel);
       if (users[i].skillLevel === $skillLevel || $skillLevel === 'All Skill Levels') {
-        $listUsers.append('\n              <div class="user-card">\n                <h4>' + users[i].fullname + '</h4>\n                <p><img src="' + users[i].image + '"class="userImage" alt="Image Coming"></p>\n                <p><b>Location: </b>' + users[i].postcode + '</p>\n                <p><b>Phone:</b>' + users[i].phoneNumber + '</p>\n                <p><b>Willing to travel</b>: ' + users[i].travelDistance + ' miles</p>\n                <p><b>Typical availability</b>: ' + users[i].availability + '</p>\n                <p><b>Skill Level</b>: ' + users[i].skillLevel + '</p>\n                <a href="mailto:' + users[i].email + '"><button class="btn btn-info">Email</button></a>\n              </div><br/>\n              ');
+        $listUsers.append('\n\n              <div class="user-card">\n                <h4>' + users[i].fullname + '</h4>\n                <p><img src="' + users[i].image + '"class="userImage" alt="Image Coming"></p>\n                <p><b>Location: </b>' + users[i].postcode + '</p>\n                <p><b>Phone:</b>' + users[i].phoneNumber + '</p>\n                <p><b>Willing to travel</b>: ' + users[i].travelDistance + ' miles</p>\n                <p><b>Typical availability</b>: ' + users[i].availability + '</p>\n                <p><b>Skill Level</b>: ' + users[i].skillLevel + '</p>\n                <a href="mailto:' + users[i].email + '"><button class="btn btn-info">Email</button></a>\n              </div><br/>\n              ');
 
         if (i == finish - 1 && finish != users.length) {
           $listUsers.append('<button class="btn btn-primary moreUsers" data-finish="' + finish + '">More..</button>');
