@@ -8,7 +8,7 @@
 
 .hero {
   height: 100vh;
-  background-image: url('https://static.pexels.com/photos/7753/sun-ball-tennis-court.jpg');
+  background-image: url('../images/mobile-bg.jpg');
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center top;
@@ -47,15 +47,15 @@
   }
 }
 
-
-
-
 @media (max-width: 768px) {
   .hero-video {
     display: none;
   }
   .hero-image {
     display: block;
+  }
+  .footer {
+    display: none;
   }
 }
 
