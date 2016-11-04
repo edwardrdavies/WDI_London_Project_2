@@ -13,17 +13,21 @@ $(() => {
   $('.edit').on('click', showEditBar);
   $('#skillLevel').on('change', resetUsers);
   $('body').on('submit', 'form', handleForm);
-  $('.listUsersButton').on('click', listUsers);
+  $('.listUsersButton').on('click', listUsersButton);
   $('body').on('click', ".moreUsers", showMoreUsers);
 
   let geocoder = new google.maps.Geocoder();
 
   //handles the registration form
 
+  function listUsersButton() {
+    listUsers()
+    $listUsers.toggle();
+  }
+
   function resetUsers() {
     googleMap.filterMarkers($(this).val());
     listUsers();
-    $listUsers.show();
   }
 
   function handleForm(e){
@@ -110,7 +114,7 @@ $(() => {
       // get users sends the GET to the API server to get all users
       function listUsers(){
         $listUsers.empty();
-        $listUsers.toggle();
+
 
         if (event) event.preventDefault();
 
@@ -144,7 +148,7 @@ $(() => {
               <h4>${users[i].fullname}</h4>
               <p><b>Location: </b>${users[i].postcode}</p>
 
-              <p><img src="${users[i].image}"class="userpic" alt="Image Coming"></p>
+              <p><img src="${users[i].image}"class="userImage" alt="Image Coming"></p>
 
               <b>Phone:</b><p>${users[i].phoneNumber}</p>
               <p><b>Willing to travel</b>: ${users[i].travelDistance} miles</p>
