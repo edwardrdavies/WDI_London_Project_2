@@ -1,3 +1,7 @@
+main {
+  position: relative;
+}
+
 .navbar {
   border-radius: 0;
 }
@@ -113,7 +117,7 @@
 
  .listUsers {
    position: absolute;
-   top: 145px;
+   top: 10px;
    height: calc(100vh - 135px);
    right: 10px;
    width:250px;
