@@ -8,4 +8,6 @@ For this project I worked within a group to build a full-stack JavaScript applic
 * Consume API via AJAX in a front-end built with jQuery. 
 * Allow users to login via third-party accounts using oAuth
 
+The project created was a tennis partner search app, using google maps API. Link to the project:
+https://edprojecttwoapp.herokuapp.com/
 
